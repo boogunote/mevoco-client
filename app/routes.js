@@ -21,6 +21,8 @@ export default function createRoutes(store) {
       path: '/',
       name: 'home',
       getComponent(nextState, cb) {
+
+        // Use Promise to async load reducer, sagas and HomePage
         const importModules = Promise.all([
           System.import('containers/HomePage/reducer'),
           System.import('containers/HomePage/sagas'),
@@ -29,6 +31,7 @@ export default function createRoutes(store) {
 
         const renderRoute = loadModule(cb);
 
+        // When succeed, inject and render them.
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('home', reducer.default);
           injectSagas(sagas.default);
