@@ -31,7 +31,7 @@ export default function createRoutes(store) {
 
         const renderRoute = loadModule(cb);
 
-        // When succeed, inject and render them.
+        // When loading is success, inject and render them.
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('home', reducer.default);
           injectSagas(sagas.default);
@@ -46,6 +46,15 @@ export default function createRoutes(store) {
       name: 'features',
       getComponent(nextState, cb) {
         System.import('containers/FeaturePage')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, 
+    {
+      path: '/login',
+      name: 'login',
+      getComponent(nextState, cb) {
+        System.import('containers/LoginPage')
           .then(loadModule(cb))
           .catch(errorLoading);
       },

@@ -8,10 +8,6 @@
 // Needed for redux-saga es6 generator support
 import 'babel-polyfill';
 
-import io from 'socket.io-client/dist/socket.io';
-
-window.io = io;
-
 /* eslint-disable import/no-unresolved */
 // Load the favicon, the manifest.json file and the .htaccess file
 import 'file?name=[name].[ext]!./favicon.ico';
