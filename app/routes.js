@@ -54,9 +54,28 @@ export default function createRoutes(store) {
       path: '/login',
       name: 'login',
       getComponent(nextState, cb) {
-        System.import('containers/LoginPage')
-          .then(loadModule(cb))
-          .catch(errorLoading);
+        // System.import('containers/LoginPage')
+        //   .then(loadModule(cb))
+        //   .catch(errorLoading);
+
+        // Use Promise to async load reducer, sagas and HomePage
+        const importModules = Promise.all([
+          System.import('containers/LoginPage/reducer'),
+          System.import('containers/LoginPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        // When loading is success, inject and render them.
+        // importModules.then(([reducer, sagas, component]) => {
+        importModules.then(([reducer, component]) => {
+          injectReducer('login', reducer.default);
+          // injectSagas(sagas.default);
+
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
       },
     }, {
       path: '*',

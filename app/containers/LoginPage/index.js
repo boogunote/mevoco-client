@@ -17,9 +17,9 @@ import styles from './styles.css';
 
 import io from 'socket.io-client/dist/socket.io';
 
-window.io = io;
+import sha512 from 'crypto-js/sha512';
 
-import sha512 from 'crypto-js/sha512'
+import { loginByAccount } from './actions';
 
 export class LoginPage extends React.Component {
 
@@ -74,9 +74,13 @@ export class LoginPage extends React.Component {
     socket.emit('login', data);
 
     var self = this;
-    socket.on('login_ret', function(ret) {        
-      console.log(JSON.stringify(ret))
-      self.openHomePage();
+    socket.on('login_ret', function(ret) {
+      var msg = JSON.parse(ret.msg)['org.zstack.header.identity.APILogInReply']
+
+      if (msg.success) {
+        self.props.onLogin(loginByAccount(msg.inventory))
+        self.openHomePage();
+      }
     });
   };
 
@@ -122,12 +126,15 @@ export class LoginPage extends React.Component {
     );
   }
 }
+
 LoginPage.propTypes = {
   changeRoute: React.PropTypes.func,
+  onLogin: React.PropTypes.func,
 };
 
 function mapDispatchToProps(dispatch) {
   return {
+    onLogin: (session) => dispatch(loginByAccount(session)),
     changeRoute: (url) => dispatch(push(url)),
   };
 }
