@@ -42,6 +42,11 @@ const selectLocationState = () => {
   };
 };
 
+const selectWsConn = () => createSelector(
+  selectGlobal(),
+  (globalState) => globalState.get('wsconn')
+);
+
 export {
   selectGlobal,
   selectCurrentUser,
@@ -49,4 +54,5 @@ export {
   selectError,
   selectRepos,
   selectLocationState,
+  selectWsConn,
 };

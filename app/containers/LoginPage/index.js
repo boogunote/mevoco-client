@@ -9,6 +9,7 @@ import { push } from 'react-router-redux';
 import Helmet from 'react-helmet';
 
 import messages from './messages';
+import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
 import Button from 'components/Button';
 import H1 from 'components/H1';
@@ -20,6 +21,9 @@ import io from 'socket.io-client/dist/socket.io';
 import sha512 from 'crypto-js/sha512';
 
 import { loginByAccount } from './actions';
+
+import { setWsConn } from '../App/actions';
+import { selectWsConn } from '../App/selectors';
 
 export class LoginPage extends React.Component {
 
@@ -60,29 +64,41 @@ export class LoginPage extends React.Component {
 
   login = () => {
     console.log('login ' + this.state.username + ' ' + this.state.password );
-    var socket = io.connect('http://172.20.14.207:5000');
-    var msg = {
-      'org.zstack.header.identity.APILogInByAccountMsg': {
-        accountName: this.state.username,
-        password: sha512(this.state.password).toString()
-      }
-    };
 
-    var data = {'msg' : JSON.stringify(msg)};
-    // console.log(JSON.stringify(data, null, 2));
-    // $cookies.remove('sessionId');
-    socket.emit('login', data);
+    var sendLoginMsg = (conn) => {
+      var msg = {
+        'org.zstack.header.identity.APILogInByAccountMsg': {
+          accountName: this.state.username,
+          password: sha512(this.state.password).toString()
+        }
+      };
 
-    var self = this;
-    socket.on('login_ret', function(ret) {
-      var msg = JSON.parse(ret.msg)['org.zstack.header.identity.APILogInReply']
+      var data = {'msg' : JSON.stringify(msg)};
+      conn.emit('login', data);
+    }
 
-      if (msg.success) {
-        self.props.onLogin(loginByAccount(msg.inventory))
-        self.openHomePage();
-      }
-    });
+    if (!this.props.wsconn) {
+      var conn = io.connect('http://172.20.14.207:5000');
+      this.props.setWsConn(conn);
+
+      var self = this;
+      conn.on('login_ret', this.loginCb);
+
+      // this.proc.wsconn cannot be sync updated.
+      sendLoginMsg(conn)
+    } else {
+      sendLoginMsg(this.props.wsconn)
+    }
   };
+
+  loginCb = (ret) => {
+    var msg = JSON.parse(ret.msg)['org.zstack.header.identity.APILogInReply']
+
+    if (msg.success) {
+      this.props.login(loginByAccount(msg.inventory))
+      this.openHomePage();
+    }
+  }
 
   render() {
     return (
@@ -118,6 +134,7 @@ export class LoginPage extends React.Component {
               onChange={this.onChangePassword}
             />
           </li>
+          <li>{!!this.props.wsconn ? this.props.wsconn.socket.sessionid : ''}</li>
         </ul>
         <Button onClick={this.login}>
           <FormattedMessage {...messages.loginButton} />
@@ -129,14 +146,22 @@ export class LoginPage extends React.Component {
 
 LoginPage.propTypes = {
   changeRoute: React.PropTypes.func,
-  onLogin: React.PropTypes.func,
+  login: React.PropTypes.func,
+  setWsConn: React.PropTypes.func,
 };
 
+// redux has to pass all functions through prop.
 function mapDispatchToProps(dispatch) {
   return {
-    onLogin: (session) => dispatch(loginByAccount(session)),
+    login: (session) => dispatch(loginByAccount(session)),
+    setWsConn: (wsconn) => dispatch(setWsConn(wsconn)),
     changeRoute: (url) => dispatch(push(url)),
   };
 }
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+// get state
+const mapStateToProps = createStructuredSelector({
+  wsconn: selectWsConn(),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

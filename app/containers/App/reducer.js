@@ -14,6 +14,7 @@ import {
   LOAD_REPOS_SUCCESS,
   LOAD_REPOS,
   LOAD_REPOS_ERROR,
+  SET_WEBSOCKET_CONNECTION,
 } from './constants';
 import { fromJS } from 'immutable';
 
@@ -29,6 +30,9 @@ const initialState = fromJS({
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
+    case SET_WEBSOCKET_CONNECTION:
+      return state
+        .set('wsconn', action.wsconn)
     case LOAD_REPOS:
       return state
         .set('loading', true)
