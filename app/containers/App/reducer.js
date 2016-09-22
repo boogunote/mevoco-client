@@ -14,7 +14,10 @@ import {
   LOAD_REPOS_SUCCESS,
   LOAD_REPOS,
   LOAD_REPOS_ERROR,
+  LOGIN_BY_ACCOUNT,
   SET_WEBSOCKET_CONNECTION,
+  REMOTE_API_CALL_START,
+  REMOTE_API_CALL_END
 } from './constants';
 import { fromJS } from 'immutable';
 
@@ -26,13 +29,25 @@ const initialState = fromJS({
   userData: fromJS({
     repositories: false,
   }),
+  apiCalls: {}
 });
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
+    case LOGIN_BY_ACCOUNT:
+      return state
+        .set('session', action.session);
     case SET_WEBSOCKET_CONNECTION:
       return state
         .set('wsconn', action.wsconn)
+    case REMOTE_API_CALL_START: {
+      var apiCalls = state.get('apiCalls');
+      return state.set('apiCalls', apiCalls.set(action.call.id, action.call));
+    }
+    case REMOTE_API_CALL_END: {
+      var apiCalls = state.get('apiCalls');
+      return state.set('apiCalls', apiCalls.delete(action.call.id));
+    }
     case LOAD_REPOS:
       return state
         .set('loading', true)

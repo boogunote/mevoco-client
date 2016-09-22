@@ -11,8 +11,8 @@
   },
   {
     "id": "boilerplate.components.Footer.author.message",
-    "defaultMessage": "Made with love by {author}.",
-    "message": "Made with love by {author}."
+    "defaultMessage": "Powered by {author}.",
+    "message": "Powered by {author}."
   },
   {
     "id": "boilerplate.components.Footer.license.message",

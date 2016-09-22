@@ -15,9 +15,9 @@
  *    }
  */
 
-// import {
-//   LOGIN_BY_ACCOUNT,
-// } from './constants';
+import {
+  VM_FETCH_LIST,
+} from './constants';
 
 /**
  * Changes the input field of the form
@@ -26,9 +26,10 @@
  *
  * @return {object}    An action object with a type of CHANGE_USERNAME
  */
-// export function loginByAccount(session) {
-//   return {
-//     type: LOGIN_BY_ACCOUNT,
-//     session,
-//   };
-// }
+export function vmInstanceFetchList(startAt, pageSize) {
+  return {
+    type: VM_FETCH_LIST,
+    startAt,
+    pageSize
+  };
+}

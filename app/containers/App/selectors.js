@@ -47,6 +47,16 @@ const selectWsConn = () => createSelector(
   (globalState) => globalState.get('wsconn')
 );
 
+const selectSession = () => createSelector(
+  selectGlobal(),
+  (globalState) => globalState.get('session')
+);
+
+const selectApiCalls = () => createSelector(
+  selectGlobal(),
+  (globalState) => globalState.get('apiCalls')
+);
+
 export {
   selectGlobal,
   selectCurrentUser,
@@ -55,4 +65,6 @@ export {
   selectRepos,
   selectLocationState,
   selectWsConn,
+  selectSession,
+  selectApiCalls
 };

@@ -19,7 +19,11 @@ import {
   LOAD_REPOS,
   LOAD_REPOS_SUCCESS,
   LOAD_REPOS_ERROR,
+  LOGIN_BY_ACCOUNT,
   SET_WEBSOCKET_CONNECTION,
+  REMOTE_API_CALL_START,
+  REMOTE_API_CALL_SUCCESS,
+  REMOTE_API_CALL_FAILED,
 } from './constants';
 
 /**
@@ -63,9 +67,37 @@ export function repoLoadingError(error) {
   };
 }
 
+export function loginByAccount(session) {
+  return {
+    type: LOGIN_BY_ACCOUNT,
+    session,
+  };
+}
+
 export function setWsConn(wsconn) {
   return {
     type: SET_WEBSOCKET_CONNECTION,
     wsconn,
+  };
+}
+
+export function remoteApiCallStart(call) {
+  return {
+    type: REMOTE_API_CALL_START,
+    call
+  };
+}
+
+export function remoteApiCallSuccess(result) {
+  return {
+    type: REMOTE_API_CALL_SUCCESS,
+    result
+  };
+}
+
+export function remoteApiCallFailed(result) {
+  return {
+    type: REMOTE_API_CALL_FAILED,
+    result
   };
 }

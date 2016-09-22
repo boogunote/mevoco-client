@@ -17,13 +17,13 @@ import H1 from 'components/H1';
 import styles from './styles.css';
 
 import io from 'socket.io-client/dist/socket.io';
-
 import sha512 from 'crypto-js/sha512';
+import { firstItem } from 'utils/helpers'
 
-import { loginByAccount } from './actions';
-
-import { setWsConn } from '../App/actions';
-import { selectWsConn } from '../App/selectors';
+import { loginByAccount, setWsConn, remoteApiCallStart } from '../App/actions';
+import { selectWsConn, selectApiCalls, selectSession } from '../App/selectors';
+import {apiCalls, remoteCall} from '../App/remoteCall';
+import { getConn } from '../App/conn';
 
 export class LoginPage extends React.Component {
 
@@ -77,12 +77,14 @@ export class LoginPage extends React.Component {
       conn.emit('login', data);
     }
 
+
     if (!this.props.wsconn) {
-      var conn = io.connect('http://172.20.14.207:5000');
+      var conn = io.connect('http://172.20.13.87:5000');
       this.props.setWsConn(conn);
 
       var self = this;
       conn.on('login_ret', this.loginCb);
+      conn.on('call_ret', this.apiCb);
 
       // this.proc.wsconn cannot be sync updated.
       sendLoginMsg(conn)
@@ -95,10 +97,33 @@ export class LoginPage extends React.Component {
     var msg = JSON.parse(ret.msg)['org.zstack.header.identity.APILogInReply']
 
     if (msg.success) {
-      this.props.login(loginByAccount(msg.inventory))
-      this.openHomePage();
+      this.props.login(msg.inventory)
+      // this.openRoute('/vmlist');
     }
-  }
+  };
+
+  apiCb = (ret) => {
+    var data = JSON.parse(ret.msg);
+    var msg = firstItem(data);
+    apiCalls[msg.session.callid].cb(msg);
+  };
+
+  queryList = () => {
+    const result = remoteCall(
+      this.props.wsconn, 
+      this.props.session,
+      this.props.remoteApiCallStart,
+      'org.zstack.header.vm.APIQueryVmInstanceMsg',
+      {
+        count: false,
+        start: 0,
+        replyWithCount: true,
+        conditions: []
+      }
+    );
+
+    console.log(result)
+  };
 
   render() {
     return (
@@ -139,6 +164,9 @@ export class LoginPage extends React.Component {
         <Button onClick={this.login}>
           <FormattedMessage {...messages.loginButton} />
         </Button>
+        <Button onClick={this.queryList}>
+          Query
+        </Button>
       </div>
     );
   }
@@ -148,6 +176,7 @@ LoginPage.propTypes = {
   changeRoute: React.PropTypes.func,
   login: React.PropTypes.func,
   setWsConn: React.PropTypes.func,
+  remoteApiCallStart: React.PropTypes.func
 };
 
 // redux has to pass all functions through prop.
@@ -155,6 +184,7 @@ function mapDispatchToProps(dispatch) {
   return {
     login: (session) => dispatch(loginByAccount(session)),
     setWsConn: (wsconn) => dispatch(setWsConn(wsconn)),
+    remoteApiCallStart: (result) => dispatch(remoteApiCallStart(result)),
     changeRoute: (url) => dispatch(push(url)),
   };
 }
@@ -162,6 +192,8 @@ function mapDispatchToProps(dispatch) {
 // get state
 const mapStateToProps = createStructuredSelector({
   wsconn: selectWsConn(),
+  apiCalls: selectApiCalls(),
+  session: selectSession(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

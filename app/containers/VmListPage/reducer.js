@@ -17,10 +17,10 @@ import { fromJS } from 'immutable';
 
 // The initial state of the App
 const initialState = fromJS({
-  // session: null,
+  list: null,
 });
 
-function loginReducer(state = initialState, action) {
+function vmListReducer(state = initialState, action) {
   switch (action.type) {
     // case LOGIN_BY_ACCOUNT:
 
@@ -32,4 +32,4 @@ function loginReducer(state = initialState, action) {
   }
 }
 
-export default loginReducer;
+export default vmListReducer;

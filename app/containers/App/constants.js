@@ -12,4 +12,9 @@
 export const LOAD_REPOS = 'boilerplate/App/LOAD_REPOS';
 export const LOAD_REPOS_SUCCESS = 'boilerplate/App/LOAD_REPOS_SUCCESS';
 export const LOAD_REPOS_ERROR = 'boilerplate/App/LOAD_REPOS_ERROR';
+export const LOGIN_BY_ACCOUNT = 'zstack/App/LOGIN_BY_ACCOUNT';
 export const SET_WEBSOCKET_CONNECTION = 'zstack/App/SET_WEBSOCKET_CONNECTION';
+export const REMOTE_API_CALL_START = 'zstack/App/REMOTE_API_CALL_START';
+export const REMOTE_API_CALL_END = 'zstack/App/REMOTE_API_CALL_START';
+export const REMOTE_API_CALL_SUCCESS = 'zstack/App/REMOTE_API_CALL_SUCCESS';
+export const REMOTE_API_CALL_FAILED = 'zstack/App/REMOTE_API_CALL_FAILED';
