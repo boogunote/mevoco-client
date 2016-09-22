@@ -19,7 +19,6 @@ import styles from './styles.css';
 import { vmInstanceFetchList } from './actions';
 
 import { selectWsConn, selectSession } from '../App/selectors';
-import remoteCall from '../App/remoteCall';
 
 export class VmListPage extends React.Component {
 
@@ -37,21 +36,6 @@ export class VmListPage extends React.Component {
     };
   };
 
-  queryList = () => {
-    remoteCall(
-      this.props.wsconn, 
-      this.props.session,
-      'org.zstack.header.vm.APIQueryVmInstanceMsg',
-      {
-        count: false,
-        start: 0,
-        replyWithCount: true,
-        conditions: []
-      }
-    ).then(function (result) {
-      debugger;
-    });
-  };
 
   /**
    * Changes the route
@@ -81,7 +65,7 @@ export class VmListPage extends React.Component {
             })}
           </tbody>
         </table>
-        <Button onClick={this.queryList}>
+        <Button>
           Query
         </Button>
       </div>

@@ -15,9 +15,11 @@
  *    }
  */
 
-// import {
-//   LOGIN_BY_ACCOUNT,
-// } from './constants';
+import {
+  LOGIN_START,
+  LOGIN_SUCCESS,
+  LOGIN_FAILED
+} from './constants';
 
 /**
  * Changes the input field of the form
@@ -26,9 +28,20 @@
  *
  * @return {object}    An action object with a type of CHANGE_USERNAME
  */
-// export function loginByAccount(session) {
-//   return {
-//     type: LOGIN_BY_ACCOUNT,
-//     session,
-//   };
-// }
+export function loginStart() {
+  return {
+    type: LOGIN_START
+  };
+}
+
+export function loginSuccess() {
+  return {
+    type: LOGIN_SUCCESS
+  };
+}
+
+export function loginFailed() {
+  return {
+    type: LOGIN_FAILED
+  };
+}

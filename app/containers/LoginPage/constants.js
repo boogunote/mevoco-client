@@ -9,4 +9,6 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-// export const LOGIN_BY_ACCOUNT = 'boilerplate/Login/LOGIN_BY_ACCOUNT';
+export const LOGIN_START = 'zstack/Login/LOGIN_START';
+export const LOGIN_SUCCESS = 'zstack/Login/LOGIN_SUCCESS';
+export const LOGIN_FAILED = 'zstack/Login/LOGIN_FAILED';

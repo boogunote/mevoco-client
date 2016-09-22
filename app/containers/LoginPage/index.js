@@ -20,10 +20,9 @@ import io from 'socket.io-client/dist/socket.io';
 import sha512 from 'crypto-js/sha512';
 import { firstItem } from 'utils/helpers'
 
-import { loginByAccount, setWsConn, remoteApiCallStart } from '../App/actions';
+import { loginStart } from './actions';
 import { selectWsConn, selectApiCalls, selectSession } from '../App/selectors';
-import {apiCalls, remoteCall} from '../App/remoteCall';
-import { getConn } from '../App/conn';
+
 
 export class LoginPage extends React.Component {
 
@@ -60,52 +59,6 @@ export class LoginPage extends React.Component {
    */
   openHomePage = () => {
     this.openRoute('/');
-  };
-
-  login = () => {
-    console.log('login ' + this.state.username + ' ' + this.state.password );
-
-    var sendLoginMsg = (conn) => {
-      var msg = {
-        'org.zstack.header.identity.APILogInByAccountMsg': {
-          accountName: this.state.username,
-          password: sha512(this.state.password).toString()
-        }
-      };
-
-      var data = {'msg' : JSON.stringify(msg)};
-      conn.emit('login', data);
-    }
-
-
-    if (!this.props.wsconn) {
-      var conn = io.connect('http://172.20.13.87:5000');
-      this.props.setWsConn(conn);
-
-      var self = this;
-      conn.on('login_ret', this.loginCb);
-      conn.on('call_ret', this.apiCb);
-
-      // this.proc.wsconn cannot be sync updated.
-      sendLoginMsg(conn)
-    } else {
-      sendLoginMsg(this.props.wsconn)
-    }
-  };
-
-  loginCb = (ret) => {
-    var msg = JSON.parse(ret.msg)['org.zstack.header.identity.APILogInReply']
-
-    if (msg.success) {
-      this.props.login(msg.inventory)
-      // this.openRoute('/vmlist');
-    }
-  };
-
-  apiCb = (ret) => {
-    var data = JSON.parse(ret.msg);
-    var msg = firstItem(data);
-    apiCalls[msg.session.callid].cb(msg);
   };
 
   queryList = () => {
@@ -161,7 +114,7 @@ export class LoginPage extends React.Component {
           </li>
           <li>{!!this.props.wsconn ? this.props.wsconn.socket.sessionid : ''}</li>
         </ul>
-        <Button onClick={this.login}>
+        <Button onClick={this.props.login}>
           <FormattedMessage {...messages.loginButton} />
         </Button>
         <Button onClick={this.queryList}>
@@ -182,7 +135,7 @@ LoginPage.propTypes = {
 // redux has to pass all functions through prop.
 function mapDispatchToProps(dispatch) {
   return {
-    login: (session) => dispatch(loginByAccount(session)),
+    login: (session) => dispatch(loginStart(session)),
     setWsConn: (wsconn) => dispatch(setWsConn(wsconn)),
     remoteApiCallStart: (result) => dispatch(remoteApiCallStart(result)),
     changeRoute: (url) => dispatch(push(url)),

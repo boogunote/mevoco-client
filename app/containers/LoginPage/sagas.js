@@ -4,45 +4,49 @@
 
 import { take, call, put, select, fork, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { LOAD_REPOS } from 'containers/App/constants';
-import { reposLoaded, repoLoadingError } from 'containers/App/actions';
+import { LOGIN_START, LOGIN_SUCCESS } from './constants';
+import { loginSuccess, loginFailed } from './actions';
 
-import request from 'utils/request';
+import { loginByAccount } from 'utils/remoteCall';
 import { selectUsername } from 'containers/HomePage/selectors';
 
 /**
  * Github repos request/response handler
  */
-export function* remoteApiCallStart() {
+export function* loginStart() {
   // Select username from store
   // const username = yield select(selectUsername());
   // const requestURL = `https://api.github.com/users/${username}/repos?type=all&sort=updated`;
 
   // Call our request helper (see 'utils/request')
-  const repos = yield call(request, requestURL);
+  const msg = yield call(loginByAccount, {
+    accountName: 'admi',
+    password: 'password'
+  });
 
-  if (!repos.err) {
-    yield put(reposLoaded(repos.data, username));
+  console.log(msg)
+  if (msg.success) {
+    yield put(loginSuccess(msg));
   } else {
-    yield put(repoLoadingError(repos.err));
+    yield put(loginFailed(msg));
   }
 }
 
 /**
  * Watches for LOAD_REPOS action and calls handler
  */
-export function* apiCallWatcher() {
-  while (yield take(REMOTE_API_CALL_START)) {
-    yield call(remoteApiCallStart);
+export function* loginWatcher() {
+  while (yield take(LOGIN_START)) {
+    yield call(loginStart);
   }
 }
 
 /**
  * Root saga manages watcher lifecycle
  */
-export function* remoteApiCall() {
+export function* login() {
   // Fork watcher so we can continue execution
-  const watcher = yield fork(remoteApiCallWatcher);
+  const watcher = yield fork(loginWatcher);
 
   // Suspend execution until location changes
   yield take(LOCATION_CHANGE);
@@ -51,5 +55,5 @@ export function* remoteApiCall() {
 
 // Bootstrap sagas
 export default [
-  remoteApiCall,
+  login,
 ];
