@@ -90,7 +90,7 @@ export default function createRoutes(store) {
 
         // When loading is success, inject and render them.
         importModules.then(([reducer, sagas, component]) => {
-          injectReducer('vmlist', reducer.default);
+          // injectReducer('vmlist', reducer.default);
           injectSagas(sagas.default);
 
           renderRoute(component);

@@ -10,23 +10,19 @@
  *   return state.set('yourStateVariable', true);
  */
 
-// import {
-//   LOGIN_BY_ACCOUNT,
-// } from './constants';
+import { API_CALL_SUCCESS } from '../App/constants';
 import { fromJS } from 'immutable';
 
 // The initial state of the App
 const initialState = fromJS({
-  list: null,
 });
 
 function vmListReducer(state = initialState, action) {
   switch (action.type) {
-    // case LOGIN_BY_ACCOUNT:
-
-    //   // Delete prefixed '@' from the github username
-    //   return state
-    //     .set('session', action.session);
+    case API_CALL_SUCCESS: {
+      return state
+        .set('vm', action.msg);
+    }
     default:
       return state;
   }
