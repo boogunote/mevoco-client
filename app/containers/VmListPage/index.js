@@ -16,7 +16,7 @@ import H1 from 'components/H1';
 
 import styles from './styles.css';
 
-import { vmInstanceFetchList } from './actions';
+import { apiCallStart } from '../App/actions';
 
 import { selectWsConn, selectSession } from '../App/selectors';
 
@@ -36,6 +36,10 @@ export class VmListPage extends React.Component {
     };
   };
 
+  componentDidMount() {
+    
+  }
+
 
   /**
    * Changes the route
@@ -45,6 +49,17 @@ export class VmListPage extends React.Component {
   openRoute = (route) => {
     this.props.changeRoute(route);
   };
+
+  queryList = () => {
+    this.props.query({
+      'org.zstack.header.vm.APIQueryVmInstanceMsg': {
+        count: false,
+        start: 0,
+        replyWithCount: true,
+        conditions: []
+      }
+    });
+  }
 
   render() {
     return (
@@ -65,7 +80,7 @@ export class VmListPage extends React.Component {
             })}
           </tbody>
         </table>
-        <Button>
+        <Button onClick={this.queryList}>
           Query
         </Button>
       </div>
@@ -74,16 +89,14 @@ export class VmListPage extends React.Component {
 }
 
 VmListPage.propTypes = {
-  changeRoute: React.PropTypes.func,
-  login: React.PropTypes.func,
+  query: React.PropTypes.func,
   setWsConn: React.PropTypes.func,
 };
 
 // redux has to pass all functions through prop.
 function mapDispatchToProps(dispatch) {
   return {
-    login: (session) => dispatch(loginByAccount(session)),
-    setWsConn: (wsconn) => dispatch(setWsConn(wsconn)),
+    query: (msg) => dispatch(apiCallStart(msg)),
     changeRoute: (url) => dispatch(push(url)),
   };
 }

@@ -26,9 +26,9 @@ import {
  *
  * @return {object}    An action object with a type of CHANGE_USERNAME
  */
-export function vmInstanceFetchList(startAt, pageSize) {
+export function queryList(startAt, pageSize) {
   return {
-    type: VM_FETCH_LIST,
+    type: VM_QUERY_LIST,
     startAt,
     pageSize
   };

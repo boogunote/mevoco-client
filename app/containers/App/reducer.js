@@ -19,6 +19,9 @@ import {
   REMOTE_API_CALL_START,
   REMOTE_API_CALL_END
 } from './constants';
+
+import { LOGIN_SUCCESS } from '../LoginPage/constants'
+
 import { fromJS } from 'immutable';
 
 // The initial state of the App
@@ -34,12 +37,9 @@ const initialState = fromJS({
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
-    case LOGIN_BY_ACCOUNT:
+    case LOGIN_SUCCESS:
       return state
         .set('session', action.session);
-    case SET_WEBSOCKET_CONNECTION:
-      return state
-        .set('wsconn', action.wsconn)
     case REMOTE_API_CALL_START: {
       var apiCalls = state.get('apiCalls');
       return state.set('apiCalls', apiCalls.set(action.call.id, action.call));

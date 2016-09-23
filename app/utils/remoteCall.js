@@ -3,12 +3,10 @@ import sha512 from 'crypto-js/sha512';
 
 import { firstItem, genUniqueId } from 'utils/helpers'
 
-let conn = null;
+export let conn = null;
 export let session = null;
 let loginCb = null;
 export let apiCalls = {};
-
-let loginData = null;
 
 export function loginByAccount(param) {
 
@@ -33,18 +31,18 @@ export function loginByAccount(param) {
   });
 }
 
-export function remoteCall(conn, session, remoteApiCallStart, apiName, msgBody, evt) {
+export function apiCall(msg, evt) {
   return new Promise(function(resolve, reject) {
-    var msg = {};
+    // var msg = {};
     // if (!msgBody)
     //   msgBody = {};
     // msg[apiName] = msgBody;
-    msg[apiName] = {
-        count: false,
-        start: 0,
-        replyWithCount: true,
-        conditions: []
-      }
+    // msg[apiName] = {
+    //     count: false,
+    //     start: 0,
+    //     replyWithCount: true,
+    //     conditions: []
+    //   }
 
     var msgBody = firstItem(msg);
     msgBody.session = {};
@@ -52,10 +50,7 @@ export function remoteCall(conn, session, remoteApiCallStart, apiName, msgBody, 
     msgBody.session.callid = genUniqueId('api');
     getConn().emit('call', JSON.stringify(msg));
     var cb = function(data) {
-      if (data.success)
-        resolve(data);
-      else
-        reject(data);
+      resolve(data);
     }
 
     apiCalls[msgBody.session.callid] = {cb: cb, evt: evt};
@@ -75,4 +70,8 @@ export function getConn() {
     conn.on('call_ret', apiCb);
   }
   return conn;
+}
+
+export function setSession(newSession) {
+  session = newSession
 }

@@ -3,30 +3,29 @@
  */
 
 import { take, call, put, select, fork, cancel } from 'redux-saga/effects';
-import { LOCATION_CHANGE } from 'react-router-redux';
-import { LOGIN_START, LOGIN_SUCCESS } from './constants';
+import {
+  push,
+  LOCATION_CHANGE
+} from 'react-router-redux';
+import {
+  LOGIN_START,
+  LOGIN_SUCCESS
+} from './constants';
+import { API_CALL_START } from '../App/constants';
 import { loginSuccess, loginFailed } from './actions';
 
-import { loginByAccount } from 'utils/remoteCall';
+import { loginByAccount, setSession } from 'utils/remoteCall';
 import { selectUsername } from 'containers/HomePage/selectors';
 
 /**
  * Github repos request/response handler
  */
-export function* loginStart() {
-  // Select username from store
-  // const username = yield select(selectUsername());
-  // const requestURL = `https://api.github.com/users/${username}/repos?type=all&sort=updated`;
+export function* loginStart(param) {
+  const msg = yield call(loginByAccount, param);
 
-  // Call our request helper (see 'utils/request')
-  const msg = yield call(loginByAccount, {
-    accountName: 'admi',
-    password: 'password'
-  });
-
-  console.log(msg)
   if (msg.success) {
-    yield put(loginSuccess(msg));
+    setSession(msg.inventory);
+    yield put(loginSuccess(msg.inventory));
   } else {
     yield put(loginFailed(msg));
   }
@@ -36,8 +35,9 @@ export function* loginStart() {
  * Watches for LOAD_REPOS action and calls handler
  */
 export function* loginWatcher() {
-  while (yield take(LOGIN_START)) {
-    yield call(loginStart);
+  while(true) {
+    const action = yield take(LOGIN_START)
+    yield call(loginStart, action.param);
   }
 }
 
@@ -49,6 +49,37 @@ export function* login() {
   const watcher = yield fork(loginWatcher);
 
   // Suspend execution until location changes
+  yield take(LOGIN_SUCCESS);
+  yield cancel(watcher);
+  yield put(push('/vmlist'));
+}
+
+export function* apiCallStart(payload) {
+  const msg = yield call(remoteCall, payload);
+
+  console.log(msg)
+
+  // put to store
+
+  // if (msg.success) {
+  //   yield put(loginSuccess(msg.inventory));
+  // } else {
+  //   yield put(loginFailed(msg));
+  // }
+}
+
+export function* apiCallWatcher() {
+  while(true) {
+    const action = yield take(API_CALL_START)
+    yield call(apiCallStart, action.payload);
+  }
+}
+
+export function* apiCall() {
+  // Fork watcher so we can continue execution
+  const watcher = yield fork(apiCallWatcher);
+
+  // Suspend execution until location changes
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
 }
@@ -56,4 +87,5 @@ export function* login() {
 // Bootstrap sagas
 export default [
   login,
+  apiCall
 ];

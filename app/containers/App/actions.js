@@ -20,10 +20,9 @@ import {
   LOAD_REPOS_SUCCESS,
   LOAD_REPOS_ERROR,
   LOGIN_BY_ACCOUNT,
-  SET_WEBSOCKET_CONNECTION,
-  REMOTE_API_CALL_START,
-  REMOTE_API_CALL_SUCCESS,
-  REMOTE_API_CALL_FAILED,
+  API_CALL_START,
+  API_CALL_SUCCESS,
+  API_CALL_FAILED,
 } from './constants';
 
 /**
@@ -67,37 +66,42 @@ export function repoLoadingError(error) {
   };
 }
 
-export function loginByAccount(session) {
+export function loginStart(param) {
   return {
-    type: LOGIN_BY_ACCOUNT,
-    session,
+    type: LOGIN_START,
+    param: param
   };
 }
 
-export function setWsConn(wsconn) {
+export function loginSuccess(session) {
   return {
-    type: SET_WEBSOCKET_CONNECTION,
-    wsconn,
+    type: LOGIN_SUCCESS,
+    session
   };
 }
 
-export function remoteApiCallStart(call) {
+export function loginFailed() {
   return {
-    type: REMOTE_API_CALL_START,
-    call
+    type: LOGIN_FAILED
   };
 }
 
-export function remoteApiCallSuccess(result) {
+export function apiCallStart(msg) {
   return {
-    type: REMOTE_API_CALL_SUCCESS,
-    result
+    type: API_CALL_START,
+    msg
   };
 }
 
-export function remoteApiCallFailed(result) {
+export function apiCallSuccess(msg) {
   return {
-    type: REMOTE_API_CALL_FAILED,
-    result
+    type: API_CALL_SUCCESS,
+    msg
+  };
+}
+
+export function apiCallFailed() {
+  return {
+    type: API_CALL_FAILED
   };
 }

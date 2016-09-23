@@ -65,7 +65,6 @@ export default function createRoutes(store) {
         const renderRoute = loadModule(cb);
 
         // When loading is success, inject and render them.
-        // importModules.then(([reducer, sagas, component]) => {
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('login', reducer.default);
           injectSagas(sagas.default);
@@ -83,16 +82,16 @@ export default function createRoutes(store) {
         // Use Promise to async load reducer, sagas and HomePage
         const importModules = Promise.all([
           System.import('containers/VmListPage/reducer'),
+          System.import('containers/VmListPage/sagas'),
           System.import('containers/VmListPage'),
         ]);
 
         const renderRoute = loadModule(cb);
 
         // When loading is success, inject and render them.
-        // importModules.then(([reducer, sagas, component]) => {
-        importModules.then(([reducer, component]) => {
+        importModules.then(([reducer, sagas, component]) => {
           injectReducer('vmlist', reducer.default);
-          // injectSagas(sagas.default);
+          injectSagas(sagas.default);
 
           renderRoute(component);
         });

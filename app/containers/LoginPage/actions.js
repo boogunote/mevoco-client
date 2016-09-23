@@ -28,15 +28,17 @@ import {
  *
  * @return {object}    An action object with a type of CHANGE_USERNAME
  */
-export function loginStart() {
+export function loginStart(param) {
   return {
-    type: LOGIN_START
+    type: LOGIN_START,
+    param: param
   };
 }
 
-export function loginSuccess() {
+export function loginSuccess(session) {
   return {
-    type: LOGIN_SUCCESS
+    type: LOGIN_SUCCESS,
+    session
   };
 }
 

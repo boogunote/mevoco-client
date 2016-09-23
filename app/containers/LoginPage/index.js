@@ -78,6 +78,13 @@ export class LoginPage extends React.Component {
     console.log(result)
   };
 
+  login = () => {
+    this.props.login({
+      accountName: this.state.username,
+      password: this.state.password
+    })
+  }
+
   render() {
     return (
       <div>
@@ -114,7 +121,7 @@ export class LoginPage extends React.Component {
           </li>
           <li>{!!this.props.wsconn ? this.props.wsconn.socket.sessionid : ''}</li>
         </ul>
-        <Button onClick={this.props.login}>
+        <Button onClick={this.login}>
           <FormattedMessage {...messages.loginButton} />
         </Button>
         <Button onClick={this.queryList}>
@@ -135,9 +142,9 @@ LoginPage.propTypes = {
 // redux has to pass all functions through prop.
 function mapDispatchToProps(dispatch) {
   return {
-    login: (session) => dispatch(loginStart(session)),
+    login: (param) => dispatch(loginStart(param)),
     setWsConn: (wsconn) => dispatch(setWsConn(wsconn)),
-    remoteApiCallStart: (result) => dispatch(remoteApiCallStart(result)),
+    apiCallStart: (result) => dispatch(apiCallStart(result)),
     changeRoute: (url) => dispatch(push(url)),
   };
 }
