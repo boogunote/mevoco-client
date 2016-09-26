@@ -1,0 +1,1 @@
+export const VM_LIST_UPDATE = 'zstack/App/VmListUpdate';

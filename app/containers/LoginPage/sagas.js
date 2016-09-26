@@ -54,38 +54,7 @@ export function* login() {
   yield put(push('/vmlist'));
 }
 
-export function* apiCallStart(payload) {
-  const msg = yield call(remoteCall, payload);
-
-  console.log(msg)
-
-  // put to store
-
-  // if (msg.success) {
-  //   yield put(loginSuccess(msg.inventory));
-  // } else {
-  //   yield put(loginFailed(msg));
-  // }
-}
-
-export function* apiCallWatcher() {
-  while(true) {
-    const action = yield take(API_CALL_START)
-    yield call(apiCallStart, action.payload);
-  }
-}
-
-export function* apiCall() {
-  // Fork watcher so we can continue execution
-  const watcher = yield fork(apiCallWatcher);
-
-  // Suspend execution until location changes
-  yield take(LOCATION_CHANGE);
-  yield cancel(watcher);
-}
-
 // Bootstrap sagas
 export default [
   login,
-  apiCall
 ];

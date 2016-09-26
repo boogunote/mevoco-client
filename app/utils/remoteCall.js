@@ -57,10 +57,10 @@ export function apiCall(msg, evt) {
   })
 };
 
-let apiCb = (ret) => {
+function apiCb(ret) {
   var data = JSON.parse(ret.msg);
   var msg = firstItem(data);
-  apiCalls[msg.session.callid].cb(msg);
+  apiCalls[msg.session.callid].cb(data);
 };
 
 export function getConn() {

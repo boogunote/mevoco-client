@@ -16,8 +16,18 @@
  */
 
 import {
-  VM_FETCH_LIST,
+  VM_LIST_QUERY_START,
+  VM_LIST_QUERY_SUCCESS,
+  VM_LIST_QUERY_FAILED
 } from './constants';
+
+import {
+  VM_LIST_UPDATE,
+} from '../App/listsConstants'
+
+import {
+  VM_LIST_WINDOW_UPDATE,
+} from '../App/windowsConstants'
 
 /**
  * Changes the input field of the form
@@ -26,10 +36,44 @@ import {
  *
  * @return {object}    An action object with a type of CHANGE_USERNAME
  */
-export function queryList(startAt, pageSize) {
+export function queryListStart(msg, windowUuid) {
   return {
-    type: VM_QUERY_LIST,
-    startAt,
-    pageSize
+    type: VM_LIST_QUERY_START,
+    payload: {
+      msg,
+      windowUuid
+    }
+  };
+}
+
+export function queryListSuccess(msg) {
+  debugger
+  return {
+    type: VM_LIST_QUERY_SUCCESS,
+    msg
+  };
+}
+
+export function queryListFailed(msg) {
+  return {
+    type: VM_LIST_QUERY_FAILED,
+    msg
+  };
+}
+
+export function updateVmList(items) {
+  return {
+    type: VM_LIST_UPDATE,
+    items
+  };
+}
+
+export function updateWindowList(uuidList, windowUuid) {
+  return {
+    type: VM_LIST_WINDOW_UPDATE,
+    payload: {
+      uuidList,
+      windowUuid
+    }
   };
 }

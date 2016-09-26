@@ -8,6 +8,8 @@ import { combineReducers } from 'redux-immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 import globalReducer from 'containers/App/reducer';
+import listsReducer from 'containers/App/listsReducer';
+import windowsReducer from 'containers/App/windowsReducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import vmListReducer from 'containers/VmListPage/reducer';
 
@@ -47,7 +49,8 @@ export default function createReducer(asyncReducers) {
     route: routeReducer,
     global: globalReducer,
     language: languageProviderReducer,
-    lists: vmListReducer,
+    lists: listsReducer,
+    windows: windowsReducer,
     ...asyncReducers,
   });
 }

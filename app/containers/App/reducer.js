@@ -16,8 +16,8 @@ import {
   LOAD_REPOS_ERROR,
   LOGIN_BY_ACCOUNT,
   SET_WEBSOCKET_CONNECTION,
-  REMOTE_API_CALL_START,
-  REMOTE_API_CALL_END
+  API_CALL_START,
+  API_CALL_END
 } from './constants';
 
 import { LOGIN_SUCCESS } from '../LoginPage/constants'
@@ -40,11 +40,11 @@ function appReducer(state = initialState, action) {
     case LOGIN_SUCCESS:
       return state
         .set('session', action.session);
-    case REMOTE_API_CALL_START: {
+    case API_CALL_START: {
       var apiCalls = state.get('apiCalls');
       return state.set('apiCalls', apiCalls.set(action.call.id, action.call));
     }
-    case REMOTE_API_CALL_END: {
+    case API_CALL_END: {
       var apiCalls = state.get('apiCalls');
       return state.set('apiCalls', apiCalls.delete(action.call.id));
     }

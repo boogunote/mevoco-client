@@ -11,14 +11,16 @@ import Helmet from 'react-helmet';
 import messages from './messages';
 import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
+import { genUniqueId } from 'utils/helpers'
+
 import Button from 'components/Button';
 import H1 from 'components/H1';
 
 import styles from './styles.css';
 
-import { apiCallStart } from '../App/actions';
+import { queryListStart } from './actions';
 
-import { selectWsConn, selectSession } from '../App/selectors';
+import { selectWindows, selectVmList } from '../App/selectors';
 
 export class VmListPage extends React.Component {
 
@@ -26,6 +28,7 @@ export class VmListPage extends React.Component {
     super(props, context);
 
     this.state = {
+      uuid: genUniqueId('window'),
       list: [{
         key: 'test1',
         name: 'test1'
@@ -33,11 +36,11 @@ export class VmListPage extends React.Component {
         key: 'test2',
         name: 'test2'
       }]
-    };
+    }
   };
 
   componentDidMount() {
-    
+
   }
 
 
@@ -51,17 +54,25 @@ export class VmListPage extends React.Component {
   };
 
   queryList = () => {
-    this.props.query({
+    this.props.queryList({
       'org.zstack.header.vm.APIQueryVmInstanceMsg': {
         count: false,
         start: 0,
         replyWithCount: true,
         conditions: []
       }
-    });
+    },
+    this.state.uuid);
   }
 
   render() {
+    var list = [];
+    if (!!this.props.windows && !!this.props.list) {
+      let vmList = this.props.list;
+      this.props.windows[this.state.uuid].forEach(function(item) {
+        list.push(vmList[item]);
+      })
+    }
     return (
       <div>
         <Helmet
@@ -75,8 +86,8 @@ export class VmListPage extends React.Component {
         </H1>
         <table>
           <tbody>
-            {this.state.list.map(function(item){
-              return <tr key={item.key}><td>{item.name}</td></tr>
+            {list.map(function(item){
+              return <tr key={item.uuid}><td>{item.name}</td></tr>
             })}
           </tbody>
         </table>
@@ -88,6 +99,15 @@ export class VmListPage extends React.Component {
   }
 }
 
+// if (!!this.props.windows && !!this.props.windows[this.state.uuid]) {
+//                 this.props.windows[this.state.uuid].map(function(item) {
+//                   return item
+//                 })
+//               }
+             
+
+
+
 VmListPage.propTypes = {
   query: React.PropTypes.func,
   setWsConn: React.PropTypes.func,
@@ -96,15 +116,15 @@ VmListPage.propTypes = {
 // redux has to pass all functions through prop.
 function mapDispatchToProps(dispatch) {
   return {
-    query: (msg) => dispatch(apiCallStart(msg)),
+    queryList: (msg, windowUuid) => dispatch(queryListStart(msg, windowUuid)),
     changeRoute: (url) => dispatch(push(url)),
   };
 }
 
 // get state
 const mapStateToProps = createStructuredSelector({
-  wsconn: selectWsConn(),
-  session: selectSession(),
+  windows: selectWindows(),
+  list: selectVmList(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VmListPage);

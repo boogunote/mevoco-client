@@ -1,0 +1,1 @@
+export const VM_LIST_WINDOW_UPDATE = 'zstack/App/VmListWindowUpdate';

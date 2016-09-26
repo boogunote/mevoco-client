@@ -9,4 +9,6 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const VM_FETCH_LIST = 'zstack/VM/QUERY_LIST';
+export const VM_LIST_QUERY_START = 'zstack/VM_LIST/QUERY_START';
+export const VM_LIST_QUERY_SUCCESS = 'zstack/VM_LIST/QUERY_SUCCESS';
+export const VM_LIST_QUERY_FAILED = 'zstack/VM_LIST/QUERY_FAILED';

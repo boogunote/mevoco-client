@@ -57,6 +57,20 @@ const selectApiCalls = () => createSelector(
   (globalState) => globalState.get('apiCalls')
 );
 
+const selectLists = () => (state) => state.get('lists');
+
+const selectVmList = () => createSelector(
+  selectLists(),
+  (lists) => lists.get('vm')
+);
+
+const selectWindows = () => createSelector(
+  selectLists(),
+  (lists) => lists.get('windows')
+);
+
+// const selectWindows = () => (state) => state.get('windows');
+
 export {
   selectGlobal,
   selectCurrentUser,
@@ -66,5 +80,8 @@ export {
   selectLocationState,
   selectWsConn,
   selectSession,
-  selectApiCalls
+  selectApiCalls,
+  selectWindows,
+  selectLists,
+  selectVmList
 };
