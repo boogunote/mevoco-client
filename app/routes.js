@@ -75,22 +75,22 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/vmlist',
-      name: 'vmlist',
+      path: '/vm',
+      name: 'vm',
       getComponent(nextState, cb) {
 
         // Use Promise to async load reducer, sagas and HomePage
         const importModules = Promise.all([
-          System.import('containers/VmListPage/reducer'),
-          System.import('containers/VmListPage/sagas'),
-          System.import('containers/VmListPage'),
+          System.import('containers/VmPage/reducer'),
+          System.import('containers/VmPage/sagas'),
+          System.import('containers/VmPage'),
         ]);
 
         const renderRoute = loadModule(cb);
 
         // When loading is success, inject and render them.
         importModules.then(([reducer, sagas, component]) => {
-          // injectReducer('vmlist', reducer.default);
+          injectReducer('vm', reducer.default);
           injectSagas(sagas.default);
 
           renderRoute(component);

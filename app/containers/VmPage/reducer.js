@@ -10,22 +10,22 @@
  *   return state.set('yourStateVariable', true);
  */
 
-import { API_CALL_SUCCESS } from '../App/constants';
+import { PAGE_VM_UPDATE_LIST } from './constants';
 import { fromJS } from 'immutable';
 
 // The initial state of the App
 const initialState = fromJS({
 });
 
-function vmListReducer(state = initialState, action) {
+function vmReducer(state = initialState, action) {
   switch (action.type) {
-    case API_CALL_SUCCESS: {
+    case PAGE_VM_UPDATE_LIST: {
       return state
-        .set('vm', action.msg);
+        .set('list', action.items);
     }
     default:
       return state;
   }
 }
 
-export default vmListReducer;
+export default vmReducer;

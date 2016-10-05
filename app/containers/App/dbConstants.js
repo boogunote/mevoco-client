@@ -1,0 +1,1 @@
+export const DB_VM_UPDATE_LIST = 'zs/db/vm/update/list';

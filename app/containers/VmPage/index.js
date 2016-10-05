@@ -20,7 +20,10 @@ import styles from './styles.css';
 
 import { queryListStart } from './actions';
 
-import { selectWindows, selectVmList } from '../App/selectors';
+import {
+  selectDbVm,
+  selectPageVmList
+} from '../App/selectors';
 
 export class VmListPage extends React.Component {
 
@@ -40,7 +43,7 @@ export class VmListPage extends React.Component {
   };
 
   componentDidMount() {
-
+    this.queryList();
   }
 
 
@@ -66,10 +69,11 @@ export class VmListPage extends React.Component {
   }
 
   render() {
+    // debugger
     var list = [];
-    if (!!this.props.windows && !!this.props.list) {
-      let vmList = this.props.list;
-      this.props.windows[this.state.uuid].forEach(function(item) {
+    if (!!this.props.dbVm && !!this.props.pageVmList) {
+      let vmList = this.props.dbVm;
+      this.props.pageVmList.forEach(function(item) {
         list.push(vmList[item]);
       })
     }
@@ -116,15 +120,15 @@ VmListPage.propTypes = {
 // redux has to pass all functions through prop.
 function mapDispatchToProps(dispatch) {
   return {
-    queryList: (msg, windowUuid) => dispatch(queryListStart(msg, windowUuid)),
+    queryList: (msg) => dispatch(queryListStart(msg)),
     changeRoute: (url) => dispatch(push(url)),
   };
 }
 
 // get state
 const mapStateToProps = createStructuredSelector({
-  windows: selectWindows(),
-  list: selectVmList(),
+  dbVm: selectDbVm(),
+  pageVmList: selectPageVmList()
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VmListPage);

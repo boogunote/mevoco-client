@@ -12,3 +12,7 @@
 export const VM_LIST_QUERY_START = 'zstack/VM_LIST/QUERY_START';
 export const VM_LIST_QUERY_SUCCESS = 'zstack/VM_LIST/QUERY_SUCCESS';
 export const VM_LIST_QUERY_FAILED = 'zstack/VM_LIST/QUERY_FAILED';
+export const PAGE_VM_QUERY_LIST_START = 'zstack/page/vm/query/list/start';
+export const PAGE_VM_QUERY_LIST_SUCCESS = 'zstack/page/vm/query/list/success';
+export const PAGE_VM_QUERY_FAILED = 'zstack/page/vm/query/list/failed';
+export const PAGE_VM_UPDATE_LIST = 'zstack/page/vm/update/list';

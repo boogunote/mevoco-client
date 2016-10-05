@@ -57,17 +57,20 @@ const selectApiCalls = () => createSelector(
   (globalState) => globalState.get('apiCalls')
 );
 
-const selectLists = () => (state) => state.get('lists');
+const selectDb = () => (state) => state.get('db');
 
-const selectVmList = () => createSelector(
-  selectLists(),
-  (lists) => lists.get('vm')
+const selectDbVm = () => createSelector(
+  selectDb(),
+  (db) => db.get('vm')
 );
 
-const selectWindows = () => createSelector(
-  selectLists(),
-  (lists) => lists.get('windows')
+const selectPageVm = () => (state) => state.get('vm');
+
+const selectPageVmList = () => createSelector(
+  selectPageVm(),
+  (db) => db.get('list')
 );
+
 
 // const selectWindows = () => (state) => state.get('windows');
 
@@ -81,7 +84,7 @@ export {
   selectWsConn,
   selectSession,
   selectApiCalls,
-  selectWindows,
-  selectLists,
-  selectVmList
+  selectDb,
+  selectDbVm,
+  selectPageVmList
 };

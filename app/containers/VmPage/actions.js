@@ -16,18 +16,15 @@
  */
 
 import {
-  VM_LIST_QUERY_START,
-  VM_LIST_QUERY_SUCCESS,
-  VM_LIST_QUERY_FAILED
+  PAGE_VM_QUERY_LIST_START,
+  PAGE_VM_QUERY_LIST_SUCCESS,
+  PAGE_VM_QUERY_FAILED,
+  PAGE_VM_UPDATE_LIST
 } from './constants';
 
 import {
-  VM_LIST_UPDATE,
-} from '../App/listsConstants'
-
-import {
-  VM_LIST_WINDOW_UPDATE,
-} from '../App/windowsConstants'
+  DB_VM_UPDATE_LIST,
+} from '../App/dbConstants'
 
 /**
  * Changes the input field of the form
@@ -38,42 +35,37 @@ import {
  */
 export function queryListStart(msg, windowUuid) {
   return {
-    type: VM_LIST_QUERY_START,
+    type: PAGE_VM_QUERY_LIST_START,
     payload: {
-      msg,
-      windowUuid
+      msg
     }
   };
 }
 
 export function queryListSuccess(msg) {
-  debugger
   return {
-    type: VM_LIST_QUERY_SUCCESS,
+    type: PAGE_VM_QUERY_LIST_SUCCESS,
     msg
   };
 }
 
 export function queryListFailed(msg) {
   return {
-    type: VM_LIST_QUERY_FAILED,
+    type: PAGE_VM_QUERY_FAILED,
     msg
   };
 }
 
-export function updateVmList(items) {
+export function updateDbVmList(items) {
   return {
-    type: VM_LIST_UPDATE,
+    type: DB_VM_UPDATE_LIST,
     items
   };
 }
 
-export function updateWindowList(uuidList, windowUuid) {
+export function pageVmUpdateList(items) {
   return {
-    type: VM_LIST_WINDOW_UPDATE,
-    payload: {
-      uuidList,
-      windowUuid
-    }
+    type: PAGE_VM_UPDATE_LIST,
+    items
   };
 }

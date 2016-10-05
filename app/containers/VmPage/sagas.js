@@ -3,29 +3,29 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 
 import { firstItem } from 'utils/helpers'
 
-import { VM_LIST_QUERY_START } from './constants';
+import { PAGE_VM_QUERY_LIST_START } from './constants';
 import {
-  updateVmList,
-  updateWindowList,
+  updateDbVmList,
+  pageVmUpdateList,
   queryListFailed } from './actions';
 import { apiCall } from 'utils/remoteCall';
 
 /**
  * Github repos request/response handler
  */
-export function* getVmListQuery(payload) {
+export function* doVmListQuery(payload) {
 
   // Call our request helper (see 'utils/request')
   const data = yield call(apiCall, payload.msg);
   var ret = firstItem(data);
   if (ret.success) {
     if (!! ret.inventories && ret.inventories.length > 0) {
-      yield put(updateVmList(ret.inventories));
+      yield put(updateDbVmList(ret.inventories));
       let uuidList = [];
       ret.inventories.forEach(function(item) {
         uuidList.push(item.uuid);
       })
-      yield put(updateWindowList(uuidList, payload.windowUuid));
+      yield put(pageVmUpdateList(uuidList));
     }
   } else {
     yield put(queryListFailed(ret));
@@ -37,8 +37,8 @@ export function* getVmListQuery(payload) {
  */
 export function* vmListQueryWatcher() {
   while (true) {
-    const action = yield take(VM_LIST_QUERY_START)
-    yield call(getVmListQuery, action.payload);
+    const action = yield take(PAGE_VM_QUERY_LIST_START)
+    yield call(doVmListQuery, action.payload);
   }
 }
 
