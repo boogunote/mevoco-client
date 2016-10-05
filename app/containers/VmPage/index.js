@@ -20,10 +20,9 @@ import styles from './styles.css';
 
 import { queryListStart } from './actions';
 
-import {
-  selectDbVm,
-  selectPageVmList
-} from '../App/selectors';
+import { selectDbVm } from '../App/selectors';
+
+import { selectPageVmList } from './selectors'
 
 export class VmListPage extends React.Component {
 

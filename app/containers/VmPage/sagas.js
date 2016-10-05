@@ -5,9 +5,13 @@ import { firstItem } from 'utils/helpers'
 
 import { PAGE_VM_QUERY_LIST_START } from './constants';
 import {
-  updateDbVmList,
   pageVmUpdateList,
   queryListFailed } from './actions';
+
+import {
+  updateDbVmList
+} from '../App/dbActions';
+
 import { apiCall } from 'utils/remoteCall';
 
 /**

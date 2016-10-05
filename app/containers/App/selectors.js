@@ -66,12 +66,6 @@ const selectDbVm = () => createSelector(
 
 const selectPageVm = () => (state) => state.get('vm');
 
-const selectPageVmList = () => createSelector(
-  selectPageVm(),
-  (db) => db.get('list')
-);
-
-
 // const selectWindows = () => (state) => state.get('windows');
 
 export {
@@ -86,5 +80,5 @@ export {
   selectApiCalls,
   selectDb,
   selectDbVm,
-  selectPageVmList
+  selectPageVm
 };

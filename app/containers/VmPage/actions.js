@@ -22,10 +22,6 @@ import {
   PAGE_VM_UPDATE_LIST
 } from './constants';
 
-import {
-  DB_VM_UPDATE_LIST,
-} from '../App/dbConstants'
-
 /**
  * Changes the input field of the form
  *
@@ -53,13 +49,6 @@ export function queryListFailed(msg) {
   return {
     type: PAGE_VM_QUERY_FAILED,
     msg
-  };
-}
-
-export function updateDbVmList(items) {
-  return {
-    type: DB_VM_UPDATE_LIST,
-    items
   };
 }
 
