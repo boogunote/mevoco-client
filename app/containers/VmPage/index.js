@@ -28,17 +28,6 @@ export class VmListPage extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-
-    this.state = {
-      uuid: genUniqueId('window'),
-      list: [{
-        key: 'test1',
-        name: 'test1'
-      }, {
-        key: 'test2',
-        name: 'test2'
-      }]
-    }
   };
 
   componentDidMount() {
@@ -63,8 +52,7 @@ export class VmListPage extends React.Component {
         replyWithCount: true,
         conditions: []
       }
-    },
-    this.state.uuid);
+    });
   }
 
   render() {

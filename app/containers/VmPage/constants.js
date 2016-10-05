@@ -9,10 +9,7 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const VM_LIST_QUERY_START = 'zstack/VM_LIST/QUERY_START';
-export const VM_LIST_QUERY_SUCCESS = 'zstack/VM_LIST/QUERY_SUCCESS';
-export const VM_LIST_QUERY_FAILED = 'zstack/VM_LIST/QUERY_FAILED';
-export const PAGE_VM_QUERY_LIST_START = 'zstack/page/vm/query/list/start';
-export const PAGE_VM_QUERY_LIST_SUCCESS = 'zstack/page/vm/query/list/success';
-export const PAGE_VM_QUERY_FAILED = 'zstack/page/vm/query/list/failed';
-export const PAGE_VM_UPDATE_LIST = 'zstack/page/vm/update/list';
+export const PAGE_VM_QUERY_LIST_START = 'zs/page/vm/query/list/start';
+export const PAGE_VM_QUERY_LIST_SUCCESS = 'zs/page/vm/query/list/success';
+export const PAGE_VM_QUERY_FAILED = 'zs/page/vm/query/list/failed';
+export const PAGE_VM_UPDATE_LIST = 'zs/page/vm/update/list';
