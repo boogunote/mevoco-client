@@ -18,11 +18,18 @@ import H1 from 'components/H1';
 
 import styles from './styles.css';
 
-import { queryListStart } from './actions';
+import {
+  queryListStart,
+  setNameAndHideModal,
+  showModal,
+  hideModal
+} from './actions';
 
 import { selectDbVm } from '../App/selectors';
 
 import { selectPageVmList } from './selectors'
+
+import ConfirmModal from 'components/dialogs/ConfirmModal'
 
 export class VmListPage extends React.Component {
 
@@ -55,7 +62,12 @@ export class VmListPage extends React.Component {
     });
   }
 
+  openCreateVmDialog = () => {
+
+  }
+
   render() {
+    let { showModal, onConfirm, hideModal, name } = this.props
     var list = [];
     if (!!this.props.dbVm && !!this.props.pageVmList) {
       let vmList = this.props.dbVm;
@@ -84,6 +96,15 @@ export class VmListPage extends React.Component {
         <Button onClick={this.queryList}>
           Query
         </Button>
+        <Button onClick={this.openCreateVmDialog}>
+          Create
+        </Button>
+        <ConfirmModal message="'What your name?'" onConfirm={onConfirm} onCancel={hideModal} data={'test'}></ConfirmModal>
+        { name &&
+          <div className="name">
+            {"Hello " + name}
+          </div>
+        }
       </div>
     );
   }
@@ -108,6 +129,9 @@ function mapDispatchToProps(dispatch) {
   return {
     queryList: (msg) => dispatch(queryListStart(msg)),
     changeRoute: (url) => dispatch(push(url)),
+    showModal: (message) => dispatch(showModal(message)),
+    onConfirm: (name) => dispatch(setNameAndHideModal(name)),
+    hideModal: () => dispatch(hideModal())
   };
 }
 

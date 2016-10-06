@@ -1,20 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import styles from './styles.css';
+
 class ConfirmModal extends Component {
   render() {
     let { message, onConfirm, onCancel, isShowing } = this.props
 
     return (
-      <div className="confirm-modal">
+      <div className={styles.confirmModal}>
         { isShowing &&
           <div>
-            <div className="modal-backdrop"></div>
-            <div className="confirm-modal-content">
-              <span className="confirm-modal-message">{message}</span>
-              <input className="confirm-modal-input" type="text" ref={(_ref) => this.confirmInput = _ref}/>
-              <button className="btn" onClick={() => this.getTextAndConfirm()}>OK</button>
-              <button className="btn" onClick={() => onCancel()}>Cancel</button>
+            <div className={styles.modalBackdrop}></div>
+            <div className={styles.confirmModalContent}>
+              <span className={styles.confirmModalMessage}>{message}</span>
+              <input className={styles.confirmModalInput} type="text" ref={(_ref) => this.confirmInput = _ref}/>
+              <button className={styles.btn} onClick={() => this.getTextAndConfirm()}>OK</button>
+              <button className={styles.btn} onClick={() => onCancel()}>Cancel</button>
             </div>
           </div>
         }
@@ -31,7 +33,8 @@ class ConfirmModal extends Component {
 
 const mapStateToComponent = (state) => {
   return {
-    isShowing: state.modals.isShowing
+    isShowing: true
+    // isShowing: state.modals.isShowing
   }
 }
 
