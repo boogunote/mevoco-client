@@ -27,7 +27,7 @@ import {
 
 import { selectDbVm } from '../App/selectors';
 
-import { selectPageVmList } from './selectors'
+import { selectPageVmList, selectPageVmCreateVmDialogData } from './selectors'
 
 import ConfirmModal from 'components/dialogs/ConfirmModal'
 
@@ -63,7 +63,7 @@ export class VmListPage extends React.Component {
   }
 
   openCreateVmDialog = () => {
-
+    this.props.showModal("What your name?");
   }
 
   render() {
@@ -99,7 +99,7 @@ export class VmListPage extends React.Component {
         <Button onClick={this.openCreateVmDialog}>
           Create
         </Button>
-        <ConfirmModal message="'What your name?'" onConfirm={onConfirm} onCancel={hideModal} data={'test'}></ConfirmModal>
+        <ConfirmModal message="'What your name?'" onConfirm={onConfirm} onCancel={hideModal} data={this.props.createVmDialogData}></ConfirmModal>
         { name &&
           <div className="name">
             {"Hello " + name}
@@ -138,7 +138,8 @@ function mapDispatchToProps(dispatch) {
 // get state
 const mapStateToProps = createStructuredSelector({
   dbVm: selectDbVm(),
-  pageVmList: selectPageVmList()
+  pageVmList: selectPageVmList(),
+  createVmDialogData: selectPageVmCreateVmDialogData()
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VmListPage);

@@ -5,11 +5,11 @@ import styles from './styles.css';
 
 class ConfirmModal extends Component {
   render() {
-    let { message, onConfirm, onCancel, isShowing } = this.props
+    let { message, onConfirm, onCancel, data } = this.props
 
     return (
       <div className={styles.confirmModal}>
-        { isShowing &&
+        { data.isShowing &&
           <div>
             <div className={styles.modalBackdrop}></div>
             <div className={styles.confirmModalContent}>
@@ -33,7 +33,6 @@ class ConfirmModal extends Component {
 
 const mapStateToComponent = (state) => {
   return {
-    isShowing: true
     // isShowing: state.modals.isShowing
   }
 }

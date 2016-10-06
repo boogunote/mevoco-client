@@ -9,3 +9,11 @@ export const selectPageVmList = () => createSelector(
   	return pageVm.list
   }
 );
+
+export const selectPageVmCreateVmDialogData = () => createSelector(
+  selectPageVm(),
+  // (pageVm) => pageVm.get('list')
+  (pageVm) => {
+  	return pageVm.modals
+  }
+);
