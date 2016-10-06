@@ -17,15 +17,58 @@ import { fromJS } from 'immutable';
 const initialState = fromJS({
 });
 
-function vmReducer(state = initialState, action) {
+// function list(state = initialState, action) {
+function list(state = [],
+action) {
   switch (action.type) {
     case PAGE_VM_UPDATE_LIST: {
-      return state
-        .set('list', action.items);
+      // return state.set('list', action.items);
+      return Object.assign([], state, action.items);
     }
     default:
       return state;
   }
 }
 
-export default vmReducer;
+import { combineReducers } from 'redux'
+import {SHOW_MODAL, HIDE_MODAL, SET_NAME} from './actions'
+ 
+function modals(state = {
+  isShowing: false,
+  message: ''
+}, action) {
+ 
+  switch (action.type) {
+    case SHOW_MODAL:
+      return Object.assign({}, state, {
+        isShowing: true,
+        message: action.message
+      })
+    case HIDE_MODAL:
+      return Object.assign({}, state, {
+        isShowing: false
+      })
+    default:
+      return state
+  }
+ 
+}
+ 
+function name(state = null, action) {
+ 
+  switch (action.type) {
+    case SET_NAME:
+      return action.name
+    default:
+      return state
+  }
+ 
+}
+ 
+export default combineReducers({
+  list,
+  modals,
+  name
+})
+
+// export default vmReducer;

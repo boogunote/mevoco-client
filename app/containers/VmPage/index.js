@@ -56,7 +56,6 @@ export class VmListPage extends React.Component {
   }
 
   render() {
-    // debugger
     var list = [];
     if (!!this.props.dbVm && !!this.props.pageVmList) {
       let vmList = this.props.dbVm;
