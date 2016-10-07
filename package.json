@@ -201,6 +201,7 @@
     "react-router-redux": "4.0.5",
     "react-router-scroll": "0.2.1",
     "redux": "3.5.2",
+    "redux-form": "^6.0.5",
     "redux-immutable": "3.0.7",
     "redux-saga": "0.11.0",
     "reselect": "2.5.3",
