@@ -22,7 +22,8 @@ import {
   queryListStart,
   setNameAndHideModal,
   showModal,
-  hideModal
+  hideModal,
+  updateCreateVmDialog
 } from './actions';
 
 import { selectDbVm } from '../App/selectors';
@@ -99,7 +100,7 @@ export class VmListPage extends React.Component {
         <Button onClick={this.openCreateVmDialog}>
           Create
         </Button>
-        <ConfirmModal message="'What your name?'" onConfirm={onConfirm} onCancel={hideModal} data={this.props.createVmDialogData}></ConfirmModal>
+        <ConfirmModal message="'What your name?'" onConfirm={onConfirm} onCancel={hideModal} onUpdate={this.props.updateCreateVmDialog} data={this.props.createVmDialogData}></ConfirmModal>
         { name &&
           <div className="name">
             {"Hello " + name}
@@ -131,7 +132,8 @@ function mapDispatchToProps(dispatch) {
     changeRoute: (url) => dispatch(push(url)),
     showModal: (message) => dispatch(showModal(message)),
     onConfirm: (name) => dispatch(setNameAndHideModal(name)),
-    hideModal: () => dispatch(hideModal())
+    hideModal: () => dispatch(hideModal()),
+    updateCreateVmDialog: (name, value) => dispatch(updateCreateVmDialog(name, value)),
   };
 }
 

@@ -19,7 +19,8 @@ import {
   PAGE_VM_QUERY_LIST_START,
   PAGE_VM_QUERY_LIST_SUCCESS,
   PAGE_VM_QUERY_FAILED,
-  PAGE_VM_UPDATE_LIST
+  PAGE_VM_UPDATE_LIST,
+  PAGE_VM_DIALOG_CREATE_VM_UPDATE
 } from './constants';
 
 /**
@@ -88,5 +89,13 @@ export function setNameAndHideModal(name) {
     if (!name || name.trim() === '') return
     dispatch(setName(name))
     dispatch(hideModal())
+  }
+}
+
+export function updateCreateVmDialog(name, value) {
+  return {
+    type: PAGE_VM_DIALOG_CREATE_VM_UPDATE,
+    name,
+    value
   }
 }

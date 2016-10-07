@@ -10,7 +10,7 @@
  *   return state.set('yourStateVariable', true);
  */
 
-import { PAGE_VM_UPDATE_LIST } from './constants';
+import { PAGE_VM_UPDATE_LIST, PAGE_VM_DIALOG_CREATE_VM_UPDATE } from './constants';
 import { fromJS } from 'immutable';
 
 // The initial state of the App
@@ -35,19 +35,26 @@ import {SHOW_MODAL, HIDE_MODAL, SET_NAME} from './actions'
  
 function modals(state = {
   isShowing: false,
-  message: ''
+  message: '',
+  name: ''
 }, action) {
  
   switch (action.type) {
     case SHOW_MODAL:
       return Object.assign({}, state, {
         isShowing: true,
-        message: action.message
+        message: action.message,
+        name: state.name
       })
     case HIDE_MODAL:
       return Object.assign({}, state, {
-        isShowing: false
+        isShowing: false,
+        name: state.name
       })
+    case PAGE_VM_DIALOG_CREATE_VM_UPDATE:
+      let newState = {};
+      newState[action.name] = action.value;
+      return Object.assign({}, state, newState)
     default:
       return state
   }

@@ -16,13 +16,14 @@ class ConfirmModal extends Component {
     return (
       <div className={styles.confirmModal}>
         <div>
-          <div className={styles.modalBackdrop}></div>
-          <div className={styles.confirmModalContent}>
-            <CreateVmForm onSubmit={onCancel}/>
-            <span className={styles.confirmModalMessage}>{message}</span>
-            <input className={styles.confirmModalInput} type="text" ref={(_ref) => this.confirmInput = _ref}/>
-            <button className={styles.btn} onClick={() => this.getTextAndConfirm()}>OK</button>
-            <button className={styles.btn} onClick={() => onCancel()}>Cancel</button>
+          <div>
+            <div className={styles.modalBackdrop}></div>
+            <div className={styles.confirmModalContent}>
+              <span className={styles.confirmModalMessage}>{message}</span>
+              <input className={styles.confirmModalInput} type="text" value={data.name} onChange={(event) => this.handleChange(event)} ref={(_ref) => this.confirmInput = _ref}/>
+              <button className={styles.btn} onClick={() => this.getTextAndConfirm()}>OK</button>
+              <button className={styles.btn} onClick={() => onCancel()}>Cancel</button>
+            </div>
           </div>
         </div>
       </div>
@@ -32,6 +33,10 @@ class ConfirmModal extends Component {
   getTextAndConfirm() {
     let text = this.confirmInput.value
     this.props.onConfirm(text)
+  }
+
+  handleChange(event) {
+    this.props.onUpdate('name', event.target.value)
   }
 
 }
