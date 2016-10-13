@@ -23,7 +23,8 @@ import {
   setNameAndHideModal,
   showModal,
   hideModal,
-  updateCreateVmDialog
+  updateCreateVmDialog,
+  pageVmDestroy
 } from './actions';
 
 import { selectDbVm } from '../App/selectors';
@@ -32,14 +33,30 @@ import { selectPageVmList, selectPageVmCreateVmDialogData } from './selectors'
 
 import ConfirmModal from 'components/dialogs/ConfirmModal'
 
+import { getAsyncInjectors } from 'utils/asyncInjectors';
+import reducer from './reducer'
+import sagas from './sagas'
+
 export class VmListPage extends React.Component {
 
   constructor(props, context) {
     super(props, context);
   };
 
+  componentWillMount() {
+    this.globalState = this.props.route.store;
+
+    const { injectReducer, injectSagas } = getAsyncInjectors(this.globalState);
+    injectReducer('vm', reducer);
+    injectSagas(sagas);
+  }
+
   componentDidMount() {
-    this.queryList();
+    this.queryList();    
+  }
+
+  componentWillUnmount() {
+    this.props.pageVmDestroy();
   }
 
 
@@ -70,6 +87,7 @@ export class VmListPage extends React.Component {
   render() {
     let { showModal, onConfirm, hideModal, name } = this.props
     var list = [];
+
     if (!!this.props.dbVm && !!this.props.pageVmList) {
       let vmList = this.props.dbVm;
       this.props.pageVmList.forEach(function(item) {
@@ -134,10 +152,11 @@ function mapDispatchToProps(dispatch) {
     onConfirm: (name) => dispatch(setNameAndHideModal(name)),
     hideModal: () => dispatch(hideModal()),
     updateCreateVmDialog: (name, value) => dispatch(updateCreateVmDialog(name, value)),
+    pageVmDestroy: () => dispatch(pageVmDestroy())
   };
 }
 
-// get state
+get state
 const mapStateToProps = createStructuredSelector({
   dbVm: selectDbVm(),
   pageVmList: selectPageVmList(),
@@ -145,3 +164,4 @@ const mapStateToProps = createStructuredSelector({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VmListPage);
+// export default connect(null, mapDispatchToProps)(VmListPage);

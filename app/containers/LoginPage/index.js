@@ -23,6 +23,10 @@ import { firstItem } from 'utils/helpers'
 import { loginStart } from './actions';
 import { selectWsConn, selectApiCalls, selectSession } from '../App/selectors';
 
+import { getAsyncInjectors } from 'utils/asyncInjectors';
+import reducer from './reducer'
+import sagas from './sagas'
+
 
 export class LoginPage extends React.Component {
 
@@ -36,6 +40,12 @@ export class LoginPage extends React.Component {
 
     console.log(this.state)
   };
+
+  componentWillMount() {
+    const { injectReducer, injectSagas } = getAsyncInjectors(this.props.route.store);
+    injectReducer('login', reducer);
+    injectSagas(sagas);
+  }
 
   onChangeUsername = (event) => {
     this.setState({username: event.target.value});

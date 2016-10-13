@@ -20,7 +20,8 @@ import {
   PAGE_VM_QUERY_LIST_SUCCESS,
   PAGE_VM_QUERY_FAILED,
   PAGE_VM_UPDATE_LIST,
-  PAGE_VM_DIALOG_CREATE_VM_UPDATE
+  PAGE_VM_DIALOG_CREATE_VM_UPDATE,
+  PAGE_VM_DESTROY
 } from './constants';
 
 /**
@@ -57,6 +58,12 @@ export function pageVmUpdateList(items) {
   return {
     type: PAGE_VM_UPDATE_LIST,
     items
+  };
+}
+
+export function pageVmDestroy() {
+  return {
+    type: PAGE_VM_DESTROY
   };
 }
 

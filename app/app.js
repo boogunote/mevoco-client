@@ -19,7 +19,7 @@ import 'file?name=[name].[ext]!./.htaccess';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
+import { applyRouterMiddleware, Router, Route,   browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import FontFaceObserver from 'fontfaceobserver';
 import useScroll from 'react-router-scroll';
@@ -75,19 +75,26 @@ const rootRoute = {
   childRoutes: createRoutes(store),
 };
 
+import LoginPage from 'containers/LoginPage';
+import VmPage from 'containers/VmPage';
+
 const render = (translatedMessages) => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={translatedMessages}>
         <Router
           history={history}
-          routes={rootRoute}
           render={
             // Scroll to top when going to a new page, imitating default browser
             // behaviour
             applyRouterMiddleware(useScroll())
           }
-        />
+        >
+          <Route path='/' component={App}>
+            <Route path='login' store={store} component={LoginPage}/>
+            <Route path='vm' store={store} component={VmPage}/>
+          </Route>
+        </Router>
       </LanguageProvider>
     </Provider>,
     document.getElementById('app')

@@ -3,7 +3,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 
 import { firstItem } from 'utils/helpers'
 
-import { PAGE_VM_QUERY_LIST_START } from './constants';
+import { PAGE_VM_QUERY_LIST_START, PAGE_VM_DESTROY } from './constants';
 import {
   pageVmUpdateList,
   queryListFailed } from './actions';
@@ -55,7 +55,7 @@ export function* vmListQuery() {
   const watcher = yield fork(vmListQueryWatcher);
 
   // Suspend execution until location changes
-  yield take(LOCATION_CHANGE);
+  yield take(PAGE_VM_DESTROY);
   yield cancel(watcher);
 }
 
