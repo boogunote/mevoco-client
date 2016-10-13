@@ -75,6 +75,19 @@ const rootRoute = {
   childRoutes: createRoutes(store),
 };
 
+import { getAsyncInjectors } from 'utils/asyncInjectors';
+import loginPageReducer from 'containers/LoginPage/reducer'
+import loginPagesagas from 'containers/LoginPage/sagas'
+import vmPageReducer from 'containers/VmPage/reducer'
+import vmPagesagas from 'containers/VmPage/sagas'
+
+const { injectReducer, injectSagas } = getAsyncInjectors(store);
+injectReducer('login', loginPageReducer);
+injectSagas(loginPagesagas);
+injectReducer('vm', vmPageReducer);
+injectSagas(vmPagesagas);
+
+
 import LoginPage from 'containers/LoginPage';
 import VmPage from 'containers/VmPage';
 

@@ -23,10 +23,6 @@ import { firstItem } from 'utils/helpers'
 import { loginStart } from './actions';
 import { selectWsConn, selectApiCalls, selectSession } from '../App/selectors';
 
-import { getAsyncInjectors } from 'utils/asyncInjectors';
-import reducer from './reducer'
-import sagas from './sagas'
-
 
 export class LoginPage extends React.Component {
 
@@ -42,9 +38,6 @@ export class LoginPage extends React.Component {
   };
 
   componentWillMount() {
-    const { injectReducer, injectSagas } = getAsyncInjectors(this.props.route.store);
-    injectReducer('login', reducer);
-    injectSagas(sagas);
   }
 
   onChangeUsername = (event) => {
@@ -69,23 +62,6 @@ export class LoginPage extends React.Component {
    */
   openHomePage = () => {
     this.openRoute('/');
-  };
-
-  queryList = () => {
-    const result = remoteCall(
-      this.props.wsconn, 
-      this.props.session,
-      this.props.remoteApiCallStart,
-      'org.zstack.header.vm.APIQueryVmInstanceMsg',
-      {
-        count: false,
-        start: 0,
-        replyWithCount: true,
-        conditions: []
-      }
-    );
-
-    console.log(result)
   };
 
   login = () => {

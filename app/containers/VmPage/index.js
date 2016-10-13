@@ -33,10 +33,6 @@ import { selectPageVmList, selectPageVmCreateVmDialogData } from './selectors'
 
 import ConfirmModal from 'components/dialogs/ConfirmModal'
 
-import { getAsyncInjectors } from 'utils/asyncInjectors';
-import reducer from './reducer'
-import sagas from './sagas'
-
 export class VmListPage extends React.Component {
 
   constructor(props, context) {
@@ -44,11 +40,7 @@ export class VmListPage extends React.Component {
   };
 
   componentWillMount() {
-    this.globalState = this.props.route.store;
-
-    const { injectReducer, injectSagas } = getAsyncInjectors(this.globalState);
-    injectReducer('vm', reducer);
-    injectSagas(sagas);
+    this.globalState = this.props.route.store.getState();
   }
 
   componentDidMount() {
@@ -87,11 +79,11 @@ export class VmListPage extends React.Component {
   render() {
     let { showModal, onConfirm, hideModal, name } = this.props
     var list = [];
-
-    if (!!this.props.dbVm && !!this.props.pageVmList) {
-      let vmList = this.props.dbVm;
-      this.props.pageVmList.forEach(function(item) {
-        list.push(vmList[item]);
+    let dbVm = this.props.dbVm;
+    let pageVmList = this.props.pageVmList;
+    if (!!dbVm && !!pageVmList) {
+      pageVmList.forEach(function(item) {
+        list.push(dbVm[item]);
       })
     }
     return (
@@ -156,7 +148,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-get state
+// get state
 const mapStateToProps = createStructuredSelector({
   dbVm: selectDbVm(),
   pageVmList: selectPageVmList(),

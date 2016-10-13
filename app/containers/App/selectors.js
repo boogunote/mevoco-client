@@ -64,7 +64,10 @@ const selectDbVm = () => createSelector(
   (db) => db.get('vm')
 );
 
-const selectPageVm = () => (state) => state.get('vm');
+const selectPageVm = () => (state) => 
+{
+  return state.get('vm');
+}
 
 // const selectWindows = () => (state) => state.get('windows');
 

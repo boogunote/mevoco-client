@@ -22,7 +22,7 @@ import { selectUsername } from 'containers/HomePage/selectors';
  */
 export function* loginStart(param) {
   const msg = yield call(loginByAccount, param);
-
+  debugger
   if (msg.success) {
     setSession(msg.inventory);
     yield put(loginSuccess(msg.inventory));
@@ -50,7 +50,7 @@ export function* login() {
 
   // Suspend execution until location changes
   yield take(LOGIN_SUCCESS);
-  yield cancel(watcher);
+  // yield cancel(watcher);
   yield put(push('/vm'));
 }
 
