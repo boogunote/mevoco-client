@@ -69,6 +69,7 @@ const history = syncHistoryWithStore(browserHistory, store, {
 
 // Set up the router, wrapping all Routes in the App component
 import App from 'containers/App';
+import Main from 'containers/Main';
 import createRoutes from './routes';
 const rootRoute = {
   component: App,
@@ -90,28 +91,6 @@ injectSagas(vmPagesagas);
 
 import LoginPage from 'containers/LoginPage';
 import VmPage from 'containers/VmPage';
-
-import Img from 'components/Img';
-import Footer from 'components/Footer';
-import Logo from 'containers/App/logo-big.png';
-import A from 'components/A';
-
-import mainStyles from 'containers/App/styles.css';
-
-const Main = React.createClass({
-  render() {
-    return (
-      <div>
-        <A className={mainStyles.logoWrapper} href="https://twitter.com/mxstbr">
-          <Img className={mainStyles.logo} src={Logo} alt="react-boilerplate - Logo" />
-        </A>
-        {/* 渲染这个 child 路由组件 */}
-        {this.props.children || "Welcome to your Inbox"}
-        <Footer />
-      </div>
-    )
-  }
-})
 
 const render = (translatedMessages) => {
   ReactDOM.render(
