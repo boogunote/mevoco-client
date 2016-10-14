@@ -50,7 +50,7 @@ export function* login() {
   // Suspend execution until location changes
   yield take(LOGIN_SUCCESS);
   // yield cancel(watcher);
-  yield put(push('/vm'));
+  yield put(push('/main/vm'));
 }
 
 // Bootstrap sagas
