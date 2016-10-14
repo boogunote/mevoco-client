@@ -24,14 +24,23 @@ import {
   showModal,
   hideModal,
   updateCreateVmDialog,
-  pageVmDestroy
+  pageVmDestroy,
+  pageVmUpdateList,
+  queryListFailed
 } from './actions';
+
+import {
+  updateDbVmList
+} from '../App/dbActions';
 
 import { selectDbVm } from '../App/selectors';
 
 import { selectPageVmList, selectPageVmCreateVmDialogData } from './selectors'
 
 import ConfirmModal from 'components/dialogs/ConfirmModal'
+
+import { apiCall } from 'utils/remoteCall';
+import { firstItem } from 'utils/helpers'
 
 export class VmListPage extends React.Component {
 
@@ -62,14 +71,29 @@ export class VmListPage extends React.Component {
   };
 
   queryList = () => {
-    this.props.queryList({
+    let self = this;
+    apiCall({
       'org.zstack.header.vm.APIQueryVmInstanceMsg': {
         count: false,
         start: 0,
         replyWithCount: true,
         conditions: []
       }
-    });
+    }).then(function(result) {
+      var ret = firstItem(result);
+      if (ret.success) {
+        if (!! ret.inventories && ret.inventories.length > 0) {
+          self.props.updateDbVmList(ret.inventories);
+          let uuidList = [];
+          ret.inventories.forEach(function(item) {
+            uuidList.push(item.uuid);
+          })
+          self.props.pageVmUpdateList(uuidList);
+        }
+      } else {
+        self.props.queryListFailed(ret);
+      }
+    })
   }
 
   openCreateVmDialog = () => {
@@ -144,7 +168,10 @@ function mapDispatchToProps(dispatch) {
     onConfirm: (name) => dispatch(setNameAndHideModal(name)),
     hideModal: () => dispatch(hideModal()),
     updateCreateVmDialog: (name, value) => dispatch(updateCreateVmDialog(name, value)),
-    pageVmDestroy: () => dispatch(pageVmDestroy())
+    pageVmDestroy: () => dispatch(pageVmDestroy()),
+    pageVmUpdateList: (uuidList) => dispatch(pageVmUpdateList(uuidList)),
+    queryListFailed: () => dispatch(queryListFailed()),
+    updateDbVmList: (list) => dispatch(updateDbVmList(list))
   };
 }
 

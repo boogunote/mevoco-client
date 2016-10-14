@@ -22,7 +22,6 @@ import { selectUsername } from 'containers/HomePage/selectors';
  */
 export function* loginStart(param) {
   const msg = yield call(loginByAccount, param);
-  debugger
   if (msg.success) {
     setSession(msg.inventory);
     yield put(loginSuccess(msg.inventory));

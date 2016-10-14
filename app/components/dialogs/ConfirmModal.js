@@ -8,7 +8,7 @@ class ConfirmModal extends Component {
   render() {
     let { message, onConfirm, onCancel, data } = this.props
 
-    // if (!data.isShowing)
+    if (!data.isShowing)
       return null;
 
     const CreateVmForm = require('./CreateVmForm').default
