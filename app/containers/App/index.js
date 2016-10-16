@@ -21,7 +21,7 @@ import styles from './styles.css';
 
 function App(props) {
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.container}>
       <Helmet
         titleTemplate="%s - React.js Boilerplate"
         defaultTitle="React.js Boilerplate"

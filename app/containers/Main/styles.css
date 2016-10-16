@@ -1,0 +1,23 @@
+.container {
+  height: 100%;
+  width: 100%;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.nav {
+  width: 220px;
+  border-right: 1px solid #ccc;
+  background-color: rgb(53, 64, 82);
+}
+
+.flexColumn {
+  -webkit-flex: 1;
+          flex: 1;
+}
+
+.logoWrapper {
+  margin: 30px auto;
+  width: 131px;
+  display: block;
+}

@@ -13,21 +13,24 @@ import 'sanitize.css/sanitize.css';
 
 import Img from 'components/Img';
 import Footer from 'components/Footer';
-import Logo from 'containers/App/logo-big.png';
+import Logo from './logo-small.png';
 import A from 'components/A';
 
-import mainStyles from 'containers/App/styles.css';
+import styles from './styles.css';
 
 export class Main extends React.Component {
   render() {
     return (
-      <div>
-        <A className={mainStyles.logoWrapper} href="https://twitter.com/mxstbr">
-          <Img className={mainStyles.logo} src={Logo} alt="react-boilerplate - Logo" />
-        </A>
-        {/* 渲染这个 child 路由组件 */}
-        {this.props.children || "Welcome to your Inbox"}
-        <Footer />
+      <div className={styles.container}>
+        <div className={styles.nav}>
+          <A className={styles.logoWrapper} href="http://www.mevoco.com">
+            <Img className={styles.logo} src={Logo} alt="Mevoco - Logo" />
+          </A>
+        </div>
+        <div className={styles.flexColumn}>
+          {this.props.children || "Welcome to your Inbox"}
+          <Footer />
+        </div>
       </div>
     );
   }
