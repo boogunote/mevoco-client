@@ -6,6 +6,12 @@ body {
   width: 100%;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -21,8 +27,6 @@ body.fontLoaded {
 }
 
 .container {
-  display: -webkit-flex;
-  display: flex;
   height: 100%;
   width: 100%
 }

@@ -15,6 +15,7 @@ import Img from 'components/Img';
 import Footer from 'components/Footer';
 import Logo from './logo-small.png';
 import A from 'components/A';
+import LocaleToggle from 'containers/LocaleToggle';
 
 import styles from './styles.css';
 
@@ -27,9 +28,15 @@ export class Main extends React.Component {
             <Img className={styles.logo} src={Logo} alt="Mevoco - Logo" />
           </A>
         </div>
-        <div className={styles.flexColumn}>
-          {this.props.children || "Welcome to your Inbox"}
-          <Footer />
+        <div className={styles.article}>
+          <div className={styles.header}>
+            <div className={styles.headerRight}>
+              <LocaleToggle />
+            </div>
+          </div>
+          <div className={styles.section}>
+            {this.props.children}
+          </div>
         </div>
       </div>
     );

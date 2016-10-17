@@ -1,23 +1,41 @@
 .container {
   height: 100%;
   width: 100%;
-  display: -webkit-flex;
-  display: flex;
+  position: relative;
 }
 
 .nav {
+  position: absolute;
+  left: 0px;
   width: 220px;
+  height: 100%;
   border-right: 1px solid #ccc;
   background-color: rgb(53, 64, 82);
 }
 
-.flexColumn {
-  -webkit-flex: 1;
-          flex: 1;
+.article {
+  margin-left: 220px;
+  height: 100%;
 }
 
 .logoWrapper {
   margin: 30px auto;
   width: 131px;
-  display: block;
+  display: flex;
+  flex-direction: row;
+  -webkit-flex-direction: row;
+}
+
+.header {
+  height: 60px;
+  width: 100%;
+  border-bottom: 1px solid #CFCFCF;;
+}
+
+.section {
+  
+}
+
+.headerRight {
+  float: right;
 }
