@@ -124,7 +124,19 @@ export class VmListPage extends React.Component {
         <table>
           <tbody>
             {list.map(function(item){
-              return <tr key={item.uuid}><td>{item.name}</td></tr>
+              return <tr key={item.uuid}>
+                <td>{item.name}</td>
+                <td>{item.cpuNum}</td>
+                <td>{item.memorySize}</td>
+                <td>{item.managementIp}</td>
+                <td>{item.managementIp}</td>
+                <td>{item.hypervisorType}</td>
+                <td>{item.clusterUuid}</td>
+                <td>{item.state}</td>
+                <td>{item.ownerName}</td>
+                <td>{item.haLevel}</td>
+                <td>{item.createDate}</td>
+              </tr>
             })}
           </tbody>
         </table>
