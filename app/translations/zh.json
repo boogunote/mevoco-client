@@ -1,19 +1,20 @@
 [
   {
     "id": "app.components.LocaleToggle.zh",
-    "message": "Chinese"
+    "message": "中文"
   },
   {
     "id": "app.components.LocaleToggle.en",
-    "message": "English"
+    "defaultMessage": "英文",
+    "message": ""
   },
   {
     "id": "boilerplate.components.Footer.author.message",
-    "defaultMessage": "Powered by {author}.",
-    "message": "Powered by {author}."
+    "defaultMessage": "Made with love by {author}.",
+    "message": "Mit Liebe gemacht von {author}."
   },
   {
     "id": "VmPage.title",
-    "message": "Instance"
+    "message": "云主机"
   }
 ]

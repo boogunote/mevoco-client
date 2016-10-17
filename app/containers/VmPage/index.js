@@ -119,7 +119,7 @@ export class VmListPage extends React.Component {
           ]}
         />
         <H1>
-          <FormattedMessage {...messages.header} />
+          <FormattedMessage {...messages.title} />
         </H1>
         <table>
           <tbody>
