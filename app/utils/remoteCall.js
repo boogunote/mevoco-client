@@ -46,7 +46,7 @@ export function apiCall(msg, evt) {
 
     var msgBody = firstItem(msg);
     msgBody.session = {};
-    msgBody.session.uuid = session.uuid;
+    msgBody.session.uuid = localStorage.getItem('sessionUuid');
     msgBody.session.callid = genUniqueId('api');
     getConn().emit('call', JSON.stringify(msg));
     var cb = function(data) {

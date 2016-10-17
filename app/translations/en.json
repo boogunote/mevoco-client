@@ -13,7 +13,23 @@
     "message": "Powered by {author}."
   },
   {
-    "id": "VmPage.title",
+    "id": "login",
+    "message": "Login"
+  },
+  {
+    "id": "username",
+    "message": "Username"
+  },
+  {
+    "id": "password",
+    "message": "Password"
+  },
+  {
+    "id": "LoginPage.header",
+    "message": "Login"
+  },
+  {
+    "id": "VmPage.header",
     "message": "Instance"
   }
 ]

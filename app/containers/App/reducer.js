@@ -32,7 +32,8 @@ const initialState = fromJS({
   userData: fromJS({
     repositories: false,
   }),
-  apiCalls: {}
+  apiCalls: {},
+  session: localStorage.getItem('session')
 });
 
 function appReducer(state = initialState, action) {

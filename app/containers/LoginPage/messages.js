@@ -6,6 +6,9 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  username: { id: 'username'},
+  password: { id: 'password'},
+  login: { id: 'login'},
   header: {
     id: 'LoginPage.header',
     defaultMessage: 'Login',

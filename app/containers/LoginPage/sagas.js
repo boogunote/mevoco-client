@@ -23,7 +23,8 @@ import { selectUsername } from 'containers/HomePage/selectors';
 export function* loginStart(param) {
   const msg = yield call(loginByAccount, param);
   if (msg.success) {
-    setSession(msg.inventory);
+    localStorage.setItem('sessionUuid', msg.inventory.uuid)
+    // setSession(msg.inventory);
     yield put(loginSuccess(msg.inventory));
   } else {
     yield put(loginFailed(msg));

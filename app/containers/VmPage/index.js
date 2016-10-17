@@ -113,13 +113,13 @@ export class VmListPage extends React.Component {
     return (
       <div>
         <Helmet
-          title="VM Instance"
+          title="VM Instance Page"
           meta={[
-            { name: 'description', content: 'VM Instance page of ZStack' },
+            { name: 'description', content: 'VM Instance page of Mevoco' },
           ]}
         />
         <H1>
-          <FormattedMessage {...messages.title} />
+          <FormattedMessage {...messages.header} />
         </H1>
         <table>
           <tbody>

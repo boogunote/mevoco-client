@@ -14,7 +14,23 @@
     "message": "Mit Liebe gemacht von {author}."
   },
   {
-    "id": "VmPage.title",
+    "id": "login",
+    "message": "登录"
+  },
+  {
+    "id": "username",
+    "message": "用户名"
+  },
+  {
+    "id": "password",
+    "message": "密码"
+  },
+  {
+    "id": "LoginPage.header",
+    "message": "登录"
+  },
+  {
+    "id": "VmPage.header",
     "message": "云主机"
   }
 ]

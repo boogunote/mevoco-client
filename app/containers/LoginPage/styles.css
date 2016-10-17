@@ -11,7 +11,37 @@
   font-weight: bold;
 }
 
-.input {
-  outline: none;
-  border-bottom: 1px dotted #999;
+.container {
+  background-color: rgb(53, 64, 82);
+  padding-top: 170px;
+  height: 100%;
+}
+
+.inputUsername {
+  padding: 0 15px;
+  width: 200px;
+  height: 44px;
+  border: none;
+  background-color: white;
+  border-radius: 4px 4px 0 0!important;
+  margin-bottom: 1px;
+}
+
+.inputPassword {
+  padding: 0 15px;
+  width: 200px;
+  height: 44px;
+  border: none;
+  background-color: white;
+  border-radius: 0 0 4px 4px!important;
+}
+
+.center {
+  width: 200px;
+  margin: 0 auto;
+}
+
+.logoWrapper {
+  display: block;
+  margin-bottom: 50px;
 }

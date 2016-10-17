@@ -10,7 +10,7 @@ import Helmet from 'react-helmet';
 
 import messages from './messages';
 import { createStructuredSelector } from 'reselect';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import Button from 'components/Button';
 import H1 from 'components/H1';
 
@@ -20,8 +20,14 @@ import io from 'socket.io-client/dist/socket.io';
 import sha512 from 'crypto-js/sha512';
 import { firstItem } from 'utils/helpers'
 
-import { loginStart } from './actions';
+import { loginSuccess } from './actions';
 import { selectWsConn, selectApiCalls, selectSession } from '../App/selectors';
+
+import { loginByAccount } from 'utils/remoteCall';
+
+import Logo from './logo-big.png';
+import A from 'components/A';
+import Img from 'components/Img';
 
 
 export class LoginPage extends React.Component {
@@ -65,60 +71,59 @@ export class LoginPage extends React.Component {
   };
 
   login = () => {
-    this.props.login({
+    let self = this;
+    loginByAccount({
       accountName: this.state.username,
       password: this.state.password
+    }).then(function(msg) {
+      if (msg.success) {
+        localStorage.setItem('sessionUuid', msg.inventory.uuid)
+        self.props.loginSuccess(msg.inventory);
+        push('/main/vm')
+      }
     })
   }
 
   render() {
     return (
-      <div>
+      <div className={styles.container}>
         <Helmet
           title="Login Page"
           meta={[
             { name: 'description', content: 'Login page of Mevoco' },
           ]}
         />
-        <H1>
-          <FormattedMessage {...messages.header} />
-        </H1>
-        <ul className={styles.list}>
-          <li className={styles.listItem}>
-            <input
-              id="username"
-              className={styles.input}
-              type="text"
-              placeholder="username"
-              value={this.state.username}
-              onChange={this.onChangeUsername}
-            />
-          </li>
-
-          <li className={styles.listItem}>
-            <input
-              id="password"
-              className={styles.input}
-              type="password"
-              placeholder="password"
-              value={this.state.password}
-              onChange={this.onChangePassword}
-            />
-          </li>
-          <li>{!!this.props.wsconn ? this.props.wsconn.socket.sessionid : ''}</li>
-        </ul>
-        <Button onClick={this.login}>
-          <FormattedMessage {...messages.loginButton} />
-        </Button>
-        <Button onClick={this.queryList}>
-          Query
-        </Button>
+        <div className={styles.center}>
+          <A className={styles.logoWrapper} href="http://www.mevoco.com">
+            <Img className={styles.logo} src={Logo} alt="Mevoco - Logo" />
+          </A>
+          <input
+            id="username"
+            className={styles.inputUsername}
+            type="text"
+            placeholder={this.props.intl.formatMessage(messages.username)}
+            value={this.state.username}
+            onChange={this.onChangeUsername}
+          />
+          <input
+            id="password"
+            className={styles.inputPassword}
+            type="password"
+            placeholder={this.props.intl.formatMessage(messages.password)}
+            value={this.state.password}
+            onChange={this.onChangePassword}
+          />
+          <Button onClick={this.login}>
+            <FormattedMessage {...messages.login} />
+          </Button>
+        </div>
       </div>
     );
   }
 }
 
 LoginPage.propTypes = {
+  intl: intlShape.isRequired,
   changeRoute: React.PropTypes.func,
   login: React.PropTypes.func,
   setWsConn: React.PropTypes.func,
@@ -128,7 +133,7 @@ LoginPage.propTypes = {
 // redux has to pass all functions through prop.
 function mapDispatchToProps(dispatch) {
   return {
-    login: (param) => dispatch(loginStart(param)),
+    loginSuccess: (param) => dispatch(loginSuccess(param)),
     setWsConn: (wsconn) => dispatch(setWsConn(wsconn)),
     apiCallStart: (result) => dispatch(apiCallStart(result)),
     changeRoute: (url) => dispatch(push(url)),
@@ -142,4 +147,4 @@ const mapStateToProps = createStructuredSelector({
   session: selectSession(),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(LoginPage));

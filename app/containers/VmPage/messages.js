@@ -6,7 +6,7 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  title: { id: 'VmPage.title' },
+  header: { id: 'VmPage.header' },
   loginButton: {
     id: 'LoginPage.loginButton',
     defaultMessage: 'Login',
