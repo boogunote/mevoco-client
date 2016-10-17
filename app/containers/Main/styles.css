@@ -16,6 +16,25 @@
 .article {
   margin-left: 220px;
   height: 100%;
+  padding-top: 60px;
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 60px;
+}
+
+.section {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-top: 1px solid #CFCFCF;;
+}
+
+.headerRight {
+  float: right;
 }
 
 .logoWrapper {
@@ -24,18 +43,4 @@
   display: flex;
   flex-direction: row;
   -webkit-flex-direction: row;
-}
-
-.header {
-  height: 60px;
-  width: 100%;
-  border-bottom: 1px solid #CFCFCF;;
-}
-
-.section {
-  
-}
-
-.headerRight {
-  float: right;
 }
