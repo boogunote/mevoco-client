@@ -17,3 +17,5 @@ export const PAGE_VM_DIALOG_CREATE_VM_UPDATE = 'zs/page/vm/dialog/createVm/updat
 export const PAGE_VM_DESTROY = 'zs/page/vm/destroy';
 export const PAGE_VM_SHOW_DETAIL = 'zs/page/vm/show/detail';
 export const PAGE_VM_HIDE_DETAIL = 'zs/page/vm/hide/detail';
+export const PAGE_VM_LIST_HIGHLIGHT = 'zs/page/vm/list/highlight';
+export const PAGE_VM_LIST_NORMAL = 'zs/page/vm/list/normal';

@@ -46,11 +46,19 @@ body {
 
 }
 
-.tableRow:hover {
+.tableRowHighlight {
+  background-color: #ebf2f9;
+}
+
+.tableRowNormal:hover {
   background-color: #F5F5F5;
 }
 
-.tableRow:nth-of-type(odd) {
+.tableRowNormal {
+  background-color: #fff;
+}
+
+.tableRowNormal:nth-of-type(odd) {
   background-color: #F9F9F9;
 }
 
@@ -85,4 +93,14 @@ body {
   background: #354052;
   color: #fff;
   padding: 20px;
+}
+
+.detailPageClose {
+  color: #aaa;
+  cursor: pointer;
+  float: right;
+}
+
+.detailPageClose:hover {
+  color: #fff;
 }

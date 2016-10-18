@@ -14,7 +14,9 @@ import {
   PAGE_VM_UPDATE_LIST,
   PAGE_VM_DIALOG_CREATE_VM_UPDATE,
   PAGE_VM_SHOW_DETAIL,
-  PAGE_VM_HIDE_DETAIL
+  PAGE_VM_HIDE_DETAIL,
+  PAGE_VM_LIST_HIGHLIGHT,
+  PAGE_VM_LIST_NORMAL
 } from './constants';
 
 import { fromJS } from 'immutable';
@@ -28,8 +30,31 @@ function list(state = [],
 action) {
   switch (action.type) {
     case PAGE_VM_UPDATE_LIST: {
-      // return state.set('list', action.items);
       return Object.assign([], state, action.items);
+    }
+    case PAGE_VM_LIST_HIGHLIGHT: {
+      let newList = Object.assign([], state);
+      action.uuidList.forEach(function(uuid) {
+        for (var i in newList) {
+          if (newList[i].uuid == uuid) {
+            newList[i].highlight = true;
+            break;
+          }
+        }
+      })
+      return newList;
+    }
+    case PAGE_VM_LIST_NORMAL: {
+      let newList = Object.assign([], state);
+      action.uuidList.forEach(function(uuid) {
+        for (var i in newList) {
+          if (newList[i].uuid == uuid) {
+            newList[i].highlight = false;
+            break;
+          }
+        }
+      })
+      return newList;
     }
     default:
       return state;

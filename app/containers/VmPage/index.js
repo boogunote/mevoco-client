@@ -30,7 +30,9 @@ import {
   pageVmUpdateList,
   queryListFailed,
   pageVmShowDetail,
-  pageVmHideDetail
+  pageVmHideDetail,
+  pageVmListHighlight,
+  pageVmListNormal
 } from './actions';
 
 import {
@@ -94,11 +96,14 @@ export class VmListPage extends React.Component {
       if (ret.success) {
         if (!! ret.inventories && ret.inventories.length > 0) {
           self.props.updateDbVmList(ret.inventories);
-          let uuidList = [];
+          let pageItemList = [];
           ret.inventories.forEach(function(item) {
-            uuidList.push(item.uuid);
+            pageItemList.push({
+              'uuid': item.uuid,
+              'highlight': false
+            });
           })
-          self.props.pageVmUpdateList(uuidList);
+          self.props.pageVmUpdateList(pageItemList);
         }
       } else {
         self.props.queryListFailed(ret);
@@ -110,14 +115,31 @@ export class VmListPage extends React.Component {
     this.props.showModal("What your name?");
   }
 
+  onClickTabRow = (item) => {
+    this.props.pageVmShowDetail(item.uuid);
+
+    let uuidList = [];
+    this.props.pageVmList.forEach(function(item) {
+      if (item.highlight) {
+        uuidList.push(item.uuid)
+      }
+    })
+    if (uuidList.length > 0)
+      this.props.pageVmListNormal(uuidList);
+
+    this.props.pageVmListHighlight([item.uuid]);
+      
+  }
+
   render() {
-    let { showModal, onConfirm, hideModal, name, pageVmShowDetail, pageVmHideDetail } = this.props
+    let { showModal, onConfirm, hideModal, name, pageVmShowDetail, pageVmHideDetail } = this.props;
+    let onClickTabRow = this.onClickTabRow;
     var list = [];
     let dbVm = this.props.dbVm;
     let pageVmList = this.props.pageVmList;
     if (!!dbVm && !!pageVmList) {
       pageVmList.forEach(function(item) {
-        list.push(dbVm[item]);
+        list.push(Object.assign({}, dbVm[item.uuid], {'highlight': item.highlight}));
       })
     }
     let currItem = null;
@@ -165,7 +187,10 @@ export class VmListPage extends React.Component {
             </thead>
             <tbody>
               {list.map(function(item){
-                return <tr key={item.uuid} className={appStyles.tableRow} onClick={() => pageVmShowDetail(item.uuid)}>
+                return <tr
+                    key={item.uuid}
+                    className={ item.highlight ? `${appStyles.tableRowHighlight}` : `${appStyles.tableRowNormal}` }
+                    onClick={() => onClickTabRow(item)}>
                   <td>{item.name}</td>
                   <td>{item.cpuNum}</td>
                   <td>{item.memorySize}</td>
@@ -185,7 +210,10 @@ export class VmListPage extends React.Component {
         { currItem &&
         <div className={appStyles.detailPage}>
           <div className={appStyles.detailPageHeader}>
-            <Button onClick={pageVmHideDetail}><span className='fa fa-close' /></Button>
+            <div>
+              <FormattedMessage {...messages.header} />
+              <span onClick={pageVmHideDetail} className={`${appStyles.detailPageClose} fa fa-close`} />
+            </div>
             {currItem.name}
           </div>
         </div>
@@ -230,7 +258,9 @@ function mapDispatchToProps(dispatch) {
     queryListFailed: () => dispatch(queryListFailed()),
     updateDbVmList: (list) => dispatch(updateDbVmList(list)),
     pageVmShowDetail: (uuid) => dispatch(pageVmShowDetail(uuid)),
-    pageVmHideDetail: () => dispatch(pageVmHideDetail())
+    pageVmHideDetail: () => dispatch(pageVmHideDetail()),
+    pageVmListHighlight: (uuidList) => dispatch(pageVmListHighlight(uuidList)),
+    pageVmListNormal: (uuidList) => dispatch(pageVmListNormal(uuidList)),
   };
 }
 
