@@ -18,6 +18,8 @@ import H1 from 'components/H1';
 
 import styles from './styles.css';
 
+import FontAwesome from 'react-fontawesome'
+
 import {
   queryListStart,
   setNameAndHideModal,
@@ -26,7 +28,9 @@ import {
   updateCreateVmDialog,
   pageVmDestroy,
   pageVmUpdateList,
-  queryListFailed
+  queryListFailed,
+  pageVmShowDetail,
+  pageVmHideDetail
 } from './actions';
 
 import {
@@ -35,7 +39,11 @@ import {
 
 import { selectDbVm } from '../App/selectors';
 
-import { selectPageVmList, selectPageVmCreateVmDialogData } from './selectors'
+import {
+  selectPageVmList,
+  selectPageVmCreateVmDialogData,
+  selectPageVmCurrItemUuid
+} from './selectors'
 
 import ConfirmModal from 'components/dialogs/ConfirmModal'
 
@@ -103,7 +111,7 @@ export class VmListPage extends React.Component {
   }
 
   render() {
-    let { showModal, onConfirm, hideModal, name } = this.props
+    let { showModal, onConfirm, hideModal, name, pageVmShowDetail, pageVmHideDetail } = this.props
     var list = [];
     let dbVm = this.props.dbVm;
     let pageVmList = this.props.pageVmList;
@@ -111,6 +119,10 @@ export class VmListPage extends React.Component {
       pageVmList.forEach(function(item) {
         list.push(dbVm[item]);
       })
+    }
+    let currItem = null;
+    if (!!this.props.currItemUuid) {
+      currItem = dbVm[this.props.currItemUuid]
     }
     return (
       <div>
@@ -123,25 +135,61 @@ export class VmListPage extends React.Component {
         <H1>
           <FormattedMessage {...messages.header} />
         </H1>
-        <table className={appStyles.defaultFont}>
-          <tbody>
-            {list.map(function(item){
-              return <tr key={item.uuid}>
-                <td>{item.name}</td>
-                <td>{item.cpuNum}</td>
-                <td>{item.memorySize}</td>
-                <td>{item.managementIp}</td>
-                <td>{item.managementIp}</td>
-                <td>{item.hypervisorType}</td>
-                <td>{item.clusterUuid}</td>
-                <td>{item.state}</td>
-                <td>{item.ownerName}</td>
-                <td>{item.haLevel}</td>
-                <td>{item.createDate}</td>
+        <div className={appStyles.tableContainer}>
+          <table className={`${appStyles.normalFont} ${appStyles.table}`}>
+            <thead>
+              <tr>
+                <th>1
+                </th>
+                <th>2
+                </th>
+                <th>3
+                </th>
+                <th>4
+                </th>
+                <th>5
+                </th>
+                <th>6
+                </th>
+                <th>7
+                </th>
+                <th>8
+                </th>
+                <th>9
+                </th>
+                <th>10
+                </th>
+                <th>11
+                </th>
               </tr>
-            })}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {list.map(function(item){
+                return <tr key={item.uuid} className={appStyles.tableRow} onClick={() => pageVmShowDetail(item.uuid)}>
+                  <td>{item.name}</td>
+                  <td>{item.cpuNum}</td>
+                  <td>{item.memorySize}</td>
+                  <td>{item.managementIp}</td>
+                  <td>{item.managementIp}</td>
+                  <td>{item.hypervisorType}</td>
+                  <td>{item.clusterUuid}</td>
+                  <td>{item.state}</td>
+                  <td>{item.ownerName}</td>
+                  <td>{item.haLevel}</td>
+                  <td>{item.createDate}</td>
+                </tr>
+              })}
+            </tbody>
+          </table>
+        </div>
+        { currItem &&
+        <div className={appStyles.detailPage}>
+          <div className={appStyles.detailPageHeader}>
+            <Button onClick={pageVmHideDetail}><span className='fa fa-close' /></Button>
+            {currItem.name}
+          </div>
+        </div>
+        }
         <Button onClick={this.queryList}>
           Query
         </Button>
@@ -149,11 +197,6 @@ export class VmListPage extends React.Component {
           Create
         </Button>
         <ConfirmModal message="'What your name?'" onConfirm={onConfirm} onCancel={hideModal} onUpdate={this.props.updateCreateVmDialog} data={this.props.createVmDialogData}></ConfirmModal>
-        { name &&
-          <div className="name">
-            {"Hello " + name}
-          </div>
-        }
       </div>
     );
   }
@@ -185,7 +228,9 @@ function mapDispatchToProps(dispatch) {
     pageVmDestroy: () => dispatch(pageVmDestroy()),
     pageVmUpdateList: (uuidList) => dispatch(pageVmUpdateList(uuidList)),
     queryListFailed: () => dispatch(queryListFailed()),
-    updateDbVmList: (list) => dispatch(updateDbVmList(list))
+    updateDbVmList: (list) => dispatch(updateDbVmList(list)),
+    pageVmShowDetail: (uuid) => dispatch(pageVmShowDetail(uuid)),
+    pageVmHideDetail: () => dispatch(pageVmHideDetail())
   };
 }
 
@@ -193,7 +238,8 @@ function mapDispatchToProps(dispatch) {
 const mapStateToProps = createStructuredSelector({
   dbVm: selectDbVm(),
   pageVmList: selectPageVmList(),
-  createVmDialogData: selectPageVmCreateVmDialogData()
+  createVmDialogData: selectPageVmCreateVmDialogData(),
+  currItemUuid: selectPageVmCurrItemUuid(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VmListPage);

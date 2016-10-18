@@ -21,7 +21,9 @@ import {
   PAGE_VM_QUERY_FAILED,
   PAGE_VM_UPDATE_LIST,
   PAGE_VM_DIALOG_CREATE_VM_UPDATE,
-  PAGE_VM_DESTROY
+  PAGE_VM_DESTROY,
+  PAGE_VM_SHOW_DETAIL,
+  PAGE_VM_HIDE_DETAIL
 } from './constants';
 
 /**
@@ -64,6 +66,19 @@ export function pageVmUpdateList(items) {
 export function pageVmDestroy() {
   return {
     type: PAGE_VM_DESTROY
+  };
+}
+
+export function pageVmShowDetail(uuid) {
+  return {
+    type: PAGE_VM_SHOW_DETAIL,
+    uuid
+  };
+}
+
+export function pageVmHideDetail() {
+  return {
+    type: PAGE_VM_HIDE_DETAIL,
   };
 }
 

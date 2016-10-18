@@ -10,7 +10,13 @@
  *   return state.set('yourStateVariable', true);
  */
 
-import { PAGE_VM_UPDATE_LIST, PAGE_VM_DIALOG_CREATE_VM_UPDATE } from './constants';
+import {
+  PAGE_VM_UPDATE_LIST,
+  PAGE_VM_DIALOG_CREATE_VM_UPDATE,
+  PAGE_VM_SHOW_DETAIL,
+  PAGE_VM_HIDE_DETAIL
+} from './constants';
+
 import { fromJS } from 'immutable';
 
 // The initial state of the App
@@ -71,11 +77,25 @@ function name(state = null, action) {
   }
  
 }
+
+function currItemUuid(state = null, action) {
+ 
+  switch (action.type) {
+    case PAGE_VM_SHOW_DETAIL:
+      return action.uuid
+    case PAGE_VM_HIDE_DETAIL:
+      return null
+    default:
+      return state
+  }
+ 
+}
  
 export default combineReducers({
   list,
   modals,
-  name
+  name,
+  currItemUuid
 })
 
 // export default vmReducer;

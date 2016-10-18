@@ -100,7 +100,7 @@ export class LoginPage extends React.Component {
           </A>
           <input
             id="username"
-            className={`${styles.inputCommon} ${styles.inputUsername} ${appStyles.defaultFont}`}
+            className={`${styles.inputCommon} ${styles.inputUsername} ${appStyles.normalFont}`}
             type="text"
             placeholder={this.props.intl.formatMessage(messages.username)}
             value={this.state.username}
@@ -108,7 +108,7 @@ export class LoginPage extends React.Component {
           />
           <input
             id="password"
-            className={`${styles.inputCommon} ${styles.inputPassword} ${appStyles.defaultFont}`}
+            className={`${styles.inputCommon} ${styles.inputPassword} ${appStyles.normalFont}`}
             type="password"
             placeholder={this.props.intl.formatMessage(messages.password)}
             value={this.state.password}

@@ -15,3 +15,5 @@ export const PAGE_VM_QUERY_FAILED = 'zs/page/vm/query/list/failed';
 export const PAGE_VM_UPDATE_LIST = 'zs/page/vm/update/list';
 export const PAGE_VM_DIALOG_CREATE_VM_UPDATE = 'zs/page/vm/dialog/createVm/update';
 export const PAGE_VM_DESTROY = 'zs/page/vm/destroy';
+export const PAGE_VM_SHOW_DETAIL = 'zs/page/vm/show/detail';
+export const PAGE_VM_HIDE_DETAIL = 'zs/page/vm/hide/detail';
