@@ -17,23 +17,24 @@
   height: 100%;
 }
 
-.inputUsername {
+.inputCommon {
   padding: 0 15px;
   width: 200px;
   height: 44px;
   border: none;
+}
+
+.inputUsername {
   background-color: white;
   border-radius: 4px 4px 0 0!important;
   margin-bottom: 1px;
+  outline: 0;
 }
 
 .inputPassword {
-  padding: 0 15px;
-  width: 200px;
-  height: 44px;
-  border: none;
   background-color: white;
   border-radius: 0 0 4px 4px!important;
+  outline: 0;
 }
 
 .center {

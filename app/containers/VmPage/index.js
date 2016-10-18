@@ -42,6 +42,8 @@ import ConfirmModal from 'components/dialogs/ConfirmModal'
 import { apiCall } from 'utils/remoteCall';
 import { firstItem } from 'utils/helpers'
 
+import appStyles from '../App/styles.css';
+
 export class VmListPage extends React.Component {
 
   constructor(props, context) {
@@ -121,7 +123,7 @@ export class VmListPage extends React.Component {
         <H1>
           <FormattedMessage {...messages.header} />
         </H1>
-        <table>
+        <table className={appStyles.defaultFont}>
           <tbody>
             {list.map(function(item){
               return <tr key={item.uuid}>

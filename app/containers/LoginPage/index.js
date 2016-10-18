@@ -15,6 +15,7 @@ import Button from 'components/Button';
 import H1 from 'components/H1';
 
 import styles from './styles.css';
+import appStyles from '../App/styles.css';
 
 import io from 'socket.io-client/dist/socket.io';
 import sha512 from 'crypto-js/sha512';
@@ -99,7 +100,7 @@ export class LoginPage extends React.Component {
           </A>
           <input
             id="username"
-            className={styles.inputUsername}
+            className={`${styles.inputCommon} ${styles.inputUsername} ${appStyles.defaultFont}`}
             type="text"
             placeholder={this.props.intl.formatMessage(messages.username)}
             value={this.state.username}
@@ -107,7 +108,7 @@ export class LoginPage extends React.Component {
           />
           <input
             id="password"
-            className={styles.inputPassword}
+            className={`${styles.inputCommon} ${styles.inputPassword} ${appStyles.defaultFont}`}
             type="password"
             placeholder={this.props.intl.formatMessage(messages.password)}
             value={this.state.password}

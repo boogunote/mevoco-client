@@ -69,7 +69,7 @@ const history = syncHistoryWithStore(browserHistory, store, {
 
 // Set up the router, wrapping all Routes in the App component
 import App from 'containers/App';
-import Main from 'containers/Main';
+import MainPage from 'containers/MainPage';
 import createRoutes from './routes';
 const rootRoute = {
   component: App,
@@ -106,7 +106,7 @@ const render = (translatedMessages) => {
         >
           <Route path='/' component={App}>
             <Route path='login' store={store} component={LoginPage}/>
-            <Route path='main' store={store} component={Main}>
+            <Route path='main' store={store} component={MainPage}>
               <Route path='vm' store={store} component={VmPage}/>
             </Route>
           </Route>
