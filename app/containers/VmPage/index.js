@@ -187,9 +187,14 @@ export class VmListPage extends React.Component {
             </thead>
             <tbody>
               {list.map(function(item){
+                let rowStyle = null;
+                if (!!item.highlight)
+                  rowStyle = appStyles.tableRow + ' ' + appStyles.tableRowHighlight;
+                else
+                  rowStyle = appStyles.tableRow + ' ' + appStyles.tableRowNormal;
                 return <tr
                     key={item.uuid}
-                    className={ item.highlight ? `${appStyles.tableRowHighlight}` : `${appStyles.tableRowNormal}` }
+                    className={ rowStyle }
                     onClick={() => onClickTabRow(item)}>
                   <td>{item.name}</td>
                   <td>{item.cpuNum}</td>
