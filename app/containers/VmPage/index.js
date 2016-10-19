@@ -32,7 +32,10 @@ import {
   pageVmShowDetail,
   pageVmHideDetail,
   pageVmListHighlight,
-  pageVmListNormal
+  pageVmListNormal,
+  pageVmSetPageSize,
+  pageVmSetItemCount,
+  pageVmSetPageNumber
 } from './actions';
 
 import {
@@ -44,7 +47,10 @@ import { selectDbVm } from '../App/selectors';
 import {
   selectPageVmList,
   selectPageVmCreateVmDialogData,
-  selectPageVmCurrItemUuid
+  selectPageVmCurrItemUuid,
+  selectPageVmPageSize,
+  selectPageVmPageNumber,
+  selectPageVmItemCount
 } from './selectors'
 
 import ConfirmModal from 'components/dialogs/ConfirmModal'
@@ -54,6 +60,8 @@ import { firstItem } from 'utils/helpers'
 
 import appStyles from '../App/styles.css';
 
+// import { pageSizeList } from 'constants.js'
+
 export class VmListPage extends React.Component {
 
   constructor(props, context) {
@@ -62,6 +70,7 @@ export class VmListPage extends React.Component {
 
   componentWillMount() {
     this.globalState = this.props.route.store.getState();
+    this.pageSizeList = [10, 20, 50];
   }
 
   componentDidMount() {
@@ -87,7 +96,8 @@ export class VmListPage extends React.Component {
     apiCall({
       'org.zstack.header.vm.APIQueryVmInstanceMsg': {
         count: false,
-        start: 0,
+        start: self.props.pageSize*(self.props.pageNumber - 1),
+        limit: self.props.pageSize,
         replyWithCount: true,
         conditions: []
       }
@@ -104,6 +114,7 @@ export class VmListPage extends React.Component {
             });
           })
           self.props.pageVmUpdateList(pageItemList);
+          self.props.pageVmSetItemCount(ret.total);
         }
       } else {
         self.props.queryListFailed(ret);
@@ -131,22 +142,69 @@ export class VmListPage extends React.Component {
       
   }
 
+  onPageSizeChange = (event) => {
+    this.props.setPageSize(event.target.value);
+    this.props.pageVmSetPageNumber(1);
+    let self = this;
+    setTimeout(function() {self.queryList()}, 0);
+  }
+
+  onPageUp = () => {
+    if ((this.props.pageNumber - 1) >= 1) {
+      this.props.pageVmSetPageNumber(this.props.pageNumber - 1);
+      let self = this;
+      setTimeout(function() {self.queryList()}, 0);
+    }
+  }
+
+  onPageDown = () => {
+    let pageCount = 0;
+    if (this.props.pageSize != 0)
+      pageCount = Math.ceil(this.props.itemCount / this.props.pageSize);
+    if ((this.props.pageNumber + 1) <= pageCount) {
+      this.props.pageVmSetPageNumber(this.props.pageNumber + 1);
+      let self = this;
+      setTimeout(function() {self.queryList()}, 0);
+    }
+  }
+
   render() {
-    let { showModal, onConfirm, hideModal, name, pageVmShowDetail, pageVmHideDetail } = this.props;
+    let {
+      showModal,
+      onConfirm,
+      hideModal,
+      name,
+      pageVmShowDetail,
+      pageVmHideDetail,
+    } = this.props;
+    
     let onClickTabRow = this.onClickTabRow;
+    let onPageSizeChange = this.onPageSizeChange;
+    let onPageUp = this.onPageUp;
+    let onPageDown = this.onPageDown;
+
+    let pageSize = this.props.pageSize;
     var list = [];
     let dbVm = this.props.dbVm;
     let pageVmList = this.props.pageVmList;
     if (!!dbVm && !!pageVmList) {
       pageVmList.forEach(function(item) {
-        list.push(Object.assign({}, dbVm[item.uuid], {'highlight': item.highlight}));
+        if (!!dbVm[item.uuid]) {
+          list.push(Object.assign({}, dbVm[item.uuid], {'highlight': item.highlight}));
+        }
       })
     }
+
     let currItem = null;
     if (!!this.props.currItemUuid) {
       currItem = dbVm[this.props.currItemUuid]
     }
-    console.log(appStyles)
+
+    let pageNumber = this.props.pageNumber;
+    let pageCount = 0;
+    if (this.props.pageSize != 0)
+      pageCount = Math.ceil(this.props.itemCount / this.props.pageSize);
+
     return (
       <div>
         <Helmet
@@ -160,8 +218,16 @@ export class VmListPage extends React.Component {
         </H1>
         <div className={appStyles.tableContainer}>
           <div className={appStyles.pagination}>
-            <button className={`${appStyles.paginationButton} ${appStyles.left}`}><span className="fa fa-angle-left"/></button>
-            <button className={`${appStyles.paginationButton} ${appStyles.right}`}><span className="fa fa-angle-right"/></button>
+            <select onChange={(event) => {onPageSizeChange(event)}} value={pageSize}>
+              {
+                this.pageSizeList.map(function(item) {
+                  return <option key={item} value={item}>{item}</option>
+                })
+              }
+            </select>
+            {pageNumber}/{pageCount}
+            <button className={`${appStyles.paginationButton} ${appStyles.left}`} onClick={onPageUp}><span className="fa fa-angle-left"/></button>
+            <button className={`${appStyles.paginationButton} ${appStyles.right}`} onClick={onPageDown}><span className="fa fa-angle-right"/></button>
           </div>
           <table className={`${appStyles.normalFont} ${appStyles.table}`}>
             <thead>
@@ -271,6 +337,9 @@ function mapDispatchToProps(dispatch) {
     pageVmHideDetail: () => dispatch(pageVmHideDetail()),
     pageVmListHighlight: (uuidList) => dispatch(pageVmListHighlight(uuidList)),
     pageVmListNormal: (uuidList) => dispatch(pageVmListNormal(uuidList)),
+    setPageSize: (size) => dispatch(pageVmSetPageSize(size)),
+    pageVmSetItemCount: (count) => dispatch(pageVmSetItemCount(count)),
+    pageVmSetPageNumber: (number) => dispatch(pageVmSetPageNumber(number)),
   };
 }
 
@@ -280,6 +349,9 @@ const mapStateToProps = createStructuredSelector({
   pageVmList: selectPageVmList(),
   createVmDialogData: selectPageVmCreateVmDialogData(),
   currItemUuid: selectPageVmCurrItemUuid(),
+  pageSize: selectPageVmPageSize(),
+  pageNumber: selectPageVmPageNumber(),
+  itemCount: selectPageVmItemCount()
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VmListPage);

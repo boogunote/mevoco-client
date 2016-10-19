@@ -32,6 +32,7 @@ export function loginByAccount(param) {
 }
 
 export function apiCall(msg, evt) {
+  console.log(msg)
   return new Promise(function(resolve, reject) {
     // var msg = {};
     // if (!msgBody)

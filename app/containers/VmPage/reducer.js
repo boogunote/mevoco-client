@@ -16,7 +16,10 @@ import {
   PAGE_VM_SHOW_DETAIL,
   PAGE_VM_HIDE_DETAIL,
   PAGE_VM_LIST_HIGHLIGHT,
-  PAGE_VM_LIST_NORMAL
+  PAGE_VM_LIST_NORMAL,
+  PAGE_VM_LIST_SET_PAGE_SIZE,
+  PAGE_VM_LIST_SET_PAGE_NUMBER,
+  PAGE_VM_LIST_SET_ITEM_COUNT
 } from './constants';
 
 import { fromJS } from 'immutable';
@@ -30,7 +33,7 @@ function list(state = [],
 action) {
   switch (action.type) {
     case PAGE_VM_UPDATE_LIST: {
-      return Object.assign([], state, action.items);
+      return Object.assign([], action.items);
     }
     case PAGE_VM_LIST_HIGHLIGHT: {
       let newList = Object.assign([], state);
@@ -115,12 +118,42 @@ function currItemUuid(state = null, action) {
   }
  
 }
+
+function pageSize(state = 20, action) {
+  switch (action.type) {
+    case PAGE_VM_LIST_SET_PAGE_SIZE:
+      return action.size
+    default:
+      return state
+  }
+}
+
+function pageNumber(state = 1, action) {
+  switch (action.type) {
+    case PAGE_VM_LIST_SET_PAGE_NUMBER:
+      return action.number
+    default:
+      return state
+  }
+}
+
+function count(state = 0, action) {
+  switch (action.type) {
+    case PAGE_VM_LIST_SET_ITEM_COUNT:
+      return action.count
+    default:
+      return state
+  }
+}
  
 export default combineReducers({
   list,
   modals,
   name,
-  currItemUuid
+  currItemUuid,
+  pageSize,
+  pageNumber,
+  count
 })
 
 // export default vmReducer;

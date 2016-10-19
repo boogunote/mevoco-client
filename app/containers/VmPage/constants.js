@@ -19,3 +19,6 @@ export const PAGE_VM_SHOW_DETAIL = 'zs/page/vm/show/detail';
 export const PAGE_VM_HIDE_DETAIL = 'zs/page/vm/hide/detail';
 export const PAGE_VM_LIST_HIGHLIGHT = 'zs/page/vm/list/highlight';
 export const PAGE_VM_LIST_NORMAL = 'zs/page/vm/list/normal';
+export const PAGE_VM_LIST_SET_PAGE_SIZE = 'zs/page/vm/setPageSize';
+export const PAGE_VM_LIST_SET_PAGE_NUMBER = 'zs/page/vm/setPageNumber';
+export const PAGE_VM_LIST_SET_ITEM_COUNT = 'zs/page/vm/setItemCount';

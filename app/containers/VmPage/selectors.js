@@ -23,3 +23,24 @@ export const selectPageVmCurrItemUuid = () => createSelector(
     return pageVm.currItemUuid
   }
 );
+
+export const selectPageVmPageSize = () => createSelector(
+  selectPageVm(),
+  (pageVm) => {
+    return pageVm.pageSize
+  }
+);
+
+export const selectPageVmPageNumber = () => createSelector(
+  selectPageVm(),
+  (pageVm) => {
+    return pageVm.pageNumber
+  }
+);
+
+export const selectPageVmItemCount = () => createSelector(
+  selectPageVm(),
+  (pageVm) => {
+    return pageVm.count
+  }
+);

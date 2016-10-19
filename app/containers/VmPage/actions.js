@@ -25,7 +25,10 @@ import {
   PAGE_VM_SHOW_DETAIL,
   PAGE_VM_HIDE_DETAIL,
   PAGE_VM_LIST_HIGHLIGHT,
-  PAGE_VM_LIST_NORMAL
+  PAGE_VM_LIST_NORMAL,
+  PAGE_VM_LIST_SET_PAGE_SIZE,
+  PAGE_VM_LIST_SET_ITEM_COUNT,
+  PAGE_VM_LIST_SET_PAGE_NUMBER
 } from './constants';
 
 /**
@@ -95,6 +98,27 @@ export function pageVmListNormal(uuidList) {
   return {
     type: PAGE_VM_LIST_NORMAL,
     uuidList
+  };
+}
+
+export function pageVmSetPageSize(size) {
+  return {
+    type: PAGE_VM_LIST_SET_PAGE_SIZE,
+    size
+  };
+}
+
+export function pageVmSetPageNumber(number) {
+  return {
+    type: PAGE_VM_LIST_SET_PAGE_NUMBER,
+    number
+  };
+}
+
+export function pageVmSetItemCount(count) {
+  return {
+    type: PAGE_VM_LIST_SET_ITEM_COUNT,
+    count
   };
 }
 
