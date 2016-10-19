@@ -43,7 +43,7 @@ body {
 }
 
 .table {
-
+  width: 100%;
 }
 
 .tableRowHighlight {
@@ -103,4 +103,34 @@ body {
 
 .detailPageClose:hover {
   color: #fff;
+}
+
+.pagination {
+  float: right;
+}
+
+.paginationButton {
+  outline: 0;
+  background-color: #A9B2BD;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  float: left;
+  border: none;
+  margin-right: 1px;
+  transition: all 70ms linear 0s;
+  cursor: pointer;
+}
+
+.paginationButton.left {
+  border-radius: 4px 0 0 4px;
+}
+
+.paginationButton.right {
+  border-radius: 0 4px 4px 0;
+}
+
+.paginationButton:hover {
+  background-color: #99A4B1;
 }

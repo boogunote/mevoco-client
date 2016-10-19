@@ -146,6 +146,7 @@ export class VmListPage extends React.Component {
     if (!!this.props.currItemUuid) {
       currItem = dbVm[this.props.currItemUuid]
     }
+    console.log(appStyles)
     return (
       <div>
         <Helmet
@@ -158,6 +159,10 @@ export class VmListPage extends React.Component {
           <FormattedMessage {...messages.header} />
         </H1>
         <div className={appStyles.tableContainer}>
+          <div className={appStyles.pagination}>
+            <button className={`${appStyles.paginationButton} ${appStyles.left}`}><span className="fa fa-angle-left"/></button>
+            <button className={`${appStyles.paginationButton} ${appStyles.right}`}><span className="fa fa-angle-right"/></button>
+          </div>
           <table className={`${appStyles.normalFont} ${appStyles.table}`}>
             <thead>
               <tr>
