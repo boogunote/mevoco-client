@@ -11,15 +11,7 @@ import { fromJS } from 'immutable';
 function windowReducer(state = {}, action) {
   switch (action.type) {
     case WINDOW_UPDATE: {
-      // NOTICE: To avoid uncontrolled component warning in React,
-      // default value should be provided.
-      // https://github.com/twisty/formsy-react-components/issues/66
-      let initWindow = {
-        uuid: '',
-        'name': ''
-      }
-
-      let newWindow = Object.assign(initWindow, state[action.uuid], action.item);
+      let newWindow = Object.assign({}, state[action.uuid], action.item);
       let newState = Object.assign({}, state);
       newState[action.uuid] = newWindow;
       

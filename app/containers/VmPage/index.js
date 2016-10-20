@@ -128,8 +128,15 @@ export class VmListPage extends React.Component {
 
   openCreateVmDialog = () => {
     this.props.pageVmShowCreateDialog(true);
-    this.createVmDialogUuid = genUniqueId('window');
-    this.props.updateWindow(this.createVmDialogUuid, {uuid: this.createVmDialogUuid});
+    this.createVmDialogUuid = genUniqueId('window-createVm-');
+
+    // NOTICE: To avoid uncontrolled component warning in React,
+    // default value should be provided.
+    // https://github.com/twisty/formsy-react-components/issues/66
+    this.props.updateWindow(this.createVmDialogUuid, {
+      uuid: this.createVmDialogUuid,
+      name: ''
+    });
   }
 
   closeCreateVmDialog = () => {
@@ -315,7 +322,7 @@ export class VmListPage extends React.Component {
         <Button onClick={this.queryList}>
           Query
         </Button>
-        { showCreateVmDialog && <CreateVmDialog closeDialog={closeCreateVmDialog} update={this.props.updateWindow} uuid={this.createVmDialogUuid}/> }
+        { showCreateVmDialog && <CreateVmDialog cancel={closeCreateVmDialog} update={this.props.updateWindow} uuid={this.createVmDialogUuid}/> }
       </div>
     );
   }

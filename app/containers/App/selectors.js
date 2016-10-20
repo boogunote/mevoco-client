@@ -64,6 +64,21 @@ const selectDbVm = () => createSelector(
   (db) => db.get('vm')
 );
 
+const selectDbInstanceOffering = () => createSelector(
+  selectDb(),
+  (db) => db.get('instanceOffering')
+);
+
+const selectDbImage = () => createSelector(
+  selectDb(),
+  (db) => db.get('image')
+);
+
+const selectDbL3Network = () => createSelector(
+  selectDb(),
+  (db) => db.get('l3Network')
+);
+
 const selectPageVm = () => (state) => 
 {
   return state.get('vm');
@@ -85,6 +100,9 @@ export {
   selectApiCalls,
   selectDb,
   selectDbVm,
+  selectDbInstanceOffering,
+  selectDbImage,
+  selectDbL3Network,
   selectPageVm,
   selectWindow
 };
