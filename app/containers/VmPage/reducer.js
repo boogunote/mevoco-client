@@ -19,7 +19,8 @@ import {
   PAGE_VM_LIST_NORMAL,
   PAGE_VM_LIST_SET_PAGE_SIZE,
   PAGE_VM_LIST_SET_PAGE_NUMBER,
-  PAGE_VM_LIST_SET_ITEM_COUNT
+  PAGE_VM_LIST_SET_ITEM_COUNT,
+  PAGE_VM_SHOW_CREATE_VM_DIALOG
 } from './constants';
 
 import { fromJS } from 'immutable';
@@ -145,6 +146,15 @@ function count(state = 0, action) {
       return state
   }
 }
+
+function showCreateDialog(state = false, action) {
+  switch (action.type) {
+    case PAGE_VM_SHOW_CREATE_VM_DIALOG:
+      return action.show
+    default:
+      return state
+  }
+}
  
 export default combineReducers({
   list,
@@ -153,7 +163,8 @@ export default combineReducers({
   currItemUuid,
   pageSize,
   pageNumber,
-  count
+  count,
+  showCreateDialog
 })
 
 // export default vmReducer;

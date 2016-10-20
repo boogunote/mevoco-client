@@ -35,14 +35,17 @@ import {
   pageVmListNormal,
   pageVmSetPageSize,
   pageVmSetItemCount,
-  pageVmSetPageNumber
+  pageVmSetPageNumber,
+  pageVmShowCreateDialog
 } from './actions';
 
 import {
   updateDbVmList
 } from '../App/dbActions';
 
-import { selectDbVm } from '../App/selectors';
+import { updateWindow } from '../App/windowActions'
+
+import { selectDbVm, selectWindow } from '../App/selectors';
 
 import {
   selectPageVmList,
@@ -50,10 +53,11 @@ import {
   selectPageVmCurrItemUuid,
   selectPageVmPageSize,
   selectPageVmPageNumber,
-  selectPageVmItemCount
+  selectPageVmItemCount,
+  selectPageVmShowCreateDialog
 } from './selectors'
 
-import ConfirmModal from 'components/dialogs/ConfirmModal'
+import CreateVmDialog from 'components/dialogs/CreateVmDialog.js'
 
 import { apiCall } from 'utils/remoteCall';
 import { firstItem } from 'utils/helpers'
@@ -123,7 +127,13 @@ export class VmListPage extends React.Component {
   }
 
   openCreateVmDialog = () => {
-    this.props.showModal("What your name?");
+    this.props.pageVmShowCreateDialog(true);
+    this.createVmDialogUuid = genUniqueId('window');
+    this.props.updateWindow(this.createVmDialogUuid, {uuid: this.createVmDialogUuid});
+  }
+
+  closeCreateVmDialog = () => {
+    this.props.pageVmShowCreateDialog(false);
   }
 
   onClickTabRow = (item) => {
@@ -205,6 +215,11 @@ export class VmListPage extends React.Component {
     if (this.props.pageSize != 0)
       pageCount = Math.ceil(this.props.itemCount / this.props.pageSize);
 
+    let showCreateVmDialog = this.props.showCreateVmDialog;
+    let closeCreateVmDialog = this.closeCreateVmDialog;
+
+    let createVmDialogData = this.props.globalWindow[this.createVmDialogUuid];
+
     return (
       <div>
         <Helmet
@@ -216,6 +231,9 @@ export class VmListPage extends React.Component {
         <H1>
           <FormattedMessage {...messages.header} />
         </H1>
+        <Button onClick={this.openCreateVmDialog}>
+          Create
+        </Button>
         <div className={appStyles.tableContainer}>
           <div className={appStyles.pagination}>
             <select onChange={(event) => {onPageSizeChange(event)}} value={pageSize}>
@@ -297,10 +315,7 @@ export class VmListPage extends React.Component {
         <Button onClick={this.queryList}>
           Query
         </Button>
-        <Button onClick={this.openCreateVmDialog}>
-          Create
-        </Button>
-        <ConfirmModal message="'What your name?'" onConfirm={onConfirm} onCancel={hideModal} onUpdate={this.props.updateCreateVmDialog} data={this.props.createVmDialogData}></ConfirmModal>
+        { showCreateVmDialog && <CreateVmDialog closeDialog={closeCreateVmDialog} update={this.props.updateWindow} uuid={this.createVmDialogUuid}/> }
       </div>
     );
   }
@@ -340,6 +355,8 @@ function mapDispatchToProps(dispatch) {
     setPageSize: (size) => dispatch(pageVmSetPageSize(size)),
     pageVmSetItemCount: (count) => dispatch(pageVmSetItemCount(count)),
     pageVmSetPageNumber: (number) => dispatch(pageVmSetPageNumber(number)),
+    pageVmShowCreateDialog: (show) => dispatch(pageVmShowCreateDialog(show)),
+    updateWindow: (uuid, item) => dispatch(updateWindow(uuid, item)),
   };
 }
 
@@ -351,7 +368,9 @@ const mapStateToProps = createStructuredSelector({
   currItemUuid: selectPageVmCurrItemUuid(),
   pageSize: selectPageVmPageSize(),
   pageNumber: selectPageVmPageNumber(),
-  itemCount: selectPageVmItemCount()
+  itemCount: selectPageVmItemCount(),
+  showCreateVmDialog: selectPageVmShowCreateDialog(),
+  globalWindow: selectWindow()
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VmListPage);

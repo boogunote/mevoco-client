@@ -69,6 +69,8 @@ const selectPageVm = () => (state) =>
   return state.get('vm');
 }
 
+const selectWindow = () => (state) => state.get('window');
+
 // const selectWindows = () => (state) => state.get('windows');
 
 export {
@@ -83,5 +85,6 @@ export {
   selectApiCalls,
   selectDb,
   selectDbVm,
-  selectPageVm
+  selectPageVm,
+  selectWindow
 };

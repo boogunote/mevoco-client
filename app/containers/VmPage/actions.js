@@ -28,7 +28,8 @@ import {
   PAGE_VM_LIST_NORMAL,
   PAGE_VM_LIST_SET_PAGE_SIZE,
   PAGE_VM_LIST_SET_ITEM_COUNT,
-  PAGE_VM_LIST_SET_PAGE_NUMBER
+  PAGE_VM_LIST_SET_PAGE_NUMBER,
+  PAGE_VM_SHOW_CREATE_VM_DIALOG
 } from './constants';
 
 /**
@@ -119,6 +120,13 @@ export function pageVmSetItemCount(count) {
   return {
     type: PAGE_VM_LIST_SET_ITEM_COUNT,
     count
+  };
+}
+
+export function pageVmShowCreateDialog(show) {
+  return {
+    type: PAGE_VM_SHOW_CREATE_VM_DIALOG,
+    show
   };
 }
 

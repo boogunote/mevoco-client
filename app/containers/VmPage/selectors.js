@@ -44,3 +44,10 @@ export const selectPageVmItemCount = () => createSelector(
     return pageVm.count
   }
 );
+
+export const selectPageVmShowCreateDialog = () => createSelector(
+  selectPageVm(),
+  (pageVm) => {
+    return pageVm.showCreateDialog
+  }
+);

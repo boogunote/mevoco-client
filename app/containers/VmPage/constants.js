@@ -22,3 +22,4 @@ export const PAGE_VM_LIST_NORMAL = 'zs/page/vm/list/normal';
 export const PAGE_VM_LIST_SET_PAGE_SIZE = 'zs/page/vm/setPageSize';
 export const PAGE_VM_LIST_SET_PAGE_NUMBER = 'zs/page/vm/setPageNumber';
 export const PAGE_VM_LIST_SET_ITEM_COUNT = 'zs/page/vm/setItemCount';
+export const PAGE_VM_SHOW_CREATE_VM_DIALOG = 'zs/page/vm/showCreateVmDialog';
