@@ -185,6 +185,27 @@ export class VmListPage extends React.Component {
     }
   }
 
+  createVm = (data) => {
+    let self = this;
+    apiCall({
+      'org.zstack.header.vm.APICreateVmInstanceMsg': {
+        name: data.name,
+        instanceOfferingUuid: data.instanceOfferingUuid,
+        imageUuid: data.imageUuid,
+        l3NetworkUuids: data.l3NetworkUuids,
+        defaultL3NetworkUuid: data.l3NetworkUuids[0]
+      }
+    }).then(function(result) {
+      var ret = firstItem(result);
+      if (ret.success) {
+        self.queryList()
+      } else {
+        console.log(JSON.stringify(result))
+        self.props.queryListFailed(ret);
+      }
+    })
+  }
+
   render() {
     let {
       showModal,
@@ -322,7 +343,7 @@ export class VmListPage extends React.Component {
         <Button onClick={this.queryList}>
           Query
         </Button>
-        { showCreateVmDialog && <CreateVmDialog cancel={closeCreateVmDialog} update={this.props.updateWindow} uuid={this.createVmDialogUuid}/> }
+        { showCreateVmDialog && <CreateVmDialog cancel={closeCreateVmDialog}  ok={this.createVm} update={this.props.updateWindow} uuid={this.createVmDialogUuid}/> }
       </div>
     );
   }

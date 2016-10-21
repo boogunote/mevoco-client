@@ -24,7 +24,14 @@ import {
 
 class CreateVmDialog extends Component {
 
-  onClose = () => {
+  onOk = () => {
+    this.props.destroyWindow(this.props.uuid);
+
+    let windowData = this.props.globalWindow[this.props.uuid];
+    this.props.ok(Object.assign({}, windowData));
+  }
+
+  onCancel = () => {
     this.props.destroyWindow(this.props.uuid);
     this.props.cancel();
   }
@@ -88,7 +95,7 @@ class CreateVmDialog extends Component {
 
   selectL3NetworkOk = (uuid) => {
     this.props.updateWindow(this.props.uuid, {l3NetworkDialogUuid: false});
-    this.props.updateWindow(this.props.uuid, {l3NetworkUuid: uuid});
+    this.props.updateWindow(this.props.uuid, {l3NetworkUuids: [uuid]});
   }
 
   selectL3NetworkCancel = () => {
@@ -120,8 +127,8 @@ class CreateVmDialog extends Component {
                 { windowData.l3NetworkUuid && this.props.dbL3Network[windowData.l3NetworkUuid].name}
                 <button className={styles.btn} onClick={this.onOpenL3NetworkDialog}>L3 Network</button>
               </div>
-              <button className={styles.btn}>OK</button>
-              <button className={styles.btn} onClick={(event) => this.onClose(event)}>Cancel</button>
+              <button className={styles.btn} onClick={this.onOk}>OK</button>
+              <button className={styles.btn} onClick={(event) => this.onCancel(event)}>Cancel</button>
               { !!windowData.instanceOfferingDialogUuid && <SelectInstanceOfferingDialog ok={this.selectInstanceOfferingOk} cancel={this.selectInstanceOfferingCancel} uuid={windowData.instanceOfferingDialogUuid}/> }
               { !!windowData.imageDialogUuid && <SelectImageDialog ok={this.selectImageOk} cancel={this.selectImageCancel} uuid={windowData.imageDialogUuid}/> }
               { !!windowData.l3NetworkDialogUuid && <SelectL3NetworkDialog ok={this.selectL3NetworkOk} cancel={this.selectL3NetworkCancel} uuid={windowData.l3NetworkDialogUuid}/> }
