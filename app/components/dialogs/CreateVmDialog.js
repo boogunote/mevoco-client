@@ -35,23 +35,23 @@ class CreateVmDialog extends Component {
   }
 
   onOpenInstanceOfferingDialog = () => {
-    this.props.updateWindow(this.props.uuid, {showSelectInstanceOfferingDialog: true});
-    this.selectInstanceOfferingDialogUuid = genUniqueId('window-instanceOffering-');
-    this.props.updateWindow(this.selectInstanceOfferingDialogUuid, {
-      uuid: this.selectInstanceOfferingDialogUuid,
+    let newDialogUuid = genUniqueId('window-instanceOffering-');
+    this.props.updateWindow(newDialogUuid, {
+      uuid: newDialogUuid,
       pageSize: 20,
       pageNumber: 1,
       pageCount: 0,
     });
+    this.props.updateWindow(this.props.uuid, {selectInstanceOfferingDialogUuid: newDialogUuid});
   }
 
   selectInstanceOfferingOk = (uuid) => {
-    this.props.updateWindow(this.props.uuid, {showSelectInstanceOfferingDialog: false});
+    this.props.updateWindow(this.props.uuid, {selectInstanceOfferingDialogUuid: undefined});
     this.props.updateWindow(this.props.uuid, {instanceOfferingUuid: uuid});
   }
 
   selectInstanceOfferingCancel = () => {
-    this.props.updateWindow(this.props.uuid, {showSelectInstanceOfferingDialog: false});
+    this.props.updateWindow(this.props.uuid, {selectInstanceOfferingDialogUuid: undefined});
   }
 
   onOpenImageDialog = () => {
@@ -95,8 +95,10 @@ class CreateVmDialog extends Component {
   }
 
   render() {
-    let data = this.props.globalWindow[this.props.uuid];
-    if (!data) return null;
+    let windowData = this.props.globalWindow[this.props.uuid];
+    if (!windowData) return null;
+
+
     return (
       <div className={styles.confirmModal}>
         <div>
@@ -104,24 +106,24 @@ class CreateVmDialog extends Component {
             <div className={styles.modalBackdrop}></div>
             <div className={styles.confirmModalContent}>
               <span className={styles.confirmModalMessage}>Create VM</span>
-              <input className={styles.confirmModalInput} type="text" value={data.name} onChange={this.onChangeName}/>
+              <input className={styles.confirmModalInput} type="text" value={windowData.name} onChange={this.onChangeName}/>
               <div>
-                { data.instanceOfferingUuid && this.props.dbInstanceOffering[data.instanceOfferingUuid].name}
+                { windowData.instanceOfferingUuid && this.props.dbInstanceOffering[windowData.instanceOfferingUuid].name}
                 <button className={styles.btn} onClick={this.onOpenInstanceOfferingDialog}>InstanceOffering</button>
               </div>
               <div>
-                { data.imageUuid && this.props.dbImage[data.imageUuid].name}
+                { windowData.imageUuid && this.props.dbImage[windowData.imageUuid].name}
                 <button className={styles.btn} onClick={this.onOpenImageDialog}>Image</button>
               </div>
               <div>
-                { data.l3NetworkUuid && this.props.dbL3Network[data.l3NetworkUuid].name}
+                { windowData.l3NetworkUuid && this.props.dbL3Network[windowData.l3NetworkUuid].name}
                 <button className={styles.btn} onClick={this.onOpenL3NetworkDialog}>L3 Network</button>
               </div>
               <button className={styles.btn}>OK</button>
               <button className={styles.btn} onClick={(event) => this.onClose(event)}>Cancel</button>
-              { data.showSelectInstanceOfferingDialog && <SelectInstanceOfferingDialog ok={this.selectInstanceOfferingOk} cancel={this.selectInstanceOfferingCancel} uuid={this.selectInstanceOfferingDialogUuid}/> }
-              { data.showSelectImageDialog && <SelectImageDialog ok={this.selectImageOk} cancel={this.selectImageCancel} uuid={this.selectImageDialogUuid}/> }
-              { data.showSelectL3NetworkDialog && <SelectL3NetworkDialog ok={this.selectL3NetworkOk} cancel={this.selectL3NetworkCancel} uuid={this.selectL3NetworkDialogUuid}/> }
+              { !!windowData.selectInstanceOfferingDialogUuid && <SelectInstanceOfferingDialog ok={this.selectInstanceOfferingOk} cancel={this.selectInstanceOfferingCancel} uuid={windowData.selectInstanceOfferingDialogUuid}/> }
+              { windowData.showSelectImageDialog && <SelectImageDialog ok={this.selectImageOk} cancel={this.selectImageCancel} uuid={this.selectImageDialogUuid}/> }
+              { windowData.showSelectL3NetworkDialog && <SelectL3NetworkDialog ok={this.selectL3NetworkOk} cancel={this.selectL3NetworkCancel} uuid={this.selectL3NetworkDialogUuid}/> }
             </div>
           </div>
         </div>
