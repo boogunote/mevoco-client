@@ -124,7 +124,7 @@ class CreateVmDialog extends Component {
                 <button className={styles.btn} onClick={this.onOpenImageDialog}>Image</button>
               </div>
               <div>
-                { windowData.l3NetworkUuid && this.props.dbL3Network[windowData.l3NetworkUuid].name}
+                { !!windowData.l3NetworkUuids && this.props.dbL3Network[windowData.l3NetworkUuids[0]].name}
                 <button className={styles.btn} onClick={this.onOpenL3NetworkDialog}>L3 Network</button>
               </div>
               <button className={styles.btn} onClick={this.onOk}>OK</button>
