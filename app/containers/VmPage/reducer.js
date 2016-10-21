@@ -20,7 +20,8 @@ import {
   PAGE_VM_LIST_SET_PAGE_SIZE,
   PAGE_VM_LIST_SET_PAGE_NUMBER,
   PAGE_VM_LIST_SET_ITEM_COUNT,
-  PAGE_VM_SHOW_CREATE_VM_DIALOG
+  PAGE_VM_SHOW_CREATE_VM_DIALOG,
+  PAGE_VM_SET_DETAIL_SIDE_PAGE_UUID
 } from './constants';
 
 import { fromJS } from 'immutable';
@@ -155,7 +156,16 @@ function showCreateDialog(state = false, action) {
       return state
   }
 }
- 
+
+function detailSidePageUuid(state = false, action) {
+  switch (action.type) {
+    case PAGE_VM_SET_DETAIL_SIDE_PAGE_UUID:
+      return action.uuid
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   list,
   modals,
@@ -164,7 +174,8 @@ export default combineReducers({
   pageSize,
   pageNumber,
   count,
-  showCreateDialog
+  showCreateDialog,
+  detailSidePageUuid
 })
 
 // export default vmReducer;

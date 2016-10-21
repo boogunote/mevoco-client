@@ -36,7 +36,8 @@ import {
   pageVmSetPageSize,
   pageVmSetItemCount,
   pageVmSetPageNumber,
-  pageVmShowCreateDialog
+  pageVmShowCreateDialog,
+  pageVmSetDetailSidePageUuid
 } from './actions';
 
 import {
@@ -54,7 +55,8 @@ import {
   selectPageVmPageSize,
   selectPageVmPageNumber,
   selectPageVmItemCount,
-  selectPageVmShowCreateDialog
+  selectPageVmShowCreateDialog,
+  selectPageVmDetailSidePageUuid
 } from './selectors'
 
 import CreateVmDialog from 'components/dialogs/CreateVmDialog.js'
@@ -63,6 +65,8 @@ import { apiCall } from 'utils/remoteCall';
 import { firstItem } from 'utils/helpers'
 
 import appStyles from '../App/styles.css';
+
+import VmInstanceDetailSidePage from 'containers/Windows/VmInstanceDetailSidePage'
 
 // import { pageSizeList } from 'constants.js'
 
@@ -156,7 +160,17 @@ export class VmListPage extends React.Component {
       this.props.pageVmListNormal(uuidList);
 
     this.props.pageVmListHighlight([item.uuid]);
+
+    let newWindowUuid = genUniqueId('window-VmInstanceDetailSidePage-');
+    this.props.pageVmSetDetailSidePageUuid(newWindowUuid);
+    this.props.updateWindow(newWindowUuid, {
+      uuid: item.uuid
+    });
       
+  }
+
+  closeDetailSidePage = () => {
+    this.props.pageVmSetDetailSidePageUuid(null);
   }
 
   onPageSizeChange = (event) => {
@@ -329,17 +343,7 @@ export class VmListPage extends React.Component {
             </tbody>
           </table>
         </div>
-        { currItem &&
-        <div className={appStyles.detailPage}>
-          <div className={appStyles.detailPageHeader}>
-            <div>
-              <FormattedMessage {...messages.header} />
-              <span onClick={pageVmHideDetail} className={`${appStyles.detailPageClose} fa fa-close`} />
-            </div>
-            {currItem.name}
-          </div>
-        </div>
-        }
+        { this.props.detailSidePageUuid && <VmInstanceDetailSidePage uuid={this.props.detailSidePageUuid} close={this.closeDetailSidePage}/>}
         <Button onClick={this.queryList}>
           Query
         </Button>
@@ -385,6 +389,7 @@ function mapDispatchToProps(dispatch) {
     pageVmSetPageNumber: (number) => dispatch(pageVmSetPageNumber(number)),
     pageVmShowCreateDialog: (show) => dispatch(pageVmShowCreateDialog(show)),
     updateWindow: (uuid, item) => dispatch(updateWindow(uuid, item)),
+    pageVmSetDetailSidePageUuid: (uuid) => dispatch(pageVmSetDetailSidePageUuid(uuid)),
   };
 }
 
@@ -398,7 +403,8 @@ const mapStateToProps = createStructuredSelector({
   pageNumber: selectPageVmPageNumber(),
   itemCount: selectPageVmItemCount(),
   showCreateVmDialog: selectPageVmShowCreateDialog(),
-  globalWindow: selectWindow()
+  globalWindow: selectWindow(),
+  detailSidePageUuid: selectPageVmDetailSidePageUuid()
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VmListPage);

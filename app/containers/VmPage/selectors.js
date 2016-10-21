@@ -51,3 +51,10 @@ export const selectPageVmShowCreateDialog = () => createSelector(
     return pageVm.showCreateDialog
   }
 );
+
+export const selectPageVmDetailSidePageUuid = () => createSelector(
+  selectPageVm(),
+  (pageVm) => {
+    return pageVm.detailSidePageUuid
+  }
+);

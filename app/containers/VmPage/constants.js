@@ -23,3 +23,4 @@ export const PAGE_VM_LIST_SET_PAGE_SIZE = 'zs/page/vm/setPageSize';
 export const PAGE_VM_LIST_SET_PAGE_NUMBER = 'zs/page/vm/setPageNumber';
 export const PAGE_VM_LIST_SET_ITEM_COUNT = 'zs/page/vm/setItemCount';
 export const PAGE_VM_SHOW_CREATE_VM_DIALOG = 'zs/page/vm/showCreateVmDialog';
+export const PAGE_VM_SET_DETAIL_SIDE_PAGE_UUID = 'zs/page/vm/setDetailSidePageUuid';
