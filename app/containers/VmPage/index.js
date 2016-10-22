@@ -68,38 +68,26 @@ import appStyles from '../App/styles.css';
 
 import VmInstanceDetailSidePage from 'containers/Windows/VmInstanceDetailSidePage'
 
+import Pagination from 'containers/BaseClasses/Pagination'
+
 // import { pageSizeList } from 'constants.js'
 
-export class VmListPage extends React.Component {
-
-  constructor(props, context) {
-    super(props, context);
-  };
-
-  componentWillMount() {
+let VmListPage = React.createClass({
+  mixins: [Pagination],
+  componentWillMount: function() {
     this.globalState = this.props.route.store.getState();
-    this.pageSizeList = [10, 20, 50];
-  }
-
-  componentDidMount() {
+    this.pageSizeList = [5, 10, 20, 50];
+  },
+  componentDidMount: function() {
     this.queryList();    
-  }
-
-  componentWillUnmount() {
+  },
+  componentWillUnmount: function() {
     this.props.pageVmDestroy();
-  }
-
-
-  /**
-   * Changes the route
-   *
-   * @param  {string} route The route we want to go to
-   */
-  openRoute = (route) => {
+  },
+  openRoute: function(route) {
     this.props.changeRoute(route);
-  };
-
-  queryList = () => {
+  },
+  queryList: function() {
     let self = this;
     apiCall({
       'org.zstack.header.vm.APIQueryVmInstanceMsg': {
@@ -128,9 +116,8 @@ export class VmListPage extends React.Component {
         self.props.queryListFailed(ret);
       }
     })
-  }
-
-  openCreateVmDialog = () => {
+  },
+  openCreateVmDialog: function() {
     this.props.pageVmShowCreateDialog(true);
     this.createVmDialogUuid = genUniqueId('window-createVm-');
 
@@ -141,13 +128,11 @@ export class VmListPage extends React.Component {
       uuid: this.createVmDialogUuid,
       name: ''
     });
-  }
-
-  closeCreateVmDialog = () => {
+  },
+  closeCreateVmDialog: function() {
     this.props.pageVmShowCreateDialog(false);
-  }
-
-  onClickTabRow = (item) => {
+  },
+  onClickTabRow: function(item) {
     this.props.pageVmShowDetail(item.uuid);
 
     let uuidList = [];
@@ -167,39 +152,11 @@ export class VmListPage extends React.Component {
       uuid: item.uuid
     });
       
-  }
-
-  closeDetailSidePage = () => {
+  },
+  closeDetailSidePage: function() {
     this.props.pageVmSetDetailSidePageUuid(null);
-  }
-
-  onPageSizeChange = (event) => {
-    this.props.setPageSize(event.target.value);
-    this.props.pageVmSetPageNumber(1);
-    let self = this;
-    setTimeout(function() {self.queryList()}, 0);
-  }
-
-  onPageUp = () => {
-    if ((this.props.pageNumber - 1) >= 1) {
-      this.props.pageVmSetPageNumber(this.props.pageNumber - 1);
-      let self = this;
-      setTimeout(function() {self.queryList()}, 0);
-    }
-  }
-
-  onPageDown = () => {
-    let pageCount = 0;
-    if (this.props.pageSize != 0)
-      pageCount = Math.ceil(this.props.itemCount / this.props.pageSize);
-    if ((this.props.pageNumber + 1) <= pageCount) {
-      this.props.pageVmSetPageNumber(this.props.pageNumber + 1);
-      let self = this;
-      setTimeout(function() {self.queryList()}, 0);
-    }
-  }
-
-  createVm = (data) => {
+  },
+  createVm: function(data) {
     let self = this;
     apiCall({
       'org.zstack.header.vm.APICreateVmInstanceMsg': {
@@ -218,9 +175,8 @@ export class VmListPage extends React.Component {
         self.props.queryListFailed(ret);
       }
     })
-  }
-
-  render() {
+  },
+  render: function() {
     let {
       showModal,
       onConfirm,
@@ -351,7 +307,7 @@ export class VmListPage extends React.Component {
       </div>
     );
   }
-}
+})
 
 // if (!!this.props.windows && !!this.props.windows[this.state.uuid]) {
 //                 this.props.windows[this.state.uuid].map(function(item) {
