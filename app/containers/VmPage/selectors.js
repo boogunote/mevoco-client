@@ -58,3 +58,10 @@ export const selectPageVmDetailSidePageUuid = () => createSelector(
     return pageVm.detailSidePageUuid
   }
 );
+
+export const selectListWindowUuid = () => createSelector(
+  selectPageVm(),
+  (pageVm) => {
+    return pageVm.listWindowUuid
+  }
+);

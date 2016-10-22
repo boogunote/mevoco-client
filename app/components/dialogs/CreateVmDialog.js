@@ -7,9 +7,9 @@ import SelectImageDialog from './SelectImageDialog'
 import SelectL3NetworkDialog from './SelectL3NetworkDialog'
 
 import {
+  createWindow,
   updateWindow,
-  destroyWindow,
-  createWindow
+  destroyWindow
 } from 'containers/App/windowActions';
 
 import { selectWindow } from 'containers/App/selectors';
@@ -142,9 +142,9 @@ class CreateVmDialog extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
+    createWindow: (parentUuid, parentValue, uuid, initValue) => dispatch(createWindow(parentUuid, parentValue, uuid, initValue)),
     updateWindow: (uuid, item) => dispatch(updateWindow(uuid, item)),
     destroyWindow: (uuid) => dispatch(destroyWindow(uuid)),
-    createWindow: (parentUuid, parentValue, uuid, initValue) => dispatch(createWindow(parentUuid, parentValue, uuid, initValue)),
   };
 }
 

@@ -30,7 +30,8 @@ import {
   PAGE_VM_LIST_SET_ITEM_COUNT,
   PAGE_VM_LIST_SET_PAGE_NUMBER,
   PAGE_VM_SHOW_CREATE_VM_DIALOG,
-  PAGE_VM_SET_DETAIL_SIDE_PAGE_UUID
+  PAGE_VM_SET_DETAIL_SIDE_PAGE_UUID,
+  PAGE_VM_SET_LIST_WINDOW_UUID
 } from './constants';
 
 /**
@@ -174,6 +175,13 @@ export function updateCreateVmDialog(name, value) {
 export function pageVmSetDetailSidePageUuid(uuid) {
   return {
     type: PAGE_VM_SET_DETAIL_SIDE_PAGE_UUID,
+    uuid
+  }
+}
+
+export function setListWindowUuid(uuid) {
+  return {
+    type: PAGE_VM_SET_LIST_WINDOW_UUID,
     uuid
   }
 }
