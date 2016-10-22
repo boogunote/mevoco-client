@@ -5,7 +5,6 @@ import { genUniqueId } from 'utils/helpers';
 
 let VmInstanceList = {
   componentWillMount: function() {
-    this.pageSizeList = [5, 10, 20, 50];
   },
   componentDidMount: function() {
     let self = this;

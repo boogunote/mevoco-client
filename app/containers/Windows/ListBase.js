@@ -58,6 +58,20 @@ let ListBase = {
       list: newList
     })
   },
+  setSelectAll: function() {
+    let windowData = this.getWindowData();
+    let newSelectAllState = !windowData.selectAll;
+    let newList = Object.assign([], this.getWindowData().list);
+
+    for (var i in newList) {
+      newList[i].selected = newSelectAllState;
+    }
+
+    this.props.updateWindow(this.props.uuid, {
+      list: newList,
+      selectAll: newSelectAllState
+    })
+  },
   closeDetailSidePage: function() {
     this.props.updateWindow(this.props.uuid, {
       detailSidePageWindowUuid: null
@@ -103,6 +117,15 @@ let ListBase = {
     })
     return list;
   },
+  getInitData: function() {
+    return {
+      pageSize: 20,
+      pageNumber: 1,
+      pageCount: 0,
+      selectAll: false
+    }
+  },
+  pageSizeList: [5, 10, 20, 50]
 };
 
 export default ListBase;

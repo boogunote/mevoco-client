@@ -13,17 +13,19 @@ import { updateWindow } from 'containers/App/windowActions'
 import { selectWindow } from 'containers/App/selectors';
 
 import VmInstanceListFull from 'containers/Windows/VmInstanceListFull'
+import ListBase from 'containers/Windows/ListBase';
 
 let VmListPage = React.createClass({
   componentWillMount: function() {
     let newWindowUuid = genUniqueId('window-VmInstanceWindowFull-');
     this.props.setListWindowUuid(newWindowUuid);
-    this.props.updateWindow(newWindowUuid, {
-      uuid: newWindowUuid,
-      pageSize: 20,
-      pageNumber: 1,
-      pageCount: 0,
-    });
+    this.props.updateWindow(newWindowUuid,
+      Object.assign(
+        {},
+        {uuid: newWindowUuid},
+        ListBase.getInitData()
+      )
+    );
   },
   render: function() {
     return (

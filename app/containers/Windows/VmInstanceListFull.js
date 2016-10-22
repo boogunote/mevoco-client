@@ -52,7 +52,7 @@ let VmInstanceListFull = React.createClass({
           <table className={`${appStyles.normalFont} ${appStyles.table}`}>
             <thead>
               <tr>
-                <th><input type="checkbox"/></th>
+                <th><input type="checkbox" onClick={this.setSelectAll} checked={windowData.selectAll}/></th>
                 <th>1
                 </th>
                 <th>2
