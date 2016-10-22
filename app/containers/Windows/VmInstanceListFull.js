@@ -20,6 +20,8 @@ import WindowBase from './WindowBase.js';
 import ListBase from './ListBase';
 import VmInstanceList from './VmInstanceList.js';
 import VmInstanceDetailSidePage  from './VmInstanceDetailSidePage.js'
+import CreateVmDialog from 'components/dialogs/CreateVmDialog.js'
+import Button from 'components/Button';
 
 let VmInstanceListFull = React.createClass({
   mixins: [WindowBase, ListBase, VmInstanceList],
@@ -31,6 +33,9 @@ let VmInstanceListFull = React.createClass({
     return (
       <div>
         Vm Instance
+        <Button onClick={this.openCreateVmDialog}>
+          Create
+        </Button>
         <div className={appStyles.tableContainer}>
         <div className={appStyles.pagination}>
             <select onChange={(event) => {this.onPageSizeChange(event)}} value={windowData.pageSize}>
@@ -99,6 +104,7 @@ let VmInstanceListFull = React.createClass({
           </table>
         </div>
         { windowData.detailSidePageWindowUuid && <VmInstanceDetailSidePage uuid={windowData.detailSidePageWindowUuid} close={this.closeDetailSidePage}/>}
+        { windowData.createVmDialogWindowUuid && <CreateVmDialog cancel={this.closeCreateVmDialog}  ok={this.createVm} uuid={windowData.createVmDialogWindowUuid}/> }
       </div>
     );
   }

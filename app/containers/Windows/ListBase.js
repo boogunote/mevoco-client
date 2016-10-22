@@ -24,7 +24,8 @@ let ListBase = {
       newWindowUuid,
       {
         uuid: item.uuid
-      })
+      }
+    );
       
   },
   closeDetailSidePage: function() {
