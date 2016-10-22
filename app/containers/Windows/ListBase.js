@@ -1,15 +1,16 @@
 import { genUniqueId } from 'utils/helpers';
 
 let ListBase = {
-  onClickRow: function(item) {
+  onClickRow: function(event, item) {
+    if ('INPUT' == event.target.tagName) return;
     let newList = Object.assign([], this.getWindowData().list);
 
     newList.forEach(function(_item) {
-      if (_item.highlight) {
-        _item.highlight = false;
+      if (_item.selected) {
+        _item.selected = false;
       }
       if (_item.uuid == item.uuid) {
-        _item.highlight = true;
+        _item.selected = true;
       }
     })
 
@@ -27,6 +28,35 @@ let ListBase = {
       }
     );
       
+  },
+  onSelectSingleItem: function(item) {
+    let newList = Object.assign([], this.getWindowData().list);
+
+    for (var i in newList) {
+      if (newList[i].uuid == item.uuid) {
+        newList[i].selected = true;
+      } else {
+        newList[i].selected = false;
+      }
+    }
+
+    this.props.updateWindow(this.props.uuid, {
+      list: newList
+    })
+  },
+  onSelectMultipleItem: function(item) {
+    let newList = Object.assign([], this.getWindowData().list);
+
+    for (var i in newList) {
+      if (newList[i].uuid == item.uuid) {
+        newList[i].selected = !newList[i].selected;
+        break;
+      }
+    }
+
+    this.props.updateWindow(this.props.uuid, {
+      list: newList
+    })
   },
   closeDetailSidePage: function() {
     this.props.updateWindow(this.props.uuid, {
@@ -68,7 +98,7 @@ let ListBase = {
     var list = [];
     windowList.forEach(function(item) {
       if (!!dbList[item.uuid]) {
-        list.push(Object.assign({}, dbList[item.uuid], {'highlight': item.highlight}));
+        list.push(Object.assign({}, dbList[item.uuid], {'selected': item.selected}));
       }
     })
     return list;

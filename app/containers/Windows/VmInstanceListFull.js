@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -29,7 +29,7 @@ let VmInstanceListFull = React.createClass({
     let windowData = this.getWindowData();
     if (!windowData || !windowData.list || !this.props.dbVm) return null;
     let list = this.mergeWindowListAndDbList(windowData.list, this.props.dbVm);
-    let { onClickRow } = this;
+    let { onClickRow, onSelectMultipleItem } = this;
     return (
       <div>
         Vm Instance
@@ -52,6 +52,7 @@ let VmInstanceListFull = React.createClass({
           <table className={`${appStyles.normalFont} ${appStyles.table}`}>
             <thead>
               <tr>
+                <th><input type="checkbox"/></th>
                 <th>1
                 </th>
                 <th>2
@@ -79,14 +80,15 @@ let VmInstanceListFull = React.createClass({
             <tbody>
               {list.map(function(item){
                 let rowStyle = null;
-                if (!!item.highlight)
+                if (!!item.selected)
                   rowStyle = appStyles.tableRow + ' ' + appStyles.tableRowHighlight;
                 else
                   rowStyle = appStyles.tableRow + ' ' + appStyles.tableRowNormal;
                 return <tr
                     key={item.uuid}
                     className={ rowStyle }
-                    onClick={() => onClickRow(item)}>
+                    onClick={(event) => onClickRow(event, item)}>
+                  <td><input type="checkbox" checked={item.selected} onClick={() => onSelectMultipleItem(item)} /></td>
                   <td>{item.name}</td>
                   <td>{item.cpuNum}</td>
                   <td>{item.memorySize}</td>

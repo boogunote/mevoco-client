@@ -33,8 +33,8 @@ let VmInstanceList = {
           let itemList = [];
           ret.inventories.forEach(function(item) {
             itemList.push({
-              'uuid': item.uuid,
-              'highlight': false
+              uuid: item.uuid,
+              selected: false
             });
           })
 
