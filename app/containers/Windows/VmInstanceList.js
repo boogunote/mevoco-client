@@ -15,7 +15,7 @@ let VmInstanceList = {
   },
   queryList: function() {
     let windowData = this.getWindowData();
-    // if (!windowData) return;
+    if (!windowData) return;
     let self = this;
     apiCall({
       'org.zstack.header.vm.APIQueryVmInstanceMsg': {
