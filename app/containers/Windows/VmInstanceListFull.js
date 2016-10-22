@@ -32,6 +32,18 @@ let VmInstanceListFull = React.createClass({
       <div>
         Vm Instance
         <div className={appStyles.tableContainer}>
+        <div className={appStyles.pagination}>
+            <select onChange={(event) => {this.onPageSizeChange(event)}} value={windowData.pageSize}>
+              {
+                this.pageSizeList.map(function(item) {
+                  return <option key={item} value={item}>{item}</option>
+                })
+              }
+            </select>
+            {windowData.pageNumber}/{Math.ceil(windowData.count / windowData.pageSize)}
+            <button className={`${appStyles.paginationButton} ${appStyles.left}`} onClick={this.onPageUp}><span className="fa fa-angle-left"/></button>
+            <button className={`${appStyles.paginationButton} ${appStyles.right}`} onClick={this.onPageDown}><span className="fa fa-angle-right"/></button>
+          </div>
           <table className={`${appStyles.normalFont} ${appStyles.table}`}>
             <thead>
               <tr>

@@ -7,14 +7,20 @@ let VmInstanceList = {
     this.pageSizeList = [5, 10, 20, 50];
   },
   componentDidMount: function() {
-    this.queryList();    
+    let self = this;
+    setTimeout(function() {self.queryList()}, 0);
   },
   componentWillUnmount: function() {
   },
   queryList: function() {
+    let windowData = this.getWindowData();
+    // if (!windowData) return;
     let self = this;
     apiCall({
       'org.zstack.header.vm.APIQueryVmInstanceMsg': {
+        count: false,
+        start: windowData.pageSize*(windowData.pageNumber - 1),
+        limit: windowData.pageSize,
         replyWithCount: true,
         conditions: []
       }
