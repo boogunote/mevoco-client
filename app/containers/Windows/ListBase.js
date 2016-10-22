@@ -1,5 +1,37 @@
+import { genUniqueId } from 'utils/helpers';
 
 let ListBase = {
+  onClickRow: function(item) {
+    let newList = Object.assign([], this.getWindowData().list);
+
+    newList.forEach(function(_item) {
+      if (_item.highlight) {
+        _item.highlight = false;
+      }
+      if (_item.uuid == item.uuid) {
+        _item.highlight = true;
+      }
+    })
+
+    let newWindowUuid = genUniqueId('window-VmInstanceDetailSidePage-');
+
+    this.props.createWindow(
+      this.props.uuid,
+      {
+        detailSidePageItemUuid: item.uuid,
+        detailSidePageWindowUuid: newWindowUuid
+      },
+      newWindowUuid,
+      {
+        uuid: item.uuid
+      })
+      
+  },
+  closeDetailSidePage: function() {
+    this.props.updateWindow(this.props.uuid, {
+      detailSidePageWindowUuid: null
+    });
+  },
   onPageSizeChange: function(event) {
     this.props.setPageSize(event.target.value);
     this.props.pageVmSetPageNumber(1);

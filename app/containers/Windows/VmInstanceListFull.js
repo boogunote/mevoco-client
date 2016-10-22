@@ -16,16 +16,18 @@ import { selectDbVm } from 'containers/App/selectors';
 
 import appStyles from '../App/styles.css';
 
-import WindowBase from './WindowBase.js'
+import WindowBase from './WindowBase.js';
+import ListBase from './ListBase';
 import VmInstanceList from './VmInstanceList.js';
-import ListBase from 'containers/BaseClasses/ListBase';
+import VmInstanceDetailSidePage  from './VmInstanceDetailSidePage.js'
 
 let VmInstanceListFull = React.createClass({
   mixins: [WindowBase, ListBase, VmInstanceList],
   render: function() {
     let windowData = this.getWindowData();
     if (!windowData || !windowData.list || !this.props.dbVm) return null;
-    let list = this.mergeWindowListAndDbList(windowData.list, this.props.dbVm)
+    let list = this.mergeWindowListAndDbList(windowData.list, this.props.dbVm);
+    let { onClickRow } = this;
     return (
       <div>
         Vm Instance
@@ -66,7 +68,8 @@ let VmInstanceListFull = React.createClass({
                   rowStyle = appStyles.tableRow + ' ' + appStyles.tableRowNormal;
                 return <tr
                     key={item.uuid}
-                    className={ rowStyle }>
+                    className={ rowStyle }
+                    onClick={() => onClickRow(item)}>
                   <td>{item.name}</td>
                   <td>{item.cpuNum}</td>
                   <td>{item.memorySize}</td>
@@ -83,6 +86,7 @@ let VmInstanceListFull = React.createClass({
             </tbody>
           </table>
         </div>
+        { windowData.detailSidePageWindowUuid && <VmInstanceDetailSidePage uuid={windowData.detailSidePageWindowUuid} close={this.closeDetailSidePage}/>}
       </div>
     );
   }
