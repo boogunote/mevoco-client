@@ -123,15 +123,6 @@ export class LoginPage extends React.Component {
   }
 }
 
-LoginPage.propTypes = {
-  intl: intlShape.isRequired,
-  changeRoute: React.PropTypes.func,
-  login: React.PropTypes.func,
-  setWsConn: React.PropTypes.func,
-  remoteApiCallStart: React.PropTypes.func
-};
-
-// redux has to pass all functions through prop.
 function mapDispatchToProps(dispatch) {
   return {
     loginSuccess: (param) => dispatch(loginSuccess(param)),
@@ -141,11 +132,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-// get state
-const mapStateToProps = createStructuredSelector({
-  wsconn: selectWsConn(),
-  apiCalls: selectApiCalls(),
-  session: selectSession(),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(LoginPage));
+export default connect(null, mapDispatchToProps)(injectIntl(LoginPage));
