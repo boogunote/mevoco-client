@@ -29,7 +29,11 @@
     "message": "Login"
   },
   {
-    "id": "VmPage.header",
+    "id": "common.vmInstance",
     "message": "Instance"
+  },
+  {
+    "id": "common.host",
+    "message": "Host"
   }
 ]

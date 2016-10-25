@@ -23,6 +23,10 @@ import styles from './styles.css';
 
 import { getRoutePath } from 'utils/helpers';
 
+import messages from 'translations/messages.js';
+
+import { FormattedMessage } from 'react-intl';
+
 export class Main extends React.Component {
   openRoute (url) {
     push(url);
@@ -38,11 +42,12 @@ export class Main extends React.Component {
           </A>
           <Link className={styles.navItem + ' ' + `${routePath=="/main/vm"?styles.selected:''}`} to="/main/vm">
             <span className="fa fa-home" />
-            <span className={styles.name}>Instance</span>
+            <span className={styles.name}><FormattedMessage {...messages.vmInstance} /></span>
+            <span ></span>
           </Link>
           <Link className={styles.navItem} to="/main/host">
             <span className="fa fa-server" />
-            <span className={styles.name}>Host</span>
+            <span className={styles.name}><FormattedMessage {...messages.host} /></span>
           </Link>
         </div>
         <div className={styles.article}>

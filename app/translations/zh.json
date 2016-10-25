@@ -30,7 +30,11 @@
     "message": "登录"
   },
   {
-    "id": "VmPage.header",
+    "id": "common.vmInstance",
     "message": "云主机"
+  },
+  {
+    "id": "common.host",
+    "message": "物理机"
   }
 ]
