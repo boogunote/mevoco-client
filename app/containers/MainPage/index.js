@@ -21,20 +21,29 @@ import LocaleToggle from 'containers/LocaleToggle';
 
 import styles from './styles.css';
 
+import { getRoutePath } from 'utils/helpers';
+
 export class Main extends React.Component {
   openRoute (url) {
     push(url);
   };
 
   render() {
+    let routePath = getRoutePath(this.props)
     return (
       <div className={styles.container}>
         <div className={styles.nav}>
           <A className={styles.logoWrapper} href="http://www.mevoco.com">
             <Img className={styles.logo} src={Logo} alt="Mevoco - Logo" />
           </A>
-          <Link to="/main/vm">VM Instance</Link>
-          <Link to="/main/host">Host</Link>
+          <Link className={styles.navItem + ' ' + `${routePath=="/main/vm"?styles.selected:''}`} to="/main/vm">
+            <span className="fa fa-home" />
+            <span className={styles.name}>Instance</span>
+          </Link>
+          <Link className={styles.navItem} to="/main/host">
+            <span className="fa fa-server" />
+            <span className={styles.name}>Host</span>
+          </Link>
         </div>
         <div className={styles.article}>
           <div className={styles.header}>

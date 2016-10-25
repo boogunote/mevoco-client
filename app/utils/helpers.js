@@ -10,3 +10,14 @@ export function genUniqueId(prefix) {
   }
   return prefix + "-" + randomString(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
 }
+
+export function getRoutePath(props) {
+  let routePath = '/'
+  for (var i = 1; i < props.routes.length; i++) {
+    routePath += props.routes[i].path;
+    if (i != props.routes.length - 1) {
+      routePath += '/';
+    }
+  }
+  return routePath;
+}

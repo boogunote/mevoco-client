@@ -44,3 +44,29 @@
   flex-direction: row;
   -webkit-flex-direction: row;
 }
+
+.navItem {
+  display: block;
+  padding: 10px 15px 10px 25px;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.navItem.selected {
+  box-shadow: 4px 0 0 #15A4F4 inset;
+  background-color: #262E3D;
+}
+
+.navItem:hover {
+  background-color: #262E3D;
+}
+
+.navItem .icon {
+  font-size: 14px;
+}
+
+.navItem .name {
+  margin-left: 10px;
+  font-weight: bold;
+}
