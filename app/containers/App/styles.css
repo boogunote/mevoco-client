@@ -47,6 +47,17 @@ body {
   width: 100%;
 }
 
+.tableHeader {
+  background: #E3EAF3;
+  border-radius: 4px;
+}
+
+.tableHeaderItem {
+  height: 40px;
+  padding: 0 10px;
+  text-align: left;
+}
+
 .tableRowHighlight {
   background-color: #ebf2f9;
 }

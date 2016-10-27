@@ -31,7 +31,7 @@ let VmInstanceListFull = React.createClass({
     let list = this.mergeWindowListAndDbList(windowData.list, this.props.dbVm);
     let { onClickRow, onSelectMultipleItem } = this;
     return (
-      <div>
+      <div className={appStyles.page}>
         Vm Instance
         <Button onClick={this.openCreateVmDialog}>
           Create
@@ -50,31 +50,20 @@ let VmInstanceListFull = React.createClass({
             <button className={`${appStyles.paginationButton} ${appStyles.right}`} onClick={this.onPageDown}><span className="fa fa-angle-right"/></button>
           </div>
           <table className={`${appStyles.normalFont} ${appStyles.table}`}>
-            <thead>
+            <thead className={appStyles.tableHeader}>
               <tr>
                 <th><input type="checkbox" onClick={this.setSelectAll} checked={windowData.selectAll}/></th>
-                <th>1
-                </th>
-                <th>2
-                </th>
-                <th>3
-                </th>
-                <th>4
-                </th>
-                <th>5
-                </th>
-                <th>6
-                </th>
-                <th>7
-                </th>
-                <th>8
-                </th>
-                <th>9
-                </th>
-                <th>10
-                </th>
-                <th>11
-                </th>
+                <th className={appStyles.tableHeaderItem}>1</th>
+                <th className={appStyles.tableHeaderItem}>2</th>
+                <th className={appStyles.tableHeaderItem}>3</th>
+                <th className={appStyles.tableHeaderItem}>4</th>
+                <th className={appStyles.tableHeaderItem}>5</th>
+                <th className={appStyles.tableHeaderItem}>6</th>
+                <th className={appStyles.tableHeaderItem}>7</th>
+                <th className={appStyles.tableHeaderItem}>8</th>
+                <th className={appStyles.tableHeaderItem}>9</th>
+                <th className={appStyles.tableHeaderItem}>10</th>
+                <th className={appStyles.tableHeaderItem}>11</th>
               </tr>
             </thead>
             <tbody>
