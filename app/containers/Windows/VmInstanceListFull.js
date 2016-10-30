@@ -1,6 +1,7 @@
  import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { FormattedMessage } from 'react-intl';
 
 import { updateDbVmList } from 'containers/App/dbActions';
 
@@ -22,6 +23,7 @@ import VmInstanceList from './VmInstanceList.js';
 import VmInstanceDetailSidePage  from './VmInstanceDetailSidePage.js'
 import CreateVmDialog from 'components/dialogs/CreateVmDialog.js'
 import Button from 'components/Button';
+import messages from 'translations/messages.js';
 
 let VmInstanceListFull = React.createClass({
   mixins: [WindowBase, ListBase, VmInstanceList],
@@ -30,6 +32,7 @@ let VmInstanceListFull = React.createClass({
     if (!windowData || !windowData.list || !this.props.dbVm) return null;
     let list = this.mergeWindowListAndDbList(windowData.list, this.props.dbVm);
     let { onClickRow, onSelectMultipleItem } = this;
+    let test = messages
     return (
       <div className={appStyles.page}>
         Vm Instance
@@ -52,18 +55,18 @@ let VmInstanceListFull = React.createClass({
           <table className={`${appStyles.normalFont} ${appStyles.table}`}>
             <thead className={appStyles.tableHeader}>
               <tr>
-                <th><input type="checkbox" onClick={this.setSelectAll} checked={windowData.selectAll}/></th>
-                <th className={appStyles.tableHeaderItem}>1</th>
-                <th className={appStyles.tableHeaderItem}>2</th>
-                <th className={appStyles.tableHeaderItem}>3</th>
-                <th className={appStyles.tableHeaderItem}>4</th>
-                <th className={appStyles.tableHeaderItem}>5</th>
-                <th className={appStyles.tableHeaderItem}>6</th>
-                <th className={appStyles.tableHeaderItem}>7</th>
-                <th className={appStyles.tableHeaderItem}>8</th>
-                <th className={appStyles.tableHeaderItem}>9</th>
-                <th className={appStyles.tableHeaderItem}>10</th>
-                <th className={appStyles.tableHeaderItem}>11</th>
+                <th className={appStyles.tableHeaderItem}><input type="checkbox" onClick={this.setSelectAll} checked={windowData.selectAll}/></th>
+                <th className={appStyles.tableHeaderItem}><FormattedMessage {...messages.name} /></th>
+                <th className={appStyles.tableHeaderItem}><FormattedMessage {...messages.cpuNum} /></th>
+                <th className={appStyles.tableHeaderItem}><FormattedMessage {...messages.memorySize} /></th>
+                <th className={appStyles.tableHeaderItem}><FormattedMessage {...messages.defaultIp} /></th>
+                <th className={appStyles.tableHeaderItem}><FormattedMessage {...messages.managementIp} /></th>
+                <th className={appStyles.tableHeaderItem}><FormattedMessage {...messages.hypervisorType} /></th>
+                <th className={appStyles.tableHeaderItem}><FormattedMessage {...messages.clusterUuid} /></th>
+                <th className={appStyles.tableHeaderItem}><FormattedMessage {...messages.state} /></th>
+                <th className={appStyles.tableHeaderItem}><FormattedMessage {...messages.ownerName} /></th>
+                <th className={appStyles.tableHeaderItem}><FormattedMessage {...messages.haLevel} /></th>
+                <th className={appStyles.tableHeaderItem}><FormattedMessage {...messages.createDate} /></th>
               </tr>
             </thead>
             <tbody>
@@ -81,7 +84,7 @@ let VmInstanceListFull = React.createClass({
                   <td>{item.name}</td>
                   <td>{item.cpuNum}</td>
                   <td>{item.memorySize}</td>
-                  <td>{item.managementIp}</td>
+                  <td>{item.defaultIp}</td>
                   <td>{item.managementIp}</td>
                   <td>{item.hypervisorType}</td>
                   <td>{item.clusterUuid}</td>

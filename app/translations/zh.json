@@ -36,5 +36,53 @@
   {
     "id": "common.host",
     "message": "物理机"
+  },
+  {
+    "id": "common.name",
+    "message": "名字"
+  },
+  {
+    "id": "common.cpuNum",
+    "message": "处理器个数"
+  },
+  {
+    "id": "common.memorySize",
+    "message": "内存"
+  },
+  {
+    "id": "common.defaultIp",
+    "message": "默认 IP"
+  },
+  {
+    "id": "common.managementIp",
+    "message": "物理机 Ip"
+  },
+  {
+    "id": "common.hypervisorType",
+    "message": "虚拟化技术"
+  },
+  {
+    "id": "common.clusterUuid",
+    "message": "集群 UUID"
+  },
+  {
+    "id": "common.state",
+    "message": "启用状态"
+  },
+  {
+    "id": "common.status",
+    "message": "连接状态"
+  },
+  {
+    "id": "common.ownerName",
+    "message": "所有者"
+  },
+  {
+    "id": "common.haLevel",
+    "message": "高可用"
+  },
+  {
+    "id": "common.createDate",
+    "message": "创建时间"
   }
 ]

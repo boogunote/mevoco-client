@@ -35,5 +35,57 @@
   {
     "id": "common.host",
     "message": "Host"
+  },
+  {
+    "id": "common.name",
+    "message": "Name"
+  },
+  {
+    "id": "common.cpuNum",
+    "message": "Cpu Num"
+  },
+  {
+    "id": "common.memorySize",
+    "message": "Memory Size"
+  },
+  {
+    "id": "common.ip",
+    "message": "Ip"
+  },
+  {
+    "id": "common.defautIp",
+    "message": "Default Ip"
+  },
+  {
+    "id": "common.managementIp",
+    "message": "Management Ip"
+  },
+  {
+    "id": "common.hypervisorType",
+    "message": "Hypervisor Type"
+  },
+  {
+    "id": "common.clusterUuid",
+    "message": "Cluster UUID"
+  },
+  {
+    "id": "common.state",
+    "message": "State"
+  },
+  {
+    "id": "common.status",
+    "message": "Status"
+  },
+  {
+    "id": "common.ownerName",
+    "message": "Owner Name"
+  },
+  {
+    "id": "common.haLevel",
+    "message": "HA Level"
+  },
+  {
+    "id": "common.createDate",
+    "message": "Create Date"
   }
 ]
