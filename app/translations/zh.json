@@ -55,7 +55,7 @@
   },
   {
     "id": "common.managementIp",
-    "message": "物理机 Ip"
+    "message": "物理机 IP"
   },
   {
     "id": "common.hypervisorType",

@@ -36,11 +36,10 @@ let VmInstanceListFull = React.createClass({
     return (
       <div className={appStyles.page}>
         Vm Instance
-        <Button onClick={this.openCreateVmDialog}>
-          Create
-        </Button>
+        
         <div className={appStyles.tableContainer}>
-        <div className={appStyles.pagination}>
+          <button className={appStyles.defaultButton} onClick={this.openCreateVmDialog}>Create</button>
+          <div className={appStyles.pagination}>
             <select onChange={(event) => {this.onPageSizeChange(event)}} value={windowData.pageSize}>
               {
                 this.pageSizeList.map(function(item) {

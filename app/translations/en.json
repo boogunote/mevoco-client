@@ -53,12 +53,12 @@
     "message": "Ip"
   },
   {
-    "id": "common.defautIp",
-    "message": "Default Ip"
+    "id": "common.defaultIp",
+    "message": "Default IP"
   },
   {
     "id": "common.managementIp",
-    "message": "Management Ip"
+    "message": "Management IP"
   },
   {
     "id": "common.hypervisorType",

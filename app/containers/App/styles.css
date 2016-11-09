@@ -56,6 +56,7 @@ body {
   height: 40px;
   padding: 0 10px;
   text-align: left;
+  white-space: nowrap;
 }
 
 .tableRowHighlight {
@@ -143,5 +144,19 @@ body {
 }
 
 .paginationButton:hover {
+  background-color: #99A4B1;
+}
+
+.defaultButton {
+  padding: 6px 12px 6px 12px;
+  color: white;
+  border-radius: 4px;
+  background-color: #33BECC;
+}
+
+.normalButton {
+  padding: 6px;
+  color: white;
+  border-radius: 4px;
   background-color: #99A4B1;
 }
