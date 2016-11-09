@@ -21,7 +21,7 @@ import WindowBase from './WindowBase.js';
 import ListBase from './ListBase';
 import VmInstanceList from './VmInstanceList.js';
 import VmInstanceDetailSidePage  from './VmInstanceDetailSidePage.js'
-import CreateVmDialog from 'components/dialogs/CreateVmDialog.js'
+import CreateVmDialog from 'containers/Dialogs/CreateVmDialog.js'
 import Button from 'components/Button';
 import messages from 'translations/messages.js';
 
