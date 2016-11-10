@@ -52,7 +52,7 @@ class SelectInstanceOfferingDialog extends Component {
           })
 
           
-          self.props.updateWindow(self.props.uuid, {
+          self.props.updateWindow(self.props.windowUuid, {
             list: pageItemList
           })
           // self.props.pageVmUpdateList(pageItemList);

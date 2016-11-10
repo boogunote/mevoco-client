@@ -52,7 +52,7 @@ class SelectImageDialog extends Component {
           })
 
           
-          self.props.updateWindow(self.props.uuid, {
+          self.props.updateWindow(self.props.windowUuid, {
             list: pageItemList
           })
           // self.props.pageVmUpdateList(pageItemList);
@@ -101,7 +101,7 @@ class SelectImageDialog extends Component {
 
   render() {
     let windowData = this.props.globalWindow[this.props.windowUuid];
-    if (!windowData || !windowData.list) return null;
+    // if (!windowData || !windowData.list) return null;
 
     var list = [];
     let dbImage = this.props.dbImage;
