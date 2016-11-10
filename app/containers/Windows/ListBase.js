@@ -15,9 +15,8 @@ let ListBase = {
     })
 
     let newWindowUuid = genUniqueId('window-VmInstanceDetailSidePage-');
-
     this.props.createWindow(
-      this.props.uuid,
+      this.props.windowUuid,
       {
         detailSidePageItemUuid: item.uuid,
         detailSidePageWindowUuid: newWindowUuid
@@ -40,7 +39,7 @@ let ListBase = {
       }
     }
 
-    this.props.updateWindow(this.props.uuid, {
+    this.props.updateWindow(this.props.windowUuid, {
       list: newList
     })
   },
@@ -54,7 +53,7 @@ let ListBase = {
       }
     }
 
-    this.props.updateWindow(this.props.uuid, {
+    this.props.updateWindow(this.props.windowUuid, {
       list: newList
     })
   },
@@ -67,18 +66,18 @@ let ListBase = {
       newList[i].selected = newSelectAllState;
     }
 
-    this.props.updateWindow(this.props.uuid, {
+    this.props.updateWindow(this.props.windowUuid, {
       list: newList,
       selectAll: newSelectAllState
     })
   },
   closeDetailSidePage: function() {
-    this.props.updateWindow(this.props.uuid, {
+    this.props.updateWindow(this.props.windowUuid, {
       detailSidePageWindowUuid: null
     });
   },
   onPageSizeChange: function(event) {
-    this.props.updateWindow(this.props.uuid, {
+    this.props.updateWindow(this.props.windowUuid, {
       pageSize: parseInt(event.target.value),
       pageNumber: 1
     });
@@ -88,7 +87,7 @@ let ListBase = {
   onPageUp: function() {
     let windowData = this.getWindowData();
     if ((windowData.pageNumber - 1) >= 1) {
-      this.props.updateWindow(this.props.uuid, {
+      this.props.updateWindow(this.props.windowUuid, {
         pageNumber: windowData.pageNumber - 1
       });
       let self = this;
@@ -101,7 +100,7 @@ let ListBase = {
     if (windowData.pageSize != 0)
       pageCount = Math.ceil(windowData.count / windowData.pageSize);
     if ((windowData.pageNumber + 1) >= 1) {
-      this.props.updateWindow(this.props.uuid, {
+      this.props.updateWindow(this.props.windowUuid, {
         pageNumber: windowData.pageNumber + 1
       });
       let self = this;

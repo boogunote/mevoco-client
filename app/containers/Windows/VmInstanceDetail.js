@@ -10,7 +10,7 @@ import {
 import { selectWindow } from 'containers/App/selectors';
 
 import { apiCall } from 'utils/remoteCall';
-import { firstItem } from 'utils/helpers';
+import { firstItem, genUniqueId } from 'utils/helpers';
 
 import {
   updateDbImageList
@@ -21,8 +21,13 @@ import { selectDbImage } from 'containers/App/selectors';
 import appStyles from 'containers/App/styles.css';
 
 let VmInstanceDetail = {
+  componentDidMount: function() {
+    this.props.updateWindow(this.props.windowUuid, {
+      currTab: 'info'
+    })
+  },
   close: function() {
-    this.props.destroyWindow(this.props.uuid);
+    this.props.destroyWindow(this.props.windowUuid);
     this.props.close();
   }
 }

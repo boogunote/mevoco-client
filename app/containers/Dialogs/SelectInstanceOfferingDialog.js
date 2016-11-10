@@ -28,7 +28,7 @@ class SelectInstanceOfferingDialog extends Component {
   }
 
   queryList = () => {
-    let windowData = this.props.globalWindow[this.props.uuid];
+    let windowData = this.props.globalWindow[this.props.windowUuid];
     let self = this;
     apiCall({
       'org.zstack.header.configuration.APIQueryInstanceOfferingMsg': {
@@ -65,9 +65,9 @@ class SelectInstanceOfferingDialog extends Component {
   }
 
   onOk = () => {
-    this.props.destroyWindow(this.props.uuid);
+    this.props.destroyWindow(this.props.windowUuid);
 
-    let windowData = this.props.globalWindow[this.props.uuid];
+    let windowData = this.props.globalWindow[this.props.windowUuid];
     let uuidList = [];
     for(var i in windowData.list) {
       if (windowData.list[i].selected) {
@@ -78,12 +78,12 @@ class SelectInstanceOfferingDialog extends Component {
   }
 
   onCancel = () => {
-    this.props.destroyWindow(this.props.uuid);
+    this.props.destroyWindow(this.props.windowUuid);
     this.props.cancel();
   }
 
   onClickTabRow = (item) => {
-    let windowData = this.props.globalWindow[this.props.uuid];
+    let windowData = this.props.globalWindow[this.props.windowUuid];
 
     let newList = Object.assign([], windowData.list);
 
@@ -94,16 +94,16 @@ class SelectInstanceOfferingDialog extends Component {
         newList[i].selected = false;
       }
     }
-    this.props.updateWindow(this.props.uuid, {
+    this.props.updateWindow(this.props.windowUuid, {
       list: newList
     })
   }
 
   render() {
-    let data = this.props.globalWindow[this.props.uuid];
+    let data = this.props.globalWindow[this.props.windowUuid];
     if (!data) return null;
 
-    let windowData = this.props.globalWindow[this.props.uuid];
+    let windowData = this.props.globalWindow[this.props.windowUuid];
     if (!windowData.list) return null;
 
     var list = [];

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect';
 
 import {
+  createWindow,
   updateWindow,
   destroyWindow
 } from 'containers/App/windowActions';
@@ -21,6 +22,8 @@ import { selectDbVm } from 'containers/App/selectors';
 import appStyles from 'containers/App/styles.css';
 
 import VmInstanceDetail from './VmInstanceDetail'
+import VmInstanceInfo from './VmInstanceInfo'
+import VmInstanceSnapshot from './VmInstanceSnapshot'
 
 import { FormattedMessage } from 'react-intl';
 
@@ -28,7 +31,7 @@ import { FormattedMessage } from 'react-intl';
 let VmInstanceDetailSidePage = React.createClass({
   mixins: [VmInstanceDetail],
   render: function() {
-    let windowData = this.props.globalWindow[this.props.uuid];
+    let windowData = this.props.globalWindow[this.props.windowUuid];
     if (!windowData) return null;
     let vmData = this.props.dbVm[windowData.uuid];
     return (
@@ -40,12 +43,15 @@ let VmInstanceDetailSidePage = React.createClass({
         </div>
         {vmData.name}
       </div>
+      { 'info' == windowData.currTab && <VmInstanceInfo dataUuid={vmData.uuid} />}
+      { 'snapshot' == windowData.currTab && <VmInstanceSnapshot dataUuid={vmData.uuid} />}
     </div>)
   }
 });
 
 function mapDispatchToProps(dispatch) {
   return {
+    createWindow: (parentUuid, parentValue, uuid, initValue) => dispatch(createWindow(parentUuid, parentValue, uuid, initValue)),
     updateWindow: (uuid, item) => dispatch(updateWindow(uuid, item)),
     destroyWindow: (uuid) => dispatch(destroyWindow(uuid)),
     updateDbImageList: (list) => dispatch(updateDbImageList(list))

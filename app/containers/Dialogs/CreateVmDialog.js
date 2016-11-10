@@ -25,26 +25,26 @@ import {
 class CreateVmDialog extends Component {
 
   onOk = () => {
-    this.props.destroyWindow(this.props.uuid);
+    this.props.destroyWindow(this.props.windowUuid);
 
-    let windowData = this.props.globalWindow[this.props.uuid];
+    let windowData = this.props.globalWindow[this.props.windowUuid];
     this.props.ok(Object.assign({}, windowData));
   }
 
   onCancel = () => {
-    this.props.destroyWindow(this.props.uuid);
+    this.props.destroyWindow(this.props.windowUuid);
     this.props.cancel();
   }
 
   onChangeName = (event) => {
-    this.props.updateWindow(this.props.uuid, {
+    this.props.updateWindow(this.props.windowUuid, {
       name: event.target.value
     });
   }
 
   onOpenInstanceOfferingDialog = () => {
     let newDialogUuid = genUniqueId('window-instanceOffering-');
-    this.props.createWindow(this.props.uuid, {instanceOfferingDialogUuid: newDialogUuid},
+    this.props.createWindow(this.props.windowUuid, {instanceOfferingDialogUuid: newDialogUuid},
       newDialogUuid, {
       uuid: newDialogUuid,
       pageSize: 20,
@@ -54,17 +54,17 @@ class CreateVmDialog extends Component {
   }
 
   selectInstanceOfferingOk = (uuid) => {
-    this.props.updateWindow(this.props.uuid, {instanceOfferingDialogUuid: undefined});
-    this.props.updateWindow(this.props.uuid, {instanceOfferingUuid: uuid});
+    this.props.updateWindow(this.props.windowUuid, {instanceOfferingDialogUuid: undefined});
+    this.props.updateWindow(this.props.windowUuid, {instanceOfferingUuid: uuid});
   }
 
   selectInstanceOfferingCancel = () => {
-    this.props.updateWindow(this.props.uuid, {instanceOfferingDialogUuid: undefined});
+    this.props.updateWindow(this.props.windowUuid, {instanceOfferingDialogUuid: undefined});
   }
 
   onOpenImageDialog = () => {
     let newDialogUuid = genUniqueId('window-image');
-    this.props.createWindow(this.props.uuid, {imageDialogUuid: newDialogUuid},
+    this.props.createWindow(this.props.windowUuid, {imageDialogUuid: newDialogUuid},
       newDialogUuid, {
       uuid: newDialogUuid,
       pageSize: 20,
@@ -74,17 +74,17 @@ class CreateVmDialog extends Component {
   }
 
   selectImageOk = (uuid) => {
-    this.props.updateWindow(this.props.uuid, {imageDialogUuid: false});
-    this.props.updateWindow(this.props.uuid, {imageUuid: uuid});
+    this.props.updateWindow(this.props.windowUuid, {imageDialogUuid: false});
+    this.props.updateWindow(this.props.windowUuid, {imageUuid: uuid});
   }
 
   selectImageCancel = () => {
-    this.props.updateWindow(this.props.uuid, {imageDialogUuid: false});
+    this.props.updateWindow(this.props.windowUuid, {imageDialogUuid: false});
   }
 
   onOpenL3NetworkDialog = () => {
     let newDialogUuid = genUniqueId('window-l3Network');
-    this.props.createWindow(this.props.uuid, {l3NetworkDialogUuid: newDialogUuid},
+    this.props.createWindow(this.props.windowUuid, {l3NetworkDialogUuid: newDialogUuid},
       newDialogUuid, {
       uuid: newDialogUuid,
       pageSize: 20,
@@ -94,16 +94,16 @@ class CreateVmDialog extends Component {
   }
 
   selectL3NetworkOk = (uuid) => {
-    this.props.updateWindow(this.props.uuid, {l3NetworkDialogUuid: false});
-    this.props.updateWindow(this.props.uuid, {l3NetworkUuids: [uuid]});
+    this.props.updateWindow(this.props.windowUuid, {l3NetworkDialogUuid: false});
+    this.props.updateWindow(this.props.windowUuid, {l3NetworkUuids: [uuid]});
   }
 
   selectL3NetworkCancel = () => {
-    this.props.updateWindow(this.props.uuid, {l3NetworkDialogUuid: false});
+    this.props.updateWindow(this.props.windowUuid, {l3NetworkDialogUuid: false});
   }
 
   render() {
-    let windowData = this.props.globalWindow[this.props.uuid];
+    let windowData = this.props.globalWindow[this.props.windowUuid];
     if (!windowData) return null;
 
 
@@ -129,9 +129,9 @@ class CreateVmDialog extends Component {
               </div>
               <button className={styles.btn} onClick={this.onOk}>OK</button>
               <button className={styles.btn} onClick={(event) => this.onCancel(event)}>Cancel</button>
-              { !!windowData.instanceOfferingDialogUuid && <SelectInstanceOfferingDialog ok={this.selectInstanceOfferingOk} cancel={this.selectInstanceOfferingCancel} uuid={windowData.instanceOfferingDialogUuid}/> }
-              { !!windowData.imageDialogUuid && <SelectImageDialog ok={this.selectImageOk} cancel={this.selectImageCancel} uuid={windowData.imageDialogUuid}/> }
-              { !!windowData.l3NetworkDialogUuid && <SelectL3NetworkDialog ok={this.selectL3NetworkOk} cancel={this.selectL3NetworkCancel} uuid={windowData.l3NetworkDialogUuid}/> }
+              { !!windowData.instanceOfferingDialogUuid && <SelectInstanceOfferingDialog ok={this.selectInstanceOfferingOk} cancel={this.selectInstanceOfferingCancel} windowUuid={windowData.instanceOfferingDialogUuid}/> }
+              { !!windowData.imageDialogUuid && <SelectImageDialog ok={this.selectImageOk} cancel={this.selectImageCancel} windowUuid={windowData.imageDialogUuid}/> }
+              { !!windowData.l3NetworkDialogUuid && <SelectL3NetworkDialog ok={this.selectL3NetworkOk} cancel={this.selectL3NetworkCancel} windowUuid={windowData.l3NetworkDialogUuid}/> }
             </div>
           </div>
         </div>

@@ -96,8 +96,8 @@ let VmInstanceListFull = React.createClass({
             </tbody>
           </table>
         </div>
-        { windowData.detailSidePageWindowUuid && <VmInstanceDetailSidePage uuid={windowData.detailSidePageWindowUuid} close={this.closeDetailSidePage}/>}
-        { windowData.createVmDialogWindowUuid && <CreateVmDialog cancel={this.closeCreateVmDialog}  ok={this.createVm} uuid={windowData.createVmDialogWindowUuid}/> }
+        { windowData.detailSidePageWindowUuid && <VmInstanceDetailSidePage windowUuid={windowData.detailSidePageWindowUuid} close={this.closeDetailSidePage}/>}
+        { windowData.createVmDialogWindowUuid && <CreateVmDialog cancel={this.closeCreateVmDialog}  ok={this.createVm} windowUuid={windowData.createVmDialogWindowUuid}/> }
       </div>
     );
   }

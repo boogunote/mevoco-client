@@ -37,7 +37,7 @@ let VmInstanceList = {
             });
           })
 
-          self.props.updateWindow(self.props.uuid, {
+          self.props.updateWindow(self.props.windowUuid, {
             list: itemList,
             count: ret.total
           });
@@ -53,7 +53,7 @@ let VmInstanceList = {
     // default value should be provided.
     // https://github.com/twisty/formsy-react-components/issues/66
     this.props.createWindow(
-      this.props.uuid,
+      this.props.windowUuid,
       {
         createVmDialogWindowUuid: newWindowUuid
       },
@@ -64,7 +64,7 @@ let VmInstanceList = {
     );
   },
   closeCreateVmDialog: function() {
-    this.props.updateWindow(this.props.uuid, {
+    this.props.updateWindow(this.props.windowUuid, {
       createVmDialogWindowUuid: null
     })
   },

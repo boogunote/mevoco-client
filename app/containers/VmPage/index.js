@@ -36,7 +36,7 @@ let VmListPage = React.createClass({
             { name: 'description', content: 'VM Instance page of Mevoco' },
           ]}
         />
-        <VmInstanceListFull uuid={this.props.listWindowUuid} />
+        <VmInstanceListFull windowUuid={this.props.listWindowUuid} />
       </div>
     );
   }
