@@ -43,8 +43,10 @@ let VmInstanceDetailSidePage = React.createClass({
         </div>
         {vmData.name}
       </div>
-      { 'info' == windowData.currTab && <VmInstanceInfo dataUuid={vmData.uuid} />}
-      { 'snapshot' == windowData.currTab && <VmInstanceSnapshot dataUuid={vmData.uuid} />}
+      <a className={appStyles.detailPageTabHeader} onClick={() => this.switchTab('info')}>Info</a>
+      <a className={appStyles.detailPageTabHeader} onClick={() => this.switchTab('snapshot')}>Snapshot</a>
+      { 'info' == windowData.currTab && <VmInstanceInfo dataUuid={windowData.uuid} />}
+      { 'snapshot' == windowData.currTab && <VmInstanceSnapshot dataUuid={windowData.uuid} />}
     </div>)
   }
 });

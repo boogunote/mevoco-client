@@ -26,6 +26,11 @@ let VmInstanceDetail = {
       currTab: 'info'
     })
   },
+  switchTab: function(tabName) {
+    this.props.updateWindow(this.props.windowUuid, {
+      currTab: tabName
+    })
+  },
   close: function() {
     this.props.destroyWindow(this.props.windowUuid);
     this.props.close();

@@ -14,18 +14,28 @@ let ListBase = {
       }
     })
 
-    let newWindowUuid = genUniqueId('window-VmInstanceDetailSidePage-');
-    this.props.createWindow(
-      this.props.windowUuid,
-      {
-        detailSidePageItemUuid: item.uuid,
-        detailSidePageWindowUuid: newWindowUuid
-      },
-      newWindowUuid,
-      {
-        uuid: item.uuid
-      }
-    );
+    if (!this.getWindowData().detailSidePageWindowUuid) {
+
+      let newWindowUuid = genUniqueId('window-VmInstanceDetailSidePage-');
+      this.props.createWindow(
+        this.props.windowUuid,
+        {
+          detailSidePageDataUuid: item.uuid,
+          detailSidePageWindowUuid: newWindowUuid
+        },
+        newWindowUuid,
+        {
+          uuid: item.uuid
+        }
+      );
+    } else {
+      this.props.updateWindow(
+        this.getWindowData().detailSidePageWindowUuid,
+        {
+          uuid: item.uuid
+        }
+      )
+    }
       
   },
   onSelectSingleItem: function(item) {
