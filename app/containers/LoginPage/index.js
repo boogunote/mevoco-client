@@ -55,6 +55,12 @@ export class LoginPage extends React.Component {
     this.setState({password: event.target.value});
   };
 
+  onKeyPress = (event) => {
+    if (13 == event.which) {
+      this.login();
+    }
+  }
+
   /**
    * Changes the route
    *
@@ -105,6 +111,7 @@ export class LoginPage extends React.Component {
             placeholder={this.props.intl.formatMessage(messages.username)}
             value={this.state.username}
             onChange={this.onChangeUsername}
+            onKeyPress={(event) => this.onKeyPress(event)}
           />
           <input
             id="password"
@@ -113,10 +120,11 @@ export class LoginPage extends React.Component {
             placeholder={this.props.intl.formatMessage(messages.password)}
             value={this.state.password}
             onChange={this.onChangePassword}
+            onKeyPress={(event) => this.onKeyPress(event)}
           />
-          <Button onClick={this.login}>
+          <button className={styles.loginButton} onClick={this.login}>
             <FormattedMessage {...messages.login} />
-          </Button>
+          </button>
         </div>
       </div>
     );
