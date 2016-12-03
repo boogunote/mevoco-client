@@ -17,9 +17,12 @@ import Footer from 'components/Footer';
 import Logo from './logo-big.png';
 import A from 'components/A';
 
+import {EventEmitter} from 'fbemitter';
+
 import styles from './styles.css';
 
 function App(props) {
+  var emitter = new EventEmitter();
   return (
     <div className={styles.container}>
       <Helmet

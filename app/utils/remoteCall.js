@@ -66,7 +66,7 @@ function apiCb(ret) {
 
 export function getConn() {
   if (!conn) {
-    conn = io.connect('http://172.20.13.87:5000');
+    conn = io.connect('http://172.20.12.36:5000');
     conn.on('login_ret', loginCb);
     conn.on('call_ret', apiCb);
   }

@@ -12,6 +12,14 @@ let VmInstanceList = {
   },
   componentWillUnmount: function() {
   },
+  shouldComponentUpdate(nextProps, nextState) {
+    let windowData = this.getWindowData();
+    if (!windowData || !this.props.dbVm) {
+      return false;
+    } else {
+      return true;
+    }
+  },
   queryList: function() {
     let windowData = this.getWindowData();
     if (!windowData) return;
