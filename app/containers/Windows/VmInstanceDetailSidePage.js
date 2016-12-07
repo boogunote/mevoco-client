@@ -24,6 +24,7 @@ import appStyles from 'containers/App/styles.css';
 import VmInstanceDetail from './VmInstanceDetail'
 import VmInstanceInfo from './VmInstanceInfo'
 import VmInstanceSnapshot from './VmInstanceSnapshot'
+import VmInstanceMonitor from './VmInstanceMonitor'
 
 import { FormattedMessage } from 'react-intl';
 
@@ -45,8 +46,10 @@ let VmInstanceDetailSidePage = React.createClass({
       </div>
       <a className={appStyles.detailPageTabHeader} onClick={() => this.switchTab('info')}>Info</a>
       <a className={appStyles.detailPageTabHeader} onClick={() => this.switchTab('snapshot')}>Snapshot</a>
+      <a className={appStyles.detailPageTabHeader} onClick={() => this.switchTab('monitor')}>Monitor</a>
       { 'info' == windowData.currTab && <VmInstanceInfo dataUuid={windowData.uuid} />}
       { 'snapshot' == windowData.currTab && <VmInstanceSnapshot dataUuid={windowData.uuid} />}
+      { 'monitor' == windowData.currTab && <VmInstanceMonitor dataUuid={windowData.uuid} />}
     </div>)
   }
 });

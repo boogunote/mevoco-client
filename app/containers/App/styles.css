@@ -163,10 +163,19 @@ body {
 
 .detailPageTabHeader {
   color: #555;
-  cursor: default;
+  cursor: pointer;
+  cursor: hand;
   background-color: #fff;
   border: none;
   border-bottom: 4px solid #15A4FA;
   padding-bottom: 6px;
   margin-right: 2px;
+}
+
+.chart {
+  background: white;
+  width: 500px;
+  height: 100px;
+  border-left: 1px dotted #555;
+  border-bottom: 1px dotted #555;
 }
