@@ -21,7 +21,7 @@ import 'font-awesome/css/font-awesome.css'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { applyRouterMiddleware, Router, Route,   browserHistory } from 'react-router';
+import { applyRouterMiddleware, Router, Route, IndexRedirect, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import FontFaceObserver from 'fontfaceobserver';
 import useScroll from 'react-router-scroll';
@@ -107,6 +107,7 @@ const render = (translatedMessages) => {
           }
         >
           <Route path='/' component={App}>
+            <IndexRedirect to="/login" />
             <Route path='login' store={store} component={LoginPage}/>
             <Route path='main' store={store} component={MainPage}>
               <Route path='vm' store={store} component={VmPage}/>

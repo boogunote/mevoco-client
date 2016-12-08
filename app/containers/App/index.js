@@ -26,10 +26,10 @@ function App(props) {
   return (
     <div className={styles.container}>
       <Helmet
-        titleTemplate="%s - React.js Boilerplate"
-        defaultTitle="React.js Boilerplate"
+        titleTemplate="Mevoco"
+        defaultTitle="Mevoco"
         meta={[
-          { name: 'description', content: 'A React.js Boilerplate application' },
+          { name: 'description', content: 'Powered by ZStack' },
         ]}
       />
       {React.Children.toArray(props.children)}
