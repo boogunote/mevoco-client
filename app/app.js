@@ -15,7 +15,7 @@ import '!file?name=[name].[ext]!./manifest.json';
 import 'file?name=[name].[ext]!./.htaccess';
 /* eslint-enable import/no-unresolved */
 
-import 'font-awesome/css/font-awesome.css'
+import 'font-awesome/css/font-awesome.css';
 
 // Import all the third party stuff
 import React from 'react';
@@ -72,17 +72,17 @@ const history = syncHistoryWithStore(browserHistory, store, {
 // Set up the router, wrapping all Routes in the App component
 import App from 'containers/App';
 import MainPage from 'containers/MainPage';
-import createRoutes from './routes';
-const rootRoute = {
-  component: App,
-  childRoutes: createRoutes(store),
-};
+// import createRoutes from './routes';
+// const rootRoute = {
+//   component: App,
+//   childRoutes: createRoutes(store),
+// };
 
 import { getAsyncInjectors } from 'utils/asyncInjectors';
-import loginPageReducer from 'containers/LoginPage/reducer'
-import loginPagesagas from 'containers/LoginPage/sagas'
-import vmPageReducer from 'containers/VmPage/reducer'
-import vmPagesagas from 'containers/VmPage/sagas'
+import loginPageReducer from 'containers/LoginPage/reducer';
+import loginPagesagas from 'containers/LoginPage/sagas';
+import vmPageReducer from 'containers/VmPage/reducer';
+import vmPagesagas from 'containers/VmPage/sagas';
 
 const { injectReducer, injectSagas } = getAsyncInjectors(store);
 injectReducer('login', loginPageReducer);
@@ -106,11 +106,11 @@ const render = (translatedMessages) => {
             applyRouterMiddleware(useScroll())
           }
         >
-          <Route path='/' component={App}>
+          <Route path="/" component={App}>
             <IndexRedirect to="/login" />
-            <Route path='login' store={store} component={LoginPage}/>
-            <Route path='main' store={store} component={MainPage}>
-              <Route path='vm' store={store} component={VmPage}/>
+            <Route path="login" store={store} component={LoginPage} />
+            <Route path="main" store={store} component={MainPage}>
+              <Route path="vm" store={store} component={VmPage} />
             </Route>
           </Route>
         </Router>
