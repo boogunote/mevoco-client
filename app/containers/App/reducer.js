@@ -14,13 +14,11 @@ import {
   LOAD_REPOS_SUCCESS,
   LOAD_REPOS,
   LOAD_REPOS_ERROR,
-  LOGIN_BY_ACCOUNT,
-  SET_WEBSOCKET_CONNECTION,
   API_CALL_START,
-  API_CALL_END
+  API_CALL_END,
 } from './constants';
 
-import { LOGIN_SUCCESS } from '../LoginPage/constants'
+import { LOGIN_SUCCESS } from '../LoginPage/constants';
 
 import { fromJS } from 'immutable';
 
@@ -33,7 +31,7 @@ const initialState = fromJS({
     repositories: false,
   }),
   apiCalls: {},
-  session: localStorage.getItem('session')
+  session: localStorage.getItem('session'),
 });
 
 function appReducer(state = initialState, action) {
@@ -42,11 +40,11 @@ function appReducer(state = initialState, action) {
       return state
         .set('session', action.session);
     case API_CALL_START: {
-      var apiCalls = state.get('apiCalls');
+      const apiCalls = state.get('apiCalls');
       return state.set('apiCalls', apiCalls.set(action.call.id, action.call));
     }
     case API_CALL_END: {
-      var apiCalls = state.get('apiCalls');
+      const apiCalls = state.get('apiCalls');
       return state.set('apiCalls', apiCalls.delete(action.call.id));
     }
     case LOAD_REPOS:

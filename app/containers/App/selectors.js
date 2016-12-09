@@ -79,10 +79,7 @@ const selectDbL3Network = () => createSelector(
   (db) => db.get('l3Network')
 );
 
-const selectPageVm = () => (state) => 
-{
-  return state.get('vm');
-}
+const selectPageVm = () => (state) => state.get('vm');
 
 const selectWindow = () => (state) => state.get('window');
 
@@ -104,5 +101,5 @@ export {
   selectDbImage,
   selectDbL3Network,
   selectPageVm,
-  selectWindow
+  selectWindow,
 };

@@ -12,17 +12,17 @@ import Helmet from 'react-helmet';
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css';
 
-import Img from 'components/Img';
-import Footer from 'components/Footer';
-import Logo from './logo-big.png';
-import A from 'components/A';
+// import Img from 'components/Img';
+// import Footer from 'components/Footer';
+// import Logo from './logo-big.png';
+// import A from 'components/A';
 
-import {EventEmitter} from 'fbemitter';
+// import { EventEmitter } from 'fbemitter';
 
 import styles from './styles.css';
 
 function App(props) {
-  var emitter = new EventEmitter();
+  // let emitter = new EventEmitter();
   return (
     <div className={styles.container}>
       <Helmet

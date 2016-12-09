@@ -1,21 +1,21 @@
 import {
   WINDOW_UPDATE,
   WINDOW_DESTROY,
-  WINDOW_CREATE
-} from './windowConstants'
+  WINDOW_CREATE,
+} from './windowConstants';
 
 export function updateWindow(uuid, item) {
   return {
     type: WINDOW_UPDATE,
     uuid,
-    item
+    item,
   };
 }
 
 export function destroyWindow(uuid) {
   return {
     type: WINDOW_DESTROY,
-    uuid
+    uuid,
   };
 }
 
@@ -25,6 +25,6 @@ export function createWindow(parentUuid, parentValue, uuid, initValue) {
     parentUuid,
     parentValue,
     uuid,
-    initValue
+    initValue,
   };
 }

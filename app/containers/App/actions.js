@@ -19,7 +19,6 @@ import {
   LOAD_REPOS,
   LOAD_REPOS_SUCCESS,
   LOAD_REPOS_ERROR,
-  LOGIN_BY_ACCOUNT,
   API_CALL_START,
   API_CALL_SUCCESS,
   API_CALL_FAILED,
@@ -66,42 +65,22 @@ export function repoLoadingError(error) {
   };
 }
 
-export function loginStart(param) {
-  return {
-    type: LOGIN_START,
-    param: param
-  };
-}
-
-export function loginSuccess(session) {
-  return {
-    type: LOGIN_SUCCESS,
-    session
-  };
-}
-
-export function loginFailed() {
-  return {
-    type: LOGIN_FAILED
-  };
-}
-
 export function apiCallStart(msg) {
   return {
     type: API_CALL_START,
-    msg
+    msg,
   };
 }
 
 export function apiCallSuccess(msg) {
   return {
     type: API_CALL_SUCCESS,
-    msg
+    msg,
   };
 }
 
 export function apiCallFailed() {
   return {
-    type: API_CALL_FAILED
+    type: API_CALL_FAILED,
   };
 }
